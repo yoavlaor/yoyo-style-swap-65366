@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Trash2 } from "lucide-react";
+import { Trash2, Edit } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import {
   AlertDialog,
@@ -238,34 +238,44 @@ const Profile = () => {
                                 )}
                               </p>
                             </div>
-                            <AlertDialog>
-                              <AlertDialogTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="hover:bg-destructive/10 hover:text-destructive"
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </Button>
-                              </AlertDialogTrigger>
-                              <AlertDialogContent dir="rtl">
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>רגע, בטוחים? 🤔</AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    אתם עומדים למחוק את "{item.title}" - זה לא ניתן לשחזור אחר כך
-                                  </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>לא, חזרה! 🔙</AlertDialogCancel>
-                                  <AlertDialogAction
-                                    onClick={() => handleDeleteItem(item.id)}
-                                    className="bg-destructive hover:bg-destructive/90"
+                            <div className="flex gap-2">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => navigate(`/edit-item/${item.id}`)}
+                                className="hover:bg-primary/10 hover:text-primary"
+                              >
+                                <Edit className="h-4 w-4" />
+                              </Button>
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="hover:bg-destructive/10 hover:text-destructive"
                                   >
-                                    כן, למחוק 🗑️
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent dir="rtl">
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>רגע, בטוחים? 🤔</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      אתם עומדים למחוק את "{item.title}" - זה לא ניתן לשחזור אחר כך
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>לא, חזרה! 🔙</AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={() => handleDeleteItem(item.id)}
+                                      className="bg-destructive hover:bg-destructive/90"
+                                    >
+                                      כן, למחוק 🗑️
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            </div>
                           </div>
                         </CardContent>
                       </Card>
