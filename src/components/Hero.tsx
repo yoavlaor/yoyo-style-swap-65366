@@ -48,7 +48,7 @@ export const Hero = () => {
         </h1>
 
         <p className="text-xl md:text-2xl lg:text-3xl text-foreground/90 mb-4 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: "0.1s" }}>
-          הבגדים שלך מחכים לבית חדש 🌈
+          אמינות, חדשנות, אקולוגיה
         </p>
 
         <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: "0.2s" }}>
