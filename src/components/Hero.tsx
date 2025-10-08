@@ -1,9 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useState } from "react";
+import { User } from "@supabase/supabase-js";
 import heroImage from "@/assets/hero-image.jpg";
 import yoyoLogo from "@/assets/yoyo-logo.png";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background */}
@@ -47,22 +65,49 @@ export const Hero = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up" style={{ animationDelay: "0.4s" }}>
-          <Button 
-            size="lg" 
-            className="bg-terracotta hover:bg-terracotta/90 text-primary-foreground shadow-warm transition-all duration-300 group rounded-full px-8"
-          >
-            Start Shopping
-            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className="border-2 border-sage text-sage hover:bg-sage hover:text-white transition-all duration-300 rounded-full px-8"
-          >
-            <Sparkles className="mr-2 h-5 w-5" />
-            Sell Your Items
-          </Button>
+          {user ? (
+            <>
+              <Button 
+                size="lg"
+                onClick={() => navigate("/upload")}
+                className="bg-terracotta hover:bg-terracotta/90 text-primary-foreground shadow-warm transition-all duration-300 group rounded-full px-8"
+              >
+                <Sparkles className="mr-2 h-5 w-5" />
+                העלה בגד למכירה
+              </Button>
+              
+              <Button 
+                size="lg" 
+                variant="outline"
+                onClick={() => navigate("/profile")}
+                className="border-2 border-sage text-sage hover:bg-sage hover:text-white transition-all duration-300 rounded-full px-8"
+              >
+                הפרופיל שלי
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button 
+                size="lg"
+                onClick={() => navigate("/auth")}
+                className="bg-terracotta hover:bg-terracotta/90 text-primary-foreground shadow-warm transition-all duration-300 group rounded-full px-8"
+              >
+                התחבר
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              
+              <Button 
+                size="lg" 
+                variant="outline"
+                onClick={() => navigate("/auth")}
+                className="border-2 border-sage text-sage hover:bg-sage hover:text-white transition-all duration-300 rounded-full px-8"
+              >
+                <Sparkles className="mr-2 h-5 w-5" />
+                הירשם
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Stats */}

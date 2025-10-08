@@ -3,8 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Heart, MapPin, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
+  id?: string;
   image: string;
   title: string;
   brand: string;
@@ -15,6 +17,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ 
+  id,
   image, 
   title, 
   brand, 
@@ -24,6 +27,7 @@ export const ProductCard = ({
   distance = "2 km away"
 }: ProductCardProps) => {
   const [liked, setLiked] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Card className="group overflow-hidden border-border bg-card hover:shadow-warm transition-all duration-300 hover:scale-[1.02] rounded-3xl">
@@ -57,8 +61,11 @@ export const ProductCard = ({
 
         {/* Quick Actions - Show on Hover */}
         <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-          <Button className="w-full bg-terracotta/95 hover:bg-terracotta text-white backdrop-blur-sm shadow-warm rounded-full">
-            Try On Mannequin
+          <Button
+            onClick={() => id && navigate(`/checkout/${id}`)}
+            className="w-full bg-terracotta/95 hover:bg-terracotta text-white backdrop-blur-sm shadow-warm rounded-full"
+          >
+            קנה עכשיו
           </Button>
         </div>
       </div>

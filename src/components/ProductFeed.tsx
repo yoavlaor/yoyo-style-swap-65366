@@ -2,6 +2,20 @@ import { ProductCard } from "./ProductCard";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Item {
+  id: string;
+  title: string;
+  brand: string;
+  price: number;
+  images: string[];
+  is_sold: boolean;
+  profiles: {
+    username: string;
+  };
+}
 
 // Mock data for demonstration
 const mockProducts = [
@@ -68,6 +82,29 @@ const mockProducts = [
 ];
 
 export const ProductFeed = () => {
+  const [items, setItems] = useState<Item[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadItems();
+  }, []);
+
+  const loadItems = async () => {
+    const { data } = await supabase
+      .from("items")
+      .select("*, profiles(*)")
+      .eq("is_sold", false)
+      .order("created_at", { ascending: false })
+      .limit(6);
+
+    if (data) {
+      setItems(data);
+    }
+    setLoading(false);
+  };
+
+  const displayProducts = items.length > 0 ? items : mockProducts;
+
   return (
     <section className="py-20 px-4 bg-background">
       <div className="container mx-auto max-w-7xl">
@@ -97,11 +134,25 @@ export const ProductFeed = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockProducts.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-12">טוען מוצרים...</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {displayProducts.map((product: any) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                image={product.images?.[0] || product.image}
+                title={product.title}
+                brand={product.brand}
+                price={product.price}
+                location={product.profiles?.username || product.location}
+                verified={product.verified !== undefined ? product.verified : true}
+                distance={product.distance}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Load More */}
         <div className="mt-12 text-center">
