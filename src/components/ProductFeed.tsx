@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Item {
   id: string;
@@ -84,24 +85,30 @@ const mockProducts = [
 export const ProductFeed = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    loadItems();
-  }, []);
+  const [genderFilter, setGenderFilter] = useState<string>("all");
 
   const loadItems = async () => {
-    const { data } = await supabase
+    let query = supabase
       .from("items")
       .select("*, profiles(*)")
       .eq("is_sold", false)
-      .order("created_at", { ascending: false })
-      .limit(6);
+      .order("created_at", { ascending: false });
+
+    if (genderFilter !== "all") {
+      query = query.or(`gender.eq.${genderFilter},gender.eq.unisex`);
+    }
+
+    const { data } = await query.limit(20);
 
     if (data) {
       setItems(data);
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    loadItems();
+  }, [genderFilter]);
 
   const displayProducts = items.length > 0 ? items : mockProducts;
 
@@ -116,6 +123,17 @@ export const ProductFeed = () => {
           <p className="text-muted-foreground text-lg">
             AI-verified secondhand items near you
           </p>
+        </div>
+
+        {/* Gender Tabs */}
+        <div className="mb-8 flex justify-center" dir="rtl">
+          <Tabs value={genderFilter} onValueChange={setGenderFilter} className="w-full max-w-md">
+            <TabsList className="grid w-full grid-cols-3 bg-muted">
+              <TabsTrigger value="women">👩 נשים</TabsTrigger>
+              <TabsTrigger value="men">👨 גברים</TabsTrigger>
+              <TabsTrigger value="all">🌈 הכל</TabsTrigger>
+            </TabsList>
+          </Tabs>
         </div>
 
         {/* Search & Filters */}

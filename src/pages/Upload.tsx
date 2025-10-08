@@ -25,6 +25,7 @@ const Upload = () => {
   const [condition, setCondition] = useState("");
   const [brand, setBrand] = useState("");
   const [shippingMethod, setShippingMethod] = useState("");
+  const [gender, setGender] = useState("");
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
@@ -110,6 +111,7 @@ const Upload = () => {
         condition,
         brand,
         shipping_method: shippingMethod,
+        gender,
         images: imageUrls,
       });
 
@@ -129,6 +131,7 @@ const Upload = () => {
       setCondition("");
       setBrand("");
       setShippingMethod("");
+      setGender("");
       setImageFiles([]);
       setImagePreviews([]);
       
@@ -304,18 +307,34 @@ const Upload = () => {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="shippingMethod">איך נשלח? 📦</Label>
-                  <Select value={shippingMethod} onValueChange={setShippingMethod}>
-                    <SelectTrigger className="bg-background">
-                      <SelectValue placeholder="בחרו דרך משלוח" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="pickup">איסוף עצמי בלבד 🚶</SelectItem>
-                      <SelectItem value="delivery">משלוח בלבד 📬</SelectItem>
-                      <SelectItem value="both">גם איסוף וגם משלוח 🌟</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="gender">למי זה מיועד? 👥</Label>
+                    <Select value={gender} onValueChange={setGender} required>
+                      <SelectTrigger className="bg-background">
+                        <SelectValue placeholder="בחרו" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="women">נשים 👩</SelectItem>
+                        <SelectItem value="men">גברים 👨</SelectItem>
+                        <SelectItem value="unisex">יוניסקס 🌈</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="shippingMethod">איך נשלח? 📦</Label>
+                    <Select value={shippingMethod} onValueChange={setShippingMethod}>
+                      <SelectTrigger className="bg-background">
+                        <SelectValue placeholder="בחרו דרך משלוח" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="pickup">איסוף עצמי בלבד 🚶</SelectItem>
+                        <SelectItem value="delivery">משלוח בלבד 📬</SelectItem>
+                        <SelectItem value="both">גם איסוף וגם משלוח 🌟</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
                 <div className="flex gap-4 pt-4">
