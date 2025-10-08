@@ -47,8 +47,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        electric: "hsl(var(--electric-blue))",
-        mint: "hsl(var(--mint-green))",
+        terracotta: "hsl(var(--terracotta))",
+        sage: "hsl(var(--sage-green))",
+        cream: "hsl(var(--warm-cream))",
+        warmYellow: "hsl(var(--warm-yellow))",
+        peach: "hsl(var(--soft-peach))",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
@@ -60,8 +63,8 @@ export default {
         "gradient-hero": "var(--gradient-hero)",
       },
       boxShadow: {
-        glow: "var(--shadow-glow)",
-        "glow-mint": "var(--shadow-glow-mint)",
+        warm: "var(--shadow-warm)",
+        soft: "var(--shadow-soft)",
         card: "var(--shadow-card)",
       },
       borderRadius: {
