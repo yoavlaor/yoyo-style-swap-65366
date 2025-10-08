@@ -41,9 +41,9 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
-        <h1 className="font-sans text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-slide-up">
-          <span className="bg-gradient-to-r from-terracotta via-sage to-warmYellow bg-clip-text text-transparent">
-            ✨ יויו ✨
+        <h1 className="font-sans text-6xl md:text-8xl lg:text-9xl font-black mb-6 animate-slide-up drop-shadow-2xl">
+          <span className="bg-gradient-to-r from-terracotta via-sage to-warmYellow bg-clip-text text-transparent animate-glow-pulse">
+            YOYO
           </span>
         </h1>
 
