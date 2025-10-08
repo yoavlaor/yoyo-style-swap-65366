@@ -18,70 +18,6 @@ interface Item {
   };
 }
 
-// Mock data for demonstration
-const mockProducts = [
-  {
-    id: 1,
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&auto=format&fit=crop",
-    title: "Vintage Levi's Denim Jacket",
-    brand: "Levi's",
-    price: 180,
-    location: "Tel Aviv",
-    verified: true,
-    distance: "1.2 km away"
-  },
-  {
-    id: 2,
-    image: "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=800&auto=format&fit=crop",
-    title: "Nike Air Force 1 White",
-    brand: "Nike",
-    price: 250,
-    location: "Ramat Gan",
-    verified: true,
-    distance: "3.5 km away"
-  },
-  {
-    id: 3,
-    image: "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=800&auto=format&fit=crop",
-    title: "Zara Oversized Blazer",
-    brand: "Zara",
-    price: 120,
-    location: "Herzliya",
-    verified: false,
-    distance: "5.8 km away"
-  },
-  {
-    id: 4,
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop",
-    title: "Adidas Originals Hoodie",
-    brand: "Adidas",
-    price: 95,
-    location: "Tel Aviv",
-    verified: true,
-    distance: "0.8 km away"
-  },
-  {
-    id: 5,
-    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&auto=format&fit=crop",
-    title: "Vintage Band T-Shirt",
-    brand: "Vintage",
-    price: 45,
-    location: "Jaffa",
-    verified: false,
-    distance: "2.1 km away"
-  },
-  {
-    id: 6,
-    image: "https://images.unsplash.com/photo-1606902965551-dce093cda6e7?w=800&auto=format&fit=crop",
-    title: "H&M Cargo Pants",
-    brand: "H&M",
-    price: 65,
-    location: "Givatayim",
-    verified: true,
-    distance: "4.2 km away"
-  }
-];
-
 export const ProductFeed = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
@@ -105,8 +41,6 @@ export const ProductFeed = () => {
   useEffect(() => {
     loadItems();
   }, [genderFilter]);
-
-  const displayProducts = items.length > 0 ? items : mockProducts;
 
   return (
     <section className="py-20 px-4 bg-background">
@@ -149,19 +83,24 @@ export const ProductFeed = () => {
         {/* Product Grid */}
         {loading ? (
           <div className="text-center py-12">טוען מוצרים...</div>
+        ) : items.length === 0 ? (
+          <div className="text-center py-12" dir="rtl">
+            <p className="text-muted-foreground text-lg mb-4">עדיין אין פריטים בקטגוריה הזו 😊</p>
+            <p className="text-muted-foreground">היו הראשונים להעלות משהו מגניב! ✨</p>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {displayProducts.map((product: any) => (
+            {items.map((product: any) => (
               <ProductCard
                 key={product.id}
                 id={product.id}
-                image={product.images?.[0] || product.image}
+                image={product.images?.[0]}
                 title={product.title}
                 brand={product.brand}
                 price={product.price}
-                location={product.profiles?.username || product.location}
-                verified={product.verified !== undefined ? product.verified : true}
-                distance={product.distance}
+                location={product.profiles?.username}
+                verified={true}
+                distance=""
               />
             ))}
           </div>
