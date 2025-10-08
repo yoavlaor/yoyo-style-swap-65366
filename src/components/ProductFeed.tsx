@@ -48,11 +48,11 @@ export const ProductFeed = () => {
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-terracotta to-sage bg-clip-text text-transparent">
-            גלו אופנה
+          <h2 className="font-tech text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-electric to-mint bg-clip-text text-transparent">
+            Discover Fashion
           </h2>
           <p className="text-muted-foreground text-lg">
-            פריטים יד שנייה מאומתים בבינה מלאכותית ליד כם
+            AI-verified secondhand items near you
           </p>
         </div>
 
@@ -69,15 +69,15 @@ export const ProductFeed = () => {
         {/* Search & Filters */}
         <div className="mb-8 flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
-            <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input 
-              placeholder="חפשו לפי מותג, סגנון או קטגוריה..." 
-              className="pr-10 bg-card border-border/50 focus:border-terracotta transition-colors"
+              placeholder="Search by brand, style, or category..." 
+              className="pl-10 bg-card border-border/50 focus:border-electric transition-colors"
             />
           </div>
-          <Button variant="outline" className="border-border/50 hover:border-terracotta hover:text-terracotta transition-colors">
-            <SlidersHorizontal className="h-5 w-5 ml-2" />
-            סינון
+          <Button variant="outline" className="border-border/50 hover:border-electric hover:text-electric transition-colors">
+            <SlidersHorizontal className="h-5 w-5 mr-2" />
+            Filters
           </Button>
         </div>
 
@@ -113,9 +113,9 @@ export const ProductFeed = () => {
           <Button 
             variant="outline" 
             size="lg"
-            className="border-terracotta text-terracotta hover:bg-terracotta/10 transition-colors"
+            className="border-electric text-electric hover:bg-electric/10 transition-colors"
           >
-            טענו עוד פריטים
+            Load More Items
           </Button>
         </div>
       </div>

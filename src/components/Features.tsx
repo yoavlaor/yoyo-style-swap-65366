@@ -4,40 +4,40 @@ import { Card } from "@/components/ui/card";
 const features = [
   {
     icon: Shield,
-    title: "מוכרים מאומתים",
-    description: "כל מוכר מאומת על ידי מערכת הבינה המלאכותית שלנו כדי להבטיח אותנטיות ואמינות.",
+    title: "Verified Sellers",
+    description: "Every seller is verified by our AI system to ensure authenticity and reliability.",
     color: "electric"
   },
   {
     icon: Sparkles,
-    title: "מופעל בבינה מלאכותית",
-    description: "המלצות חכמות המבוססות על הסגנון, המידה וההעדפות שלכם.",
+    title: "AI-Powered",
+    description: "Smart recommendations based on your style, size, and preferences.",
     color: "mint"
   },
   {
     icon: Leaf,
-    title: "נקודות אקולוגיות",
-    description: "צברו תגמולים על כל קנייה בת-קיימה ועקבו אחר ההשפעה הסביבתית שלכם.",
+    title: "Eco Points",
+    description: "Earn rewards for every sustainable purchase and track your environmental impact.",
     color: "mint"
   },
   {
     icon: Zap,
-    title: "התאמה מיידית",
-    description: "מצאו התאמות מושלמות עם טכנולוגיית הדמות הווירטואלית שלנו.",
+    title: "Instant Matching",
+    description: "Find perfect fits with our virtual mannequin technology.",
     color: "electric"
   }
 ];
 
 export const Features = () => {
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-background to-muted/30" dir="rtl">
+    <section className="py-24 px-4 bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            למה לבחור ב-YOYO?
+            Why Choose YOYO?
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            חוו את השמחה של אופנה בת-קיימה עם תכונות חכמות וידידותיות
+            Experience the joy of sustainable fashion with smart, friendly features
           </p>
         </div>
 

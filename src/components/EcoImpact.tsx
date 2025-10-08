@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 
 export const EcoImpact = () => {
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-muted/30 to-background relative overflow-hidden" dir="rtl">
+    <section className="py-24 px-4 bg-gradient-to-b from-muted/30 to-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-96 h-96 bg-sage rounded-full blur-3xl" />
@@ -16,10 +16,10 @@ export const EcoImpact = () => {
             <Leaf className="h-10 w-10 text-sage" />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            ההשפעה של הקהילה שלנו
+            Our Community Impact
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            ביחד, אנחנו הופכים את האופנה לבת-קיימה, פריט אחר פריט
+            Together, we're making fashion sustainable, one item at a time
           </p>
         </div>
 
@@ -28,10 +28,10 @@ export const EcoImpact = () => {
             <div className="inline-flex items-center justify-center p-4 bg-sage/10 rounded-2xl mb-6">
               <Leaf className="h-10 w-10 text-sage" />
             </div>
-            <div className="text-4xl md:text-5xl font-bold text-sage mb-2">2.5 מיליון ק״ג</div>
-            <div className="text-lg font-semibold text-foreground mb-2">CO₂ נחסך</div>
+            <div className="text-4xl md:text-5xl font-bold text-sage mb-2">2.5M kg</div>
+            <div className="text-lg font-semibold text-foreground mb-2">CO₂ Saved</div>
             <div className="text-sm text-muted-foreground">
-              שווה ערך לנטיעת 125,000 עצים
+              Equivalent to planting 125,000 trees
             </div>
           </Card>
 
@@ -39,10 +39,10 @@ export const EcoImpact = () => {
             <div className="inline-flex items-center justify-center p-4 bg-terracotta/10 rounded-2xl mb-6">
               <TrendingUp className="h-10 w-10 text-terracotta" />
             </div>
-            <div className="text-4xl md:text-5xl font-bold text-terracotta mb-2">50,000+</div>
-            <div className="text-lg font-semibold text-foreground mb-2">פריטים ממוחזרים</div>
+            <div className="text-4xl md:text-5xl font-bold text-terracotta mb-2">50K+</div>
+            <div className="text-lg font-semibold text-foreground mb-2">Items Recycled</div>
             <div className="text-sm text-muted-foreground">
-              מונעים פסולת במזבלות
+              Preventing waste in landfills
             </div>
           </Card>
 
@@ -50,10 +50,10 @@ export const EcoImpact = () => {
             <div className="inline-flex items-center justify-center p-4 bg-sage/10 rounded-2xl mb-6">
               <Users className="h-10 w-10 text-sage" />
             </div>
-            <div className="text-4xl md:text-5xl font-bold text-sage mb-2">10,000+</div>
-            <div className="text-lg font-semibold text-foreground mb-2">משתמשים פעילים</div>
+            <div className="text-4xl md:text-5xl font-bold text-sage mb-2">10K+</div>
+            <div className="text-lg font-semibold text-foreground mb-2">Active Users</div>
             <div className="text-sm text-muted-foreground">
-              קהילה בת-קיימא צומחת
+              Growing sustainable community
             </div>
           </Card>
         </div>

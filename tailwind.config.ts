@@ -54,8 +54,8 @@ export default {
         peach: "hsl(var(--soft-peach))",
       },
       fontFamily: {
-        sans: ["Rubik", "system-ui", "sans-serif"],
-        display: ["Heebo", "sans-serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        tech: ["Orbitron", "monospace"],
       },
       backgroundImage: {
         "gradient-primary": "var(--gradient-primary)",
