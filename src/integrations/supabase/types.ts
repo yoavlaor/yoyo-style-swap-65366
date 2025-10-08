@@ -193,6 +193,7 @@ export type Database = {
           id: string
           item_id: string
           seller_id: string
+          shipping_method: string | null
           status: string | null
         }
         Insert: {
@@ -202,6 +203,7 @@ export type Database = {
           id?: string
           item_id: string
           seller_id: string
+          shipping_method?: string | null
           status?: string | null
         }
         Update: {
@@ -211,6 +213,7 @@ export type Database = {
           id?: string
           item_id?: string
           seller_id?: string
+          shipping_method?: string | null
           status?: string | null
         }
         Relationships: [

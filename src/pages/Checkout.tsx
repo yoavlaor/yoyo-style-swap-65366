@@ -16,6 +16,7 @@ const Checkout = () => {
   const [item, setItem] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState<string>("");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -44,6 +45,15 @@ const Checkout = () => {
   const handlePurchase = async () => {
     if (!user || !item) return;
 
+    if (!selectedShippingMethod) {
+      toast({
+        title: "יש לבחור אופציית משלוח",
+        description: "אנא בחר את דרך המשלוח המועדפת עליך",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setProcessing(true);
 
     // Create transaction
@@ -55,6 +65,7 @@ const Checkout = () => {
         seller_id: item.seller_id,
         amount: item.price,
         status: "completed",
+        shipping_method: selectedShippingMethod,
       })
       .select()
       .single();
@@ -91,11 +102,17 @@ const Checkout = () => {
       description: "תודה על התרומה לקהילה הירוקה שלנו 🌿",
     });
 
-    if (chat) {
-      navigate(`/chat/${chat.id}`);
-    } else {
-      navigate("/profile");
-    }
+    // Redirect to YouTube video
+    window.open("https://www.youtube.com/watch?v=PrZbUAmbUWE&list=RDPrZbUAmbUWE&start_radio=1", "_blank");
+    
+    // Navigate to chat after a short delay
+    setTimeout(() => {
+      if (chat) {
+        navigate(`/chat/${chat.id}`);
+      } else {
+        navigate("/profile");
+      }
+    }, 1000);
   };
 
   if (loading) {
@@ -145,8 +162,30 @@ const Checkout = () => {
                 </div>
               </div>
 
-              <div className="border-t pt-4">
-                <div className="flex justify-between items-center text-xl font-bold">
+              <div className="border-t pt-4 space-y-4">
+                <div>
+                  <h4 className="font-semibold mb-3">בחר אופציית משלוח:</h4>
+                  <div className="space-y-2">
+                    {item.shipping_method?.map((method: string) => (
+                      <label
+                        key={method}
+                        className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-accent transition-colors"
+                      >
+                        <input
+                          type="radio"
+                          name="shipping"
+                          value={method}
+                          checked={selectedShippingMethod === method}
+                          onChange={(e) => setSelectedShippingMethod(e.target.value)}
+                          className="w-4 h-4"
+                        />
+                        <span>{method}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="flex justify-between items-center text-xl font-bold pt-2">
                   <span>סה"כ לתשלום:</span>
                   <span>₪{item.price}</span>
                 </div>
