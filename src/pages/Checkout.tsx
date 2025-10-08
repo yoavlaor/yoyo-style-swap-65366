@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
+import { ShoppingBag } from "lucide-react";
+import Navbar from "@/components/Navbar";
 
 const Checkout = () => {
   const { itemId } = useParams();
@@ -85,8 +87,8 @@ const Checkout = () => {
       .single();
 
     toast({
-      title: "הרכישה בוצעה בהצלחה!",
-      description: "נפתח עבורך צ'אט עם המוכר",
+      title: "הרכישה בוצעה בהצלחה! 🎉",
+      description: "תודה על התרומה לקהילה הירוקה שלנו 🌿",
     });
 
     if (chat) {
@@ -105,13 +107,19 @@ const Checkout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background p-4" dir="rtl">
-      <div className="max-w-2xl mx-auto">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">סיכום הזמנה</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gradient-hero p-4" dir="rtl">
+        <div className="max-w-2xl mx-auto py-8">
+          <Card className="shadow-card bg-gradient-card border-border/50">
+            <CardHeader className="text-center space-y-2">
+              <div className="mx-auto w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center shadow-warm">
+                <ShoppingBag className="w-8 h-8 text-primary" />
+              </div>
+              <CardTitle className="text-3xl font-bold">סיכום הקנייה 🛍️</CardTitle>
+              <p className="text-muted-foreground">עוד רגע הבגד יהיה שלכם!</p>
+            </CardHeader>
+            <CardContent className="space-y-6">
             <div className="space-y-4">
               <div>
                 <h3 className="font-semibold text-lg">{item.title}</h3>
@@ -162,13 +170,14 @@ const Checkout = () => {
               </Button>
             </div>
 
-            <p className="text-sm text-muted-foreground text-center">
-              לאחר הרכישה, תוכל לתקשר עם המוכר דרך הצ'אט
-            </p>
-          </CardContent>
-        </Card>
+              <p className="text-sm text-muted-foreground text-center">
+                לאחר הרכישה, תוכלו לתקשר עם המוכר דרך הצ'אט 💬
+              </p>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

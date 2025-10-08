@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Navbar from "@/components/Navbar";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -116,113 +117,128 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background p-4" dir="rtl">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold">הפרופיל שלי</h1>
-          <Button variant="outline" onClick={handleSignOut}>
-            התנתק
-          </Button>
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gradient-hero p-4" dir="rtl">
+        <div className="max-w-4xl mx-auto space-y-6 py-8">
+          <div className="text-center space-y-2">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              הפרופיל שלי 🌿
+            </h1>
+            <p className="text-muted-foreground">נהל את הפרטים והבגדים שלך בקהילה</p>
+          </div>
+
+          <Tabs defaultValue="profile">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="profile">הפרטים שלי 👤</TabsTrigger>
+              <TabsTrigger value="items">הבגדים שלי 👕</TabsTrigger>
+              <TabsTrigger value="purchases">הקניות שלי 🛍️</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="profile">
+              <Card className="shadow-card bg-gradient-card border-border/50">
+                <CardHeader>
+                  <CardTitle>ערכו את הפרופיל שלכם</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleUpdateProfile} className="space-y-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="username">שם משתמש</Label>
+                      <Input
+                        id="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                        className="bg-background"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="fullName">שם מלא</Label>
+                      <Input
+                        id="fullName"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        className="bg-background"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="bio">ספרו קצת על עצמכם 📝</Label>
+                      <Textarea
+                        id="bio"
+                        value={bio}
+                        onChange={(e) => setBio(e.target.value)}
+                        rows={4}
+                        placeholder="מה מניע אתכם? מה אתם אוהבים?"
+                        className="bg-background resize-none"
+                      />
+                    </div>
+                    <Button type="submit" className="shadow-warm">שמרו שינויים 💚</Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="items">
+              <Card className="shadow-card bg-gradient-card border-border/50">
+                <CardHeader>
+                  <CardTitle>הבגדים שלי ({myItems.length})</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {myItems.map((item) => (
+                      <Card key={item.id} className="hover:shadow-lg transition-shadow">
+                        <CardContent className="p-4 space-y-2">
+                          <h3 className="font-semibold">{item.title}</h3>
+                          <p className="text-primary font-bold">₪{item.price}</p>
+                          <p className="text-sm flex items-center gap-1">
+                            {item.is_sold ? (
+                              <span className="text-secondary">נמכר ✓</span>
+                            ) : (
+                              <span className="text-muted-foreground">פעיל 🌿</span>
+                            )}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    ))}
+                    {myItems.length === 0 && (
+                      <p className="text-muted-foreground col-span-2 text-center py-8">
+                        עדיין לא העלתם בגדים 🌱
+                      </p>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="purchases">
+              <Card className="shadow-card bg-gradient-card border-border/50">
+                <CardHeader>
+                  <CardTitle>הקניות שלי ({myPurchases.length})</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {myPurchases.map((transaction) => (
+                      <Card key={transaction.id} className="hover:shadow-lg transition-shadow">
+                        <CardContent className="p-4 space-y-2">
+                          <h3 className="font-semibold">{transaction.items?.title}</h3>
+                          <p className="text-primary font-bold">₪{transaction.amount}</p>
+                          <p className="text-sm text-secondary">סטטוס: {transaction.status} ✓</p>
+                        </CardContent>
+                      </Card>
+                    ))}
+                    {myPurchases.length === 0 && (
+                      <p className="text-muted-foreground text-center py-8">
+                        עדיין לא ביצעתם קניות 🛍️
+                      </p>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
         </div>
-
-        <Tabs defaultValue="profile">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="profile">פרטים</TabsTrigger>
-            <TabsTrigger value="items">המוצרים שלי</TabsTrigger>
-            <TabsTrigger value="purchases">הרכישות שלי</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="profile">
-            <Card>
-              <CardHeader>
-                <CardTitle>עריכת פרופיל</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleUpdateProfile} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="username">שם משתמש</Label>
-                    <Input
-                      id="username"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="fullName">שם מלא</Label>
-                    <Input
-                      id="fullName"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="bio">אודות</Label>
-                    <Textarea
-                      id="bio"
-                      value={bio}
-                      onChange={(e) => setBio(e.target.value)}
-                      rows={4}
-                    />
-                  </div>
-                  <Button type="submit">שמור שינויים</Button>
-                </form>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="items">
-            <Card>
-              <CardHeader>
-                <CardTitle>המוצרים שלי ({myItems.length})</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {myItems.map((item) => (
-                    <Card key={item.id}>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold">{item.title}</h3>
-                        <p className="text-muted-foreground">₪{item.price}</p>
-                        <p className="text-sm">
-                          {item.is_sold ? "נמכר ✓" : "פעיל"}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                  {myItems.length === 0 && (
-                    <p className="text-muted-foreground">עדיין לא העלית מוצרים</p>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="purchases">
-            <Card>
-              <CardHeader>
-                <CardTitle>הרכישות שלי ({myPurchases.length})</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {myPurchases.map((transaction) => (
-                    <Card key={transaction.id}>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold">{transaction.items?.title}</h3>
-                        <p className="text-muted-foreground">₪{transaction.amount}</p>
-                        <p className="text-sm">סטטוס: {transaction.status}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                  {myPurchases.length === 0 && (
-                    <p className="text-muted-foreground">עדיין לא ביצעת רכישות</p>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
       </div>
-    </div>
+    </>
   );
 };
 

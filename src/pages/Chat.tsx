@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import { Send } from "lucide-react";
+import Navbar from "@/components/Navbar";
 
 interface Message {
   id: string;
@@ -117,66 +118,71 @@ const Chat = () => {
   const otherUser = user?.id === chat.buyer_id ? chat.seller : chat.buyer;
 
   return (
-    <div className="min-h-screen bg-background" dir="rtl">
-      <div className="max-w-4xl mx-auto h-screen flex flex-col">
-        <Card className="flex-1 flex flex-col">
-          <CardHeader className="border-b">
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>{chat.items?.title}</CardTitle>
-                <p className="text-sm text-muted-foreground">
-                  שיחה עם {otherUser?.username}
-                </p>
-              </div>
-              <Button variant="outline" onClick={() => navigate("/profile")}>
-                חזרה
-              </Button>
-            </div>
-          </CardHeader>
-
-          <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${
-                  message.sender_id === user?.id ? "justify-end" : "justify-start"
-                }`}
-              >
-                <div
-                  className={`max-w-[70%] rounded-lg p-3 ${
-                    message.sender_id === user?.id
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted"
-                  }`}
-                >
-                  <p>{message.content}</p>
-                  <p className="text-xs opacity-70 mt-1">
-                    {new Date(message.created_at).toLocaleTimeString("he-IL", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gradient-hero" dir="rtl">
+        <div className="max-w-4xl mx-auto h-[calc(100vh-4rem)] flex flex-col p-4">
+          <Card className="flex-1 flex flex-col shadow-card bg-gradient-card border-border/50">
+            <CardHeader className="border-b bg-background/50">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    💬 {chat.items?.title}
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground">
+                    בשיחה עם {otherUser?.username} 🌿
                   </p>
                 </div>
+                <Button variant="outline" onClick={() => navigate("/profile")}>
+                  חזרה
+                </Button>
               </div>
-            ))}
-          </CardContent>
+            </CardHeader>
 
-          <div className="border-t p-4">
-            <form onSubmit={handleSendMessage} className="flex gap-2">
-              <Input
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                placeholder="הקלד הודעה..."
-                className="flex-1"
-              />
-              <Button type="submit" size="icon">
-                <Send className="h-4 w-4" />
-              </Button>
-            </form>
-          </div>
-        </Card>
+            <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 bg-background/30">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${
+                    message.sender_id === user?.id ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <div
+                    className={`max-w-[70%] rounded-2xl p-3 shadow-soft ${
+                      message.sender_id === user?.id
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-background border border-border"
+                    }`}
+                  >
+                    <p>{message.content}</p>
+                    <p className="text-xs opacity-70 mt-1">
+                      {new Date(message.created_at).toLocaleTimeString("he-IL", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+
+            <div className="border-t p-4 bg-background/50">
+              <form onSubmit={handleSendMessage} className="flex gap-2">
+                <Input
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  placeholder="שתפו מחשבה... 💭"
+                  className="flex-1 bg-background"
+                />
+                <Button type="submit" size="icon" className="shadow-warm">
+                  <Send className="h-4 w-4" />
+                </Button>
+              </form>
+            </div>
+          </Card>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
