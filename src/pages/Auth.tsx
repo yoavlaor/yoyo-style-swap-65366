@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
+import { TermsOfService } from "@/components/TermsOfService";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -26,6 +29,16 @@ const Auth = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!agreedToTerms) {
+      toast({
+        title: "יש לאשר את התקנון",
+        description: "עליך לקרוא ולאשר את תקנון השימוש כדי להירשם",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setLoading(true);
 
     const { error } = await supabase.auth.signUp({
@@ -161,7 +174,24 @@ const Auth = () => {
                     placeholder="לפחות 6 תווים"
                   />
                 </div>
-                <Button type="submit" className="w-full" disabled={loading}>
+                <div className="flex items-start gap-3 py-2">
+                  <Checkbox
+                    id="terms"
+                    checked={agreedToTerms}
+                    onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
+                    className="mt-1"
+                  />
+                  <Label htmlFor="terms" className="text-sm leading-relaxed cursor-pointer">
+                    קראתי ואני מאשר/ת את{" "}
+                    <TermsOfService>
+                      <button type="button" className="text-primary underline hover:text-primary/80">
+                        תקנון השימוש
+                      </button>
+                    </TermsOfService>
+                    {" "}של יויו 📜
+                  </Label>
+                </div>
+                <Button type="submit" className="w-full" disabled={loading || !agreedToTerms}>
                   {loading ? "רגע... 🌱" : "בואו נצטרף! 🎉"}
                 </Button>
               </form>
