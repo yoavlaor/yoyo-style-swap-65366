@@ -33,10 +33,10 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { name: "בית", path: "/", icon: Home },
+    { name: "הבית 🏠", path: "/", icon: Home },
     ...(user ? [
-      { name: "העלאת בגד", path: "/upload", icon: Upload },
-      { name: "הפרופיל שלי", path: "/profile", icon: UserIcon },
+      { name: "העלאה ⬆️", path: "/upload", icon: Upload },
+      { name: "האזור שלי 👤", path: "/profile", icon: UserIcon },
     ] : []),
   ];
 
@@ -76,13 +76,13 @@ const Navbar = () => {
             {user ? (
               <Button variant="ghost" onClick={handleLogout} className="gap-2">
                 <LogOut className="w-4 h-4" />
-                התנתק
+                להתראות 👋
               </Button>
             ) : (
               <Link to="/auth">
                 <Button variant="default" className="gap-2">
                   <UserIcon className="w-4 h-4" />
-                  התחבר
+                  בואו נתחיל! ✨
                 </Button>
               </Link>
             )}
@@ -126,13 +126,13 @@ const Navbar = () => {
                 className="w-full justify-start gap-2"
               >
                 <LogOut className="w-4 h-4" />
-                התנתק
+                להתראות 👋
               </Button>
             ) : (
               <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="default" className="w-full justify-start gap-2">
                   <UserIcon className="w-4 h-4" />
-                  התחבר
+                  בואו נתחיל! ✨
                 </Button>
               </Link>
             )}

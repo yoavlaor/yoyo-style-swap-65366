@@ -24,6 +24,7 @@ const Upload = () => {
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
   const [brand, setBrand] = useState("");
+  const [shippingMethod, setShippingMethod] = useState("");
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
@@ -108,15 +109,29 @@ const Upload = () => {
         size,
         condition,
         brand,
+        shipping_method: shippingMethod,
         images: imageUrls,
       });
 
       if (error) throw error;
 
       toast({
-        title: "הבגד הועלה בהצלחה! 🌿",
-        description: "תודה על התרומה לקהילה הירוקה שלנו",
+        title: "יאללה! הבגד עלה לאוויר! 🎉",
+        description: "עכשיו כולם יכולים להתאהב בפריט המיוחד שלך ✨",
       });
+      
+      // Reset form
+      setTitle("");
+      setDescription("");
+      setPrice("");
+      setCategory("");
+      setSize("");
+      setCondition("");
+      setBrand("");
+      setShippingMethod("");
+      setImageFiles([]);
+      setImagePreviews([]);
+      
       navigate("/");
     } catch (error: any) {
       toast({
@@ -139,14 +154,14 @@ const Upload = () => {
               <div className="mx-auto w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center shadow-warm">
                 <UploadIcon className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle className="text-3xl font-bold">תנו חיים חדשים לבגד 🌿</CardTitle>
-              <p className="text-muted-foreground">שתפו את הבגד המיוחד שלכם עם הקהילה האקולוגית</p>
+              <CardTitle className="text-3xl font-bold">בואו נמכור משהו מגניב! ✨</CardTitle>
+              <p className="text-muted-foreground">תנו לבגדים שלכם סיפור חדש 💚</p>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Image Upload */}
                 <div className="space-y-3">
-                  <Label htmlFor="images">תמונות הבגד *</Label>
+                  <Label htmlFor="images">בואו נראה אותו! 📸</Label>
                   <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary transition-colors bg-muted/30">
                     <input
                       type="file"
@@ -159,7 +174,7 @@ const Upload = () => {
                     <label htmlFor="images" className="cursor-pointer">
                       <UploadIcon className="w-12 h-12 mx-auto text-muted-foreground mb-2" />
                       <p className="text-sm text-muted-foreground">
-                        לחצו להעלאת תמונות (עד 5 תמונות)
+                        כמה תמונות יפות מזוויות שונות (עד 5) ✨
                       </p>
                     </label>
                   </div>
@@ -187,32 +202,32 @@ const Upload = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="title">שם הבגד *</Label>
+                  <Label htmlFor="title">איזה שם נותנים לו? ✏️</Label>
                   <Input
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
-                    placeholder="לדוגמה: חולצת טישרט וינטג׳ כותנה"
+                    placeholder="למשל: חולצה מושלמת לקיץ ☀️"
                     className="bg-background"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="description">ספרו את הסיפור של הבגד 📖</Label>
+                  <Label htmlFor="description">ספרו לנו עליו! 💭</Label>
                   <Textarea
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     rows={4}
-                    placeholder="מה מיוחד בבגד הזה? מאיפה הגיע? איך הוא מרגיש?"
+                    placeholder="מה מיוחד בבגד הזה? איפה לבשתם אותו? למה הוא מחכה לבית חדש?"
                     className="bg-background resize-none"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="price">מחיר (₪) *</Label>
+                    <Label htmlFor="price">כמה נבקש? 💰</Label>
                     <Input
                       id="price"
                       type="number"
@@ -221,18 +236,18 @@ const Upload = () => {
                       onChange={(e) => setPrice(e.target.value)}
                       required
                       dir="ltr"
-                      placeholder="0.00"
+                      placeholder="100"
                       className="bg-background"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="brand">מותג</Label>
+                    <Label htmlFor="brand">איזה מותג? 🏷️</Label>
                     <Input
                       id="brand"
                       value={brand}
                       onChange={(e) => setBrand(e.target.value)}
-                      placeholder="לדוגמה: Zara, H&M"
+                      placeholder="למשל: H&M, Zara"
                       className="bg-background"
                     />
                   </div>
@@ -240,10 +255,10 @@ const Upload = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="category">סוג הבגד</Label>
+                    <Label htmlFor="category">מה זה בעצם? 🤔</Label>
                     <Select value={category} onValueChange={setCategory}>
                       <SelectTrigger className="bg-background">
-                        <SelectValue placeholder="מה זה?" />
+                        <SelectValue placeholder="בחרו קטגוריה" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="חולצות">חולצות 👕</SelectItem>
@@ -257,10 +272,10 @@ const Upload = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="size">מידה</Label>
+                    <Label htmlFor="size">מה המידה? 📏</Label>
                     <Select value={size} onValueChange={setSize}>
                       <SelectTrigger className="bg-background">
-                        <SelectValue placeholder="איזה מידה?" />
+                        <SelectValue placeholder="בחרו מידה" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="XS">XS</SelectItem>
@@ -275,16 +290,30 @@ const Upload = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="condition">מצב הבגד</Label>
+                  <Label htmlFor="condition">במה מצב? ✨</Label>
                   <Select value={condition} onValueChange={setCondition}>
                     <SelectTrigger className="bg-background">
-                      <SelectValue placeholder="באיזה מצב?" />
+                      <SelectValue placeholder="בחרו מצב" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="חדש">חדש לגמרי ✨</SelectItem>
-                      <SelectItem value="כמו חדש">כמו חדש 💫</SelectItem>
-                      <SelectItem value="משומש מעט">משומש מעט 🌟</SelectItem>
-                      <SelectItem value="משומש">משומש 💚</SelectItem>
+                      <SelectItem value="new">חדש לגמרי! 🌟</SelectItem>
+                      <SelectItem value="like-new">כמעט לא נלבש 💎</SelectItem>
+                      <SelectItem value="good">במצב טוב 👍</SelectItem>
+                      <SelectItem value="fair">נלבש אבל עדיין יפה 💚</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="shippingMethod">איך נשלח? 📦</Label>
+                  <Select value={shippingMethod} onValueChange={setShippingMethod}>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="בחרו דרך משלוח" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pickup">איסוף עצמי בלבד 🚶</SelectItem>
+                      <SelectItem value="delivery">משלוח בלבד 📬</SelectItem>
+                      <SelectItem value="both">גם איסוף וגם משלוח 🌟</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -295,7 +324,7 @@ const Upload = () => {
                     disabled={loading || imageFiles.length === 0} 
                     className="flex-1 shadow-warm hover:shadow-lg transition-shadow"
                   >
-                    {loading ? "מעלה... 🌿" : "העלאה לקהילה 🌱"}
+                    {loading ? "מעלה... רגע קטן! ⏳" : "יאללה, בואו נמכור! 🎉"}
                   </Button>
                   <Button 
                     type="button" 

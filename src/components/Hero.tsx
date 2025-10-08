@@ -5,7 +5,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 import heroImage from "@/assets/hero-image.jpg";
-import yoyoLogo from "@/assets/yoyo-logo.png";
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -42,29 +41,21 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
-        <div className="flex justify-center mb-8 animate-slide-up">
-          <img 
-            src={yoyoLogo} 
-            alt="YOYO Logo" 
-            className="w-32 h-32 md:w-40 md:h-40 drop-shadow-glow animate-glow-pulse"
-          />
-        </div>
-
-        <h1 className="font-sans text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-slide-up" style={{ animationDelay: "0.1s" }}>
+        <h1 className="font-sans text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-slide-up">
           <span className="bg-gradient-to-r from-terracotta via-sage to-warmYellow bg-clip-text text-transparent">
-            YOYO
+            ✨ יויו ✨
           </span>
         </h1>
 
-        <p className="text-xl md:text-2xl lg:text-3xl text-foreground/90 mb-4 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: "0.2s" }}>
-          AI-Powered Secondhand Fashion
+        <p className="text-xl md:text-2xl lg:text-3xl text-foreground/90 mb-4 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: "0.1s" }}>
+          הבגדים שלך מחכים לבית חדש 🌈
         </p>
 
-        <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: "0.3s" }}>
-          Smart. Verified. Sustainable. The future of fashion is circular.
+        <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: "0.2s" }}>
+          מוכרים, קונים ונשמרים ירוקים - ביחד 💚
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up" style={{ animationDelay: "0.4s" }}>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up" style={{ animationDelay: "0.3s" }}>
           {user ? (
             <>
               <Button 
@@ -73,7 +64,7 @@ export const Hero = () => {
                 className="bg-terracotta hover:bg-terracotta/90 text-primary-foreground shadow-warm transition-all duration-300 group rounded-full px-8"
               >
                 <Sparkles className="mr-2 h-5 w-5" />
-                העלה בגד למכירה
+                בואו נמכור משהו 🎉
               </Button>
               
               <Button 
@@ -82,7 +73,7 @@ export const Hero = () => {
                 onClick={() => navigate("/profile")}
                 className="border-2 border-sage text-sage hover:bg-sage hover:text-white transition-all duration-300 rounded-full px-8"
               >
-                הפרופיל שלי
+                האזור האישי שלי 👤
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </>
@@ -93,7 +84,7 @@ export const Hero = () => {
                 onClick={() => navigate("/auth")}
                 className="bg-terracotta hover:bg-terracotta/90 text-primary-foreground shadow-warm transition-all duration-300 group rounded-full px-8"
               >
-                התחבר
+                בואו נתחיל! ✨
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               
@@ -104,25 +95,25 @@ export const Hero = () => {
                 className="border-2 border-sage text-sage hover:bg-sage hover:text-white transition-all duration-300 rounded-full px-8"
               >
                 <Sparkles className="mr-2 h-5 w-5" />
-                הירשם
+                הצטרפו עכשיו 🌟
               </Button>
             </>
           )}
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mt-16 animate-slide-up" style={{ animationDelay: "0.5s" }}>
+        <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mt-16 animate-slide-up" style={{ animationDelay: "0.4s" }}>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-terracotta mb-2">10K+</div>
-            <div className="text-sm text-muted-foreground">Verified Items</div>
+            <div className="text-sm text-muted-foreground">בגדים מאושרים 👕</div>
           </div>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-sage mb-2">5K+</div>
-            <div className="text-sm text-muted-foreground">Happy Users</div>
+            <div className="text-sm text-muted-foreground">משתמשים מאושרים 💚</div>
           </div>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-terracotta mb-2">98%</div>
-            <div className="text-sm text-muted-foreground">Satisfaction</div>
+            <div className="text-sm text-muted-foreground">שביעות רצון 😊</div>
           </div>
         </div>
       </div>

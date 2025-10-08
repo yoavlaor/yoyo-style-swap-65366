@@ -79,22 +79,22 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">YOYO</CardTitle>
+          <CardTitle className="text-2xl text-center">✨ יויו ✨</CardTitle>
           <CardDescription className="text-center">
-            אופנה בת קיימא למען העתיד
+            בואו נצא למסע אופנה ירוק ביחד! 🌿
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" dir="rtl">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">התחברות</TabsTrigger>
-              <TabsTrigger value="signup">הרשמה</TabsTrigger>
+              <TabsTrigger value="signin">כניסה 🔑</TabsTrigger>
+              <TabsTrigger value="signup">הצטרפות 🌟</TabsTrigger>
             </TabsList>
             
             <TabsContent value="signin">
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email">אימייל</Label>
+                  <Label htmlFor="signin-email">מה האימייל? 📧</Label>
                   <Input
                     id="signin-email"
                     type="email"
@@ -102,10 +102,11 @@ const Auth = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     dir="ltr"
+                    placeholder="example@email.com"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password">סיסמה</Label>
+                  <Label htmlFor="signin-password">מה הסיסמה? 🔒</Label>
                   <Input
                     id="signin-password"
                     type="password"
@@ -116,7 +117,7 @@ const Auth = () => {
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "מתחבר..." : "התחבר"}
+                  {loading ? "רגע... 🌿" : "בואו נכנס! ✨"}
                 </Button>
               </form>
             </TabsContent>
@@ -124,7 +125,7 @@ const Auth = () => {
             <TabsContent value="signup">
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-username">שם משתמש</Label>
+                  <Label htmlFor="signup-username">איך נקרא לך? ✏️</Label>
                   <Input
                     id="signup-username"
                     type="text"
@@ -132,10 +133,11 @@ const Auth = () => {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                     dir="rtl"
+                    placeholder="שם משתמש מגניב"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">אימייל</Label>
+                  <Label htmlFor="signup-email">מה האימייל? 📧</Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -143,10 +145,11 @@ const Auth = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     dir="ltr"
+                    placeholder="example@email.com"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">סיסמה</Label>
+                  <Label htmlFor="signup-password">בחרו סיסמה 🔒</Label>
                   <Input
                     id="signup-password"
                     type="password"
@@ -155,10 +158,11 @@ const Auth = () => {
                     required
                     minLength={6}
                     dir="ltr"
+                    placeholder="לפחות 6 תווים"
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "נרשם..." : "הירשם"}
+                  {loading ? "רגע... 🌱" : "בואו נצטרף! 🎉"}
                 </Button>
               </form>
             </TabsContent>
