@@ -73,7 +73,7 @@ export type Database = {
           is_sold: boolean | null
           price: number
           seller_id: string
-          shipping_method: string | null
+          shipping_method: string[] | null
           size: string | null
           title: string
         }
@@ -89,7 +89,7 @@ export type Database = {
           is_sold?: boolean | null
           price: number
           seller_id: string
-          shipping_method?: string | null
+          shipping_method?: string[] | null
           size?: string | null
           title: string
         }
@@ -105,7 +105,7 @@ export type Database = {
           is_sold?: boolean | null
           price?: number
           seller_id?: string
-          shipping_method?: string | null
+          shipping_method?: string[] | null
           size?: string | null
           title?: string
         }

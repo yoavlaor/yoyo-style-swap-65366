@@ -13,6 +13,7 @@ interface Item {
   price: number;
   images: string[];
   is_sold: boolean;
+  shipping_method: string[];
   profiles: {
     username: string;
   };
@@ -101,6 +102,7 @@ export const ProductFeed = () => {
                 location={product.profiles?.username}
                 verified={true}
                 distance=""
+                shippingMethods={product.shipping_method || []}
               />
             ))}
           </div>

@@ -24,7 +24,7 @@ const Upload = () => {
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
   const [brand, setBrand] = useState("");
-  const [shippingMethod, setShippingMethod] = useState("");
+  const [shippingMethods, setShippingMethods] = useState<string[]>([]);
   const [gender, setGender] = useState("");
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -110,7 +110,7 @@ const Upload = () => {
         size,
         condition,
         brand,
-        shipping_method: shippingMethod,
+        shipping_method: shippingMethods,
         gender,
         images: imageUrls,
       });
@@ -130,7 +130,7 @@ const Upload = () => {
       setSize("");
       setCondition("");
       setBrand("");
-      setShippingMethod("");
+      setShippingMethods([]);
       setGender("");
       setImageFiles([]);
       setImagePreviews([]);
@@ -176,9 +176,15 @@ const Upload = () => {
                     />
                     <label htmlFor="images" className="cursor-pointer">
                       <UploadIcon className="w-12 h-12 mx-auto text-muted-foreground mb-2" />
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-muted-foreground mb-3">
                         כמה תמונות יפות מזוויות שונות (עד 5) ✨
                       </p>
+                      <div className="text-xs text-muted-foreground bg-primary/5 rounded-lg p-3 text-right space-y-1">
+                        <p className="font-semibold text-primary">💡 טיפים לצילום מושלם:</p>
+                        <p>📐 על משטח ישר ונקי</p>
+                        <p>👕 תצלמו את הבגד במלואו</p>
+                        <p>🏷️ וודאו שהתווית של החברה נראית בתמונה</p>
+                      </div>
                     </label>
                   </div>
                   
@@ -323,24 +329,70 @@ const Upload = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="shippingMethod">איך נשלח? 📦</Label>
-                    <Select value={shippingMethod} onValueChange={setShippingMethod}>
-                      <SelectTrigger className="bg-background">
-                        <SelectValue placeholder="בחרו דרך משלוח" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="face-to-face">פנים אל פנים 👥</SelectItem>
-                        <SelectItem value="digital-stamp">משלוח עם בול דיגיטלי 📬</SelectItem>
-                        <SelectItem value="yoyo-station">איסוף עצמי מתחנת YOYO 🏪</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Label htmlFor="shippingMethod">איך נשלח? 📦 (ניתן לבחור יותר מאחד)</Label>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
+                        <input
+                          type="checkbox"
+                          id="face-to-face"
+                          checked={shippingMethods.includes("face-to-face")}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setShippingMethods([...shippingMethods, "face-to-face"]);
+                            } else {
+                              setShippingMethods(shippingMethods.filter(m => m !== "face-to-face"));
+                            }
+                          }}
+                          className="w-4 h-4 accent-primary"
+                        />
+                        <label htmlFor="face-to-face" className="flex-1 cursor-pointer text-sm">
+                          פנים אל פנים 👥
+                        </label>
+                      </div>
+                      <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
+                        <input
+                          type="checkbox"
+                          id="digital-stamp"
+                          checked={shippingMethods.includes("digital-stamp")}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setShippingMethods([...shippingMethods, "digital-stamp"]);
+                            } else {
+                              setShippingMethods(shippingMethods.filter(m => m !== "digital-stamp"));
+                            }
+                          }}
+                          className="w-4 h-4 accent-primary"
+                        />
+                        <label htmlFor="digital-stamp" className="flex-1 cursor-pointer text-sm">
+                          משלוח עם בול דיגיטלי 📬
+                        </label>
+                      </div>
+                      <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
+                        <input
+                          type="checkbox"
+                          id="yoyo-station"
+                          checked={shippingMethods.includes("yoyo-station")}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setShippingMethods([...shippingMethods, "yoyo-station"]);
+                            } else {
+                              setShippingMethods(shippingMethods.filter(m => m !== "yoyo-station"));
+                            }
+                          }}
+                          className="w-4 h-4 accent-primary"
+                        />
+                        <label htmlFor="yoyo-station" className="flex-1 cursor-pointer text-sm">
+                          איסוף עצמי מתחנת YOYO 🏪
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 <div className="flex gap-4 pt-4">
                   <Button 
                     type="submit" 
-                    disabled={loading || imageFiles.length === 0} 
+                    disabled={loading || imageFiles.length === 0 || shippingMethods.length === 0} 
                     className="flex-1 shadow-warm hover:shadow-lg transition-shadow"
                   >
                     {loading ? "מעלה... רגע קטן! ⏳" : "יאללה, בואו נמכור! 🎉"}
