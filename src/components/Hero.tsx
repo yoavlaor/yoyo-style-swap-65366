@@ -41,19 +41,23 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
-        <h1 className="font-sans text-6xl md:text-8xl lg:text-9xl font-black mb-6 animate-slide-up drop-shadow-2xl">
+        <h1 className="font-sans text-6xl md:text-8xl lg:text-9xl font-black mb-8 animate-slide-up drop-shadow-2xl">
           <span className="bg-gradient-to-r from-terracotta via-sage to-warmYellow bg-clip-text text-transparent animate-glow-pulse">
             YOYO
           </span>
         </h1>
 
-        <p className="text-xl md:text-2xl lg:text-3xl text-foreground/90 mb-4 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: "0.1s" }}>
-          אמינות, חדשנות, אקולוגיה
-        </p>
+        <div className="space-y-3 mb-8">
+          <p className="text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mb-2 max-w-4xl mx-auto animate-slide-up tracking-tight" style={{ animationDelay: "0.1s" }}>
+            <span className="bg-gradient-to-l from-terracotta via-sage to-terracotta bg-clip-text text-transparent">
+              אמינות · חדשנות · אקולוגיה
+            </span>
+          </p>
 
-        <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: "0.2s" }}>
-          משנים את כללי המשחק
-        </p>
+          <p className="text-lg md:text-2xl lg:text-3xl font-semibold text-muted-foreground/90 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: "0.2s" }}>
+            ✨ משנים את כללי המשחק ✨
+          </p>
+        </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up" style={{ animationDelay: "0.3s" }}>
           {user ? (
