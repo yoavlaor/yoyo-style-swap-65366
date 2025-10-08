@@ -34,7 +34,7 @@ export const Features = () => {
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            למה דווקא YOYO? 💫
+            למה דווקא אנחנו? 💫
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             תחוו את הקסם של אופנה בת-קיימא עם פיצ'רים חכמים ומגניבים
