@@ -49,10 +49,10 @@ export const ProductFeed = () => {
         {/* Header */}
         <div className="mb-12 text-center">
           <h2 className="font-tech text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-electric to-mint bg-clip-text text-transparent">
-            Discover Fashion
+            גלו אופנה מדהימה 👗✨
           </h2>
           <p className="text-muted-foreground text-lg">
-            AI-verified secondhand items near you
+            פריטים משומשים מאומתים בAI ממש קרוב אליכם
           </p>
         </div>
 
@@ -71,13 +71,13 @@ export const ProductFeed = () => {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input 
-              placeholder="Search by brand, style, or category..." 
+              placeholder="חפשו לפי מותג, סגנון או קטגוריה... 🔍" 
               className="pl-10 bg-card border-border/50 focus:border-electric transition-colors"
             />
           </div>
           <Button variant="outline" className="border-border/50 hover:border-electric hover:text-electric transition-colors">
             <SlidersHorizontal className="h-5 w-5 mr-2" />
-            Filters
+            סינונים 🎚️
           </Button>
         </div>
 
@@ -115,7 +115,7 @@ export const ProductFeed = () => {
             size="lg"
             className="border-electric text-electric hover:bg-electric/10 transition-colors"
           >
-            Load More Items
+            עוד פריטים מגניבים 🎁
           </Button>
         </div>
       </div>

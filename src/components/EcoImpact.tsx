@@ -16,10 +16,10 @@ export const EcoImpact = () => {
             <Leaf className="h-10 w-10 text-sage" />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Our Community Impact
+            ההשפעה של הקהילה שלנו 🌍
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Together, we're making fashion sustainable, one item at a time
+            ביחד, אנחנו משנים את פני האופנה - פריט אחד בכל פעם
           </p>
         </div>
 
@@ -28,10 +28,10 @@ export const EcoImpact = () => {
             <div className="inline-flex items-center justify-center p-4 bg-sage/10 rounded-2xl mb-6">
               <Leaf className="h-10 w-10 text-sage" />
             </div>
-            <div className="text-4xl md:text-5xl font-bold text-sage mb-2">2.5M kg</div>
-            <div className="text-lg font-semibold text-foreground mb-2">CO₂ Saved</div>
+            <div className="text-4xl md:text-5xl font-bold text-sage mb-2">2.5M ק"ג</div>
+            <div className="text-lg font-semibold text-foreground mb-2">CO₂ חסכנו 🌿</div>
             <div className="text-sm text-muted-foreground">
-              Equivalent to planting 125,000 trees
+              שווה ערך ל-125,000 עצים שנשתלו
             </div>
           </Card>
 
@@ -40,9 +40,9 @@ export const EcoImpact = () => {
               <TrendingUp className="h-10 w-10 text-terracotta" />
             </div>
             <div className="text-4xl md:text-5xl font-bold text-terracotta mb-2">50K+</div>
-            <div className="text-lg font-semibold text-foreground mb-2">Items Recycled</div>
+            <div className="text-lg font-semibold text-foreground mb-2">פריטים ממוחזרים ♻️</div>
             <div className="text-sm text-muted-foreground">
-              Preventing waste in landfills
+              מונעים פסולת במזבלות
             </div>
           </Card>
 
@@ -51,9 +51,9 @@ export const EcoImpact = () => {
               <Users className="h-10 w-10 text-sage" />
             </div>
             <div className="text-4xl md:text-5xl font-bold text-sage mb-2">10K+</div>
-            <div className="text-lg font-semibold text-foreground mb-2">Active Users</div>
+            <div className="text-lg font-semibold text-foreground mb-2">משתמשים פעילים 👥</div>
             <div className="text-sm text-muted-foreground">
-              Growing sustainable community
+              קהילה ירוקה שממשיכה לצמוח
             </div>
           </Card>
         </div>

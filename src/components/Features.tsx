@@ -4,26 +4,26 @@ import { Card } from "@/components/ui/card";
 const features = [
   {
     icon: Shield,
-    title: "Verified Sellers",
-    description: "Every seller is verified by our AI system to ensure authenticity and reliability.",
+    title: "מוכרים מאומתים ✓",
+    description: "כל מוכר עובר אימות AI מתקדם להבטחת אותנטיות ואמינות מלאה",
     color: "electric"
   },
   {
     icon: Sparkles,
-    title: "AI-Powered",
-    description: "Smart recommendations based on your style, size, and preferences.",
+    title: "מופעל בבינה מלאכותית 🤖",
+    description: "המלצות חכמות מותאמות אישית לסגנון, מידה והעדפות שלכם",
     color: "mint"
   },
   {
     icon: Leaf,
-    title: "Eco Points",
-    description: "Earn rewards for every sustainable purchase and track your environmental impact.",
+    title: "נקודות אקולוגיות 🌱",
+    description: "צברו פוינטים על כל קנייה ירוקה ועקבו אחרי ההשפעה הסביבתית שלכם",
     color: "mint"
   },
   {
     icon: Zap,
-    title: "Instant Matching",
-    description: "Find perfect fits with our virtual mannequin technology.",
+    title: "התאמה מיידית ⚡",
+    description: "מצאו את הפריט המושלם עם טכנולוגיית המדידה החכמה שלנו",
     color: "electric"
   }
 ];
@@ -34,10 +34,10 @@ export const Features = () => {
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Why Choose YOYO?
+            למה דווקא YOYO? 💫
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Experience the joy of sustainable fashion with smart, friendly features
+            תחוו את הקסם של אופנה בת-קיימא עם פיצ'רים חכמים ומגניבים
           </p>
         </div>
 
