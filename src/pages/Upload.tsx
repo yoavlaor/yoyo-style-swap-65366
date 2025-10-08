@@ -329,9 +329,9 @@ const Upload = () => {
                         <SelectValue placeholder="בחרו דרך משלוח" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="pickup">איסוף עצמי בלבד 🚶</SelectItem>
-                        <SelectItem value="delivery">משלוח בלבד 📬</SelectItem>
-                        <SelectItem value="both">גם איסוף וגם משלוח 🌟</SelectItem>
+                        <SelectItem value="face-to-face">פנים אל פנים 👥</SelectItem>
+                        <SelectItem value="digital-stamp">משלוח עם בול דיגיטלי 📬</SelectItem>
+                        <SelectItem value="yoyo-station">איסוף עצמי מתחנת YOYO 🏪</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
