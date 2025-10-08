@@ -85,20 +85,16 @@ const mockProducts = [
 export const ProductFeed = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
-  const [genderFilter, setGenderFilter] = useState<string>("all");
+  const [genderFilter, setGenderFilter] = useState<string>("women");
 
   const loadItems = async () => {
-    let query = supabase
+    const { data } = await supabase
       .from("items")
       .select("*, profiles(*)")
       .eq("is_sold", false)
-      .order("created_at", { ascending: false });
-
-    if (genderFilter !== "all") {
-      query = query.or(`gender.eq.${genderFilter},gender.eq.unisex`);
-    }
-
-    const { data } = await query.limit(20);
+      .or(`gender.eq.${genderFilter},gender.eq.unisex`)
+      .order("created_at", { ascending: false })
+      .limit(20);
 
     if (data) {
       setItems(data);
@@ -128,10 +124,9 @@ export const ProductFeed = () => {
         {/* Gender Tabs */}
         <div className="mb-8 flex justify-center" dir="rtl">
           <Tabs value={genderFilter} onValueChange={setGenderFilter} className="w-full max-w-md">
-            <TabsList className="grid w-full grid-cols-3 bg-muted">
+            <TabsList className="grid w-full grid-cols-2 bg-muted">
               <TabsTrigger value="women">👩 נשים</TabsTrigger>
               <TabsTrigger value="men">👨 גברים</TabsTrigger>
-              <TabsTrigger value="all">🌈 הכל</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
