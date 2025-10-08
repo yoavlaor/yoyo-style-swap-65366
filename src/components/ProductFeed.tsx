@@ -52,7 +52,7 @@ export const ProductFeed = () => {
             גלו אופנה מדהימה 👗✨
           </h2>
           <p className="text-muted-foreground text-lg">
-            פריטים משומשים מאומתים בAI ממש קרוב אליכם
+            פריטים משומשים מאומתים בבינה מלאכותית ממש קרוב אליכם
           </p>
         </div>
 
