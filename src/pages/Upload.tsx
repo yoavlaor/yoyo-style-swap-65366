@@ -13,6 +13,7 @@ import { Upload as UploadIcon, X, Edit } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { ItemVerificationCard } from "@/components/ItemVerificationCard";
 import { ImageEditor } from "@/components/ImageEditor";
+import { itemSchema, getUserMessage } from "@/lib/validation";
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -112,6 +113,27 @@ const Upload = () => {
     setLoading(true);
 
     try {
+      // Validate item data
+      const validationResult = itemSchema.safeParse({
+        title: title || "פריט ללא שם",
+        description: description || "",
+        price: price ? parseFloat(price) : 0,
+        brand: brand || "",
+        category: category || "",
+        size: size || "",
+        condition: condition || "",
+      });
+
+      if (!validationResult.success) {
+        toast({
+          title: "נתונים לא תקינים",
+          description: validationResult.error.errors[0].message,
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+
       // Upload images to storage
       const imageUrls: string[] = [];
       for (const file of imageFiles) {
@@ -169,7 +191,7 @@ const Upload = () => {
     } catch (error: any) {
       toast({
         title: "שגיאה בהעלאת הבגד",
-        description: error.message,
+        description: getUserMessage(error),
         variant: "destructive",
       });
     }

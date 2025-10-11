@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TermsOfService } from "@/components/TermsOfService";
+import { getUserMessage } from "@/lib/validation";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -170,7 +171,11 @@ const Auth = () => {
         }).eq('id', user.id);
 
         if (profileError) {
-          console.error('Error updating profile:', profileError);
+          toast({
+            title: "עדכון פרופיל נכשל",
+            description: getUserMessage(profileError),
+            variant: "destructive",
+          });
         }
       }
       

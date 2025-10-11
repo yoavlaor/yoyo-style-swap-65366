@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Ruler } from "lucide-react";
+import { bodyMeasurementsSchema, getUserMessage } from "@/lib/validation";
 
 interface BodyMeasurementsFormProps {
   userId: string;
@@ -32,6 +33,24 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
   const handleSave = async () => {
     setLoading(true);
     try {
+      // Validate measurements
+      const validationResult = bodyMeasurementsSchema.safeParse({
+        height: measurements.height ? parseFloat(measurements.height) : undefined,
+        weight: measurements.weight ? parseFloat(measurements.weight) : undefined,
+        body_type: measurements.bodyType || undefined,
+        gender: measurements.gender || undefined,
+      });
+
+      if (!validationResult.success) {
+        toast({
+          title: "נתונים לא תקינים",
+          description: validationResult.error.errors[0].message,
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+
       const { error } = await supabase
         .from('profiles')
         .update({
@@ -61,10 +80,9 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
       }, 800);
       
     } catch (error) {
-      console.error('Error saving measurements:', error);
       toast({
         title: "שגיאה",
-        description: "לא הצלחנו לשמור את המידות",
+        description: getUserMessage(error),
         variant: "destructive",
       });
     } finally {

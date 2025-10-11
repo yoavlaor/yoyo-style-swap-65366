@@ -15,6 +15,7 @@ import { VirtualMannequin } from "@/components/VirtualMannequin";
 import { BodyMeasurementsForm } from "@/components/BodyMeasurementsForm";
 import { FaceVerificationCard } from "@/components/FaceVerificationCard";
 import { AdminUsersPanel } from "@/components/AdminUsersPanel";
+import { profileSchema, getUserMessage } from "@/lib/validation";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -134,6 +135,22 @@ const Profile = () => {
     e.preventDefault();
     if (!user) return;
 
+    // Validate inputs
+    const validationResult = profileSchema.safeParse({
+      username,
+      full_name: fullName,
+      bio,
+    });
+
+    if (!validationResult.success) {
+      toast({
+        title: "נתונים לא תקינים",
+        description: validationResult.error.errors[0].message,
+        variant: "destructive",
+      });
+      return;
+    }
+
     const { error } = await supabase
       .from("profiles")
       .update({
@@ -146,7 +163,7 @@ const Profile = () => {
     if (error) {
       toast({
         title: "שגיאה",
-        description: error.message,
+        description: getUserMessage(error),
         variant: "destructive",
       });
     } else {
