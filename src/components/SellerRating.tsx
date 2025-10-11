@@ -96,7 +96,7 @@ export const SellerRating = ({ sellerId, currentUserId }: SellerRatingProps) => 
 
   return (
     <Card className="shadow-card bg-gradient-card border-border/50">
-      <CardContent className="p-4 space-y-3">
+      <CardContent className="p-4 space-y-3" dir="rtl">
         <div className="space-y-1">
           <h3 className="font-semibold text-lg">דירוג המוכר</h3>
           <div className="flex items-center gap-2">
@@ -117,6 +117,22 @@ export const SellerRating = ({ sellerId, currentUserId }: SellerRatingProps) => 
             </span>
           </div>
         </div>
+
+        {!currentUserId && (
+          <div className="space-y-2 pt-2 border-t border-border/50">
+            <p className="text-sm text-muted-foreground">
+              יש להתחבר כדי לדרג את המוכר
+            </p>
+          </div>
+        )}
+
+        {currentUserId && currentUserId === sellerId && (
+          <div className="space-y-2 pt-2 border-t border-border/50">
+            <p className="text-sm text-muted-foreground">
+              לא ניתן לדרג את עצמך
+            </p>
+          </div>
+        )}
 
         {currentUserId && currentUserId !== sellerId && (
           <div className="space-y-2 pt-2 border-t border-border/50">
@@ -140,6 +156,11 @@ export const SellerRating = ({ sellerId, currentUserId }: SellerRatingProps) => 
                 </button>
               ))}
             </div>
+            {userRating > 0 && (
+              <p className="text-xs text-muted-foreground">
+                דירגת {userRating} כוכבים
+              </p>
+            )}
           </div>
         )}
       </CardContent>
