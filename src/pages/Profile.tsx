@@ -14,6 +14,7 @@ import Navbar from "@/components/Navbar";
 import { VirtualMannequin } from "@/components/VirtualMannequin";
 import { BodyMeasurementsForm } from "@/components/BodyMeasurementsForm";
 import { FaceVerificationCard } from "@/components/FaceVerificationCard";
+import { AdminUsersPanel } from "@/components/AdminUsersPanel";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,6 +38,7 @@ const Profile = () => {
   const [myItems, setMyItems] = useState<any[]>([]);
   const [myPurchases, setMyPurchases] = useState<any[]>([]);
   const [profile, setProfile] = useState<any>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -45,6 +47,7 @@ const Profile = () => {
         loadProfile(session.user.id);
         loadMyItems(session.user.id);
         loadMyPurchases(session.user.id);
+        checkAdminStatus(session.user.id);
       } else {
         navigate("/auth");
       }
@@ -54,6 +57,7 @@ const Profile = () => {
       if (session?.user) {
         setUser(session.user);
         loadProfile(session.user.id);
+        checkAdminStatus(session.user.id);
       } else {
         navigate("/auth");
       }
@@ -76,6 +80,17 @@ const Profile = () => {
       setBio(data.bio || "");
     }
     setLoading(false);
+  };
+
+  const checkAdminStatus = async (userId: string) => {
+    const { data } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', userId)
+      .eq('role', 'admin')
+      .maybeSingle();
+    
+    setIsAdmin(!!data);
   };
 
   const loadMyItems = async (userId: string) => {
@@ -170,11 +185,12 @@ const Profile = () => {
           </div>
 
           <Tabs defaultValue="profile">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className={`grid w-full ${isAdmin ? 'grid-cols-5' : 'grid-cols-4'}`}>
               <TabsTrigger value="profile">קצת עלי 👤</TabsTrigger>
               <TabsTrigger value="mannequin">הבובה שלי 👗</TabsTrigger>
               <TabsTrigger value="items">מה אני מוכר/ת 👕</TabsTrigger>
               <TabsTrigger value="purchases">מה קניתי 🛍️</TabsTrigger>
+              {isAdmin && <TabsTrigger value="admin">ניהול 👑</TabsTrigger>}
             </TabsList>
 
             <TabsContent value="profile">
@@ -348,6 +364,12 @@ const Profile = () => {
                 </CardContent>
               </Card>
             </TabsContent>
+
+            {isAdmin && (
+              <TabsContent value="admin">
+                <AdminUsersPanel />
+              </TabsContent>
+            )}
           </Tabs>
         </div>
       </div>
