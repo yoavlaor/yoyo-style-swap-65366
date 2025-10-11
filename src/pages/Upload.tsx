@@ -432,8 +432,8 @@ const Upload = () => {
                           }}
                           className="w-4 h-4 accent-primary"
                         />
-                        <label htmlFor="both" className="flex-1 cursor-pointer text-sm">
-                          שניהם 🎁
+                        <label htmlFor="yoyo-station" className="flex-1 cursor-pointer text-sm">
+                          איסוף מתחנת יויו 🏪
                         </label>
                       </div>
                     </div>
