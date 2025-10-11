@@ -276,54 +276,54 @@ const EditItem = () => {
                     <input
                       type="checkbox"
                       id="face-to-face"
-                      checked={shippingMethods.includes("face-to-face")}
+                      checked={shippingMethods.includes("פנים אל פנים 🤝")}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setShippingMethods([...shippingMethods, "face-to-face"]);
+                          setShippingMethods([...shippingMethods, "פנים אל פנים 🤝"]);
                         } else {
-                          setShippingMethods(shippingMethods.filter(m => m !== "face-to-face"));
+                          setShippingMethods(shippingMethods.filter(m => m !== "פנים אל פנים 🤝"));
                         }
                       }}
                       className="w-4 h-4 accent-primary"
                     />
                     <label htmlFor="face-to-face" className="flex-1 cursor-pointer text-sm">
-                      פנים אל פנים 👥
+                      פנים אל פנים 🤝
                     </label>
                   </div>
                   <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
                     <input
                       type="checkbox"
-                      id="digital-stamp"
-                      checked={shippingMethods.includes("digital-stamp")}
+                      id="delivery"
+                      checked={shippingMethods.includes("משלוח 📦")}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setShippingMethods([...shippingMethods, "digital-stamp"]);
+                          setShippingMethods([...shippingMethods, "משלוח 📦"]);
                         } else {
-                          setShippingMethods(shippingMethods.filter(m => m !== "digital-stamp"));
+                          setShippingMethods(shippingMethods.filter(m => m !== "משלוח 📦"));
                         }
                       }}
                       className="w-4 h-4 accent-primary"
                     />
-                    <label htmlFor="digital-stamp" className="flex-1 cursor-pointer text-sm">
-                      משלוח עם בול דיגיטלי 📬
+                    <label htmlFor="delivery" className="flex-1 cursor-pointer text-sm">
+                      משלוח 📦
                     </label>
                   </div>
                   <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
                     <input
                       type="checkbox"
                       id="yoyo-station"
-                      checked={shippingMethods.includes("yoyo-station")}
+                      checked={shippingMethods.includes("איסוף מתחנת יויו 🏪")}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setShippingMethods([...shippingMethods, "yoyo-station"]);
+                          setShippingMethods([...shippingMethods, "איסוף מתחנת יויו 🏪"]);
                         } else {
-                          setShippingMethods(shippingMethods.filter(m => m !== "yoyo-station"));
+                          setShippingMethods(shippingMethods.filter(m => m !== "איסוף מתחנת יויו 🏪"));
                         }
                       }}
                       className="w-4 h-4 accent-primary"
                     />
                     <label htmlFor="yoyo-station" className="flex-1 cursor-pointer text-sm">
-                      איסוף עצמי מתחנת YOYO 🏪
+                      איסוף מתחנת יויו 🏪
                     </label>
                   </div>
                 </div>
