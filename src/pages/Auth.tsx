@@ -35,19 +35,20 @@ const Auth = () => {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!agreedToTerms) {
+    // Validate all required fields
+    if (!username || !email || !phone || !address || !password) {
       toast({
-        title: "יש לאשר את התקנון",
-        description: "עליך לקרוא ולאשר את תקנון השימוש כדי להירשם",
+        title: "שדות חסרים",
+        description: "יש למלא את כל השדות הנדרשים",
         variant: "destructive",
       });
       return;
     }
 
-    if (!phone || !address) {
+    if (!agreedToTerms) {
       toast({
-        title: "שדות חסרים",
-        description: "יש למלא טלפון וכתובת",
+        title: "חובה לאשר את התקנון",
+        description: "עליך לקרוא ולאשר את תקנון השימוש כדי להירשם",
         variant: "destructive",
       });
       return;
@@ -66,6 +67,7 @@ const Auth = () => {
             username,
             email,
             address,
+            password, // Store temporarily for later use
           }
         }
       });
@@ -80,13 +82,13 @@ const Auth = () => {
       } else {
         setOtpSent(true);
         toast({
-          title: "קוד נשלח!",
-          description: "קוד אימות נשלח לטלפון שלך דרך SMS",
+          title: "קוד נשלח! 📱",
+          description: "קוד אימות נשלח לטלפון שלך דרך SMS. יש להזין את הקוד כדי להשלים את ההרשמה",
         });
         setLoading(false);
       }
     } else {
-      // Email verification
+      // Email verification - must be verified before account is active
       const { error } = await supabase.auth.signUp({
         email,
         password,
@@ -110,8 +112,8 @@ const Auth = () => {
       } else {
         setOtpSent(true);
         toast({
-          title: "נרשמת בהצלחה!",
-          description: "קוד אימות נשלח לאימייל שלך",
+          title: "קוד נשלח! 📧",
+          description: "קוד אימות נשלח לאימייל שלך. חובה להזין את הקוד כדי להשלים את ההרשמה",
         });
         setLoading(false);
       }
@@ -120,6 +122,16 @@ const Auth = () => {
 
   const handleVerifyOTP = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (otp.length !== 6) {
+      toast({
+        title: "קוד לא תקין",
+        description: "יש להזין קוד בן 6 ספרות",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setLoading(true);
 
     let verifyOptions;
@@ -143,25 +155,31 @@ const Auth = () => {
     if (error) {
       toast({
         title: "שגיאה באימות",
-        description: error.message,
+        description: "הקוד שהזנת אינו תקין. אנא בדוק ונסה שנית",
         variant: "destructive",
       });
       setLoading(false);
     } else {
-      // Update profile with phone verification
+      // Update profile with verified phone/email
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        await supabase.from('profiles').update({
+        const { error: profileError } = await supabase.from('profiles').update({
           phone,
           address,
           is_phone_verified: verificationMethod === "sms"
         }).eq('id', user.id);
+
+        if (profileError) {
+          console.error('Error updating profile:', profileError);
+        }
       }
       
       toast({
         title: "אומת בהצלחה! 🎉",
-        description: "ברוכים הבאים ליויו",
+        description: "ההרשמה הושלמה בהצלחה. ברוכים הבאים ליויו!",
       });
+      
+      setLoading(false);
       navigate("/");
     }
   };
@@ -325,23 +343,47 @@ const Auth = () => {
                       checked={agreedToTerms}
                       onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
                       className="mt-1"
+                      required
                     />
                     <Label htmlFor="terms" className="text-sm leading-relaxed cursor-pointer">
+                      <span className="text-destructive">* </span>
                       קראתי ואני מאשר/ת את{" "}
                       <TermsOfService>
                         <button type="button" className="text-primary underline hover:text-primary/80">
                           תקנון השימוש
                         </button>
                       </TermsOfService>
-                      {" "}של יויו 📜
+                      {" "}של יויו 📜 <span className="text-destructive font-bold">(חובה)</span>
                     </Label>
                   </div>
-                  <Button type="submit" className="w-full" disabled={loading || !agreedToTerms}>
-                    {loading ? "רגע... 🌱" : "בואו נצטרף! 🎉"}
+                  {!agreedToTerms && (
+                    <p className="text-sm text-destructive text-center">
+                      ⚠️ חובה לאשר את התקנון כדי להמשיך
+                    </p>
+                  )}
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    disabled={loading || !agreedToTerms || !username || !email || !phone || !address || !password}
+                  >
+                    {loading ? "רגע... 🌱" : "שלח קוד אימות 📲"}
                   </Button>
+                  {(!username || !email || !phone || !address || !password) && (
+                    <p className="text-sm text-muted-foreground text-center">
+                      נא למלא את כל השדות כדי להמשיך
+                    </p>
+                  )}
                 </form>
               ) : (
                 <form onSubmit={handleVerifyOTP} className="space-y-4">
+                  <div className="bg-muted/50 p-4 rounded-lg border border-border mb-4">
+                    <p className="text-sm font-medium text-center mb-2">
+                      ⚠️ חובה להשלים את האימות
+                    </p>
+                    <p className="text-xs text-muted-foreground text-center">
+                      ההרשמה תושלם רק לאחר הזנת קוד האימות
+                    </p>
+                  </div>
                   <div className="space-y-2">
                     <Label htmlFor="otp-code">הזינו את קוד האימות 🔐</Label>
                     <p className="text-sm text-muted-foreground text-center mb-4">
@@ -360,15 +402,23 @@ const Auth = () => {
                     />
                   </div>
                   <Button type="submit" className="w-full" disabled={loading || otp.length !== 6}>
-                    {loading ? "מאמת... ⏳" : "אמת קוד ✓"}
+                    {loading ? "מאמת... ⏳" : "אמת והשלם הרשמה ✓"}
                   </Button>
+                  {otp.length !== 6 && (
+                    <p className="text-sm text-muted-foreground text-center">
+                      נא להזין את כל 6 הספרות של הקוד
+                    </p>
+                  )}
                   <Button 
                     type="button" 
                     variant="ghost" 
                     className="w-full" 
-                    onClick={() => setOtpSent(false)}
+                    onClick={() => {
+                      setOtpSent(false);
+                      setOtp("");
+                    }}
                   >
-                    חזרה
+                    חזרה לעריכת פרטים
                   </Button>
                 </form>
               )}
