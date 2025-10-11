@@ -20,14 +20,10 @@ interface Item {
   };
 }
 
-interface ProductFeedProps {
-  genderFilter?: string | null;
-}
-
-export const ProductFeed = ({ genderFilter: initialGenderFilter }: ProductFeedProps = {}) => {
+export const ProductFeed = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
-  const [genderFilter, setGenderFilter] = useState<string>(initialGenderFilter || "women");
+  const [genderFilter, setGenderFilter] = useState<string>("women");
   const [isAdmin, setIsAdmin] = useState(false);
   const { toast } = useToast();
   const [userGender, setUserGender] = useState<string | null>(null);
@@ -42,7 +38,7 @@ export const ProductFeed = ({ genderFilter: initialGenderFilter }: ProductFeedPr
           .eq("id", user.id)
           .single();
         
-        if (profile?.gender && !initialGenderFilter) {
+        if (profile?.gender) {
           setUserGender(profile.gender);
           setGenderFilter(profile.gender === "male" ? "men" : "women");
         }
@@ -60,13 +56,7 @@ export const ProductFeed = ({ genderFilter: initialGenderFilter }: ProductFeedPr
     };
     
     loadUserGender();
-  }, [initialGenderFilter]);
-
-  useEffect(() => {
-    if (initialGenderFilter) {
-      setGenderFilter(initialGenderFilter);
-    }
-  }, [initialGenderFilter]);
+  }, []);
 
   const loadItems = async () => {
     const { data } = await supabase
