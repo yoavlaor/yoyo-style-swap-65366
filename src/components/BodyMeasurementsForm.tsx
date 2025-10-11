@@ -46,10 +46,20 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
 
       toast({
         title: "המידות נשמרו בהצלחה! ✨",
-        description: "הבובה הוירטואלית שלך מוכנה",
+        description: "הבובה הוירטואלית שלך מתעדכנת כרגע...",
       });
 
+      // Trigger animation on the mannequin by calling onSave
       onSave?.();
+      
+      // Show a second toast after a delay to indicate the mannequin updated
+      setTimeout(() => {
+        toast({
+          title: "הבובה עודכנה! 👗",
+          description: "הבובה שלך עכשיו משקפת את המידות החדשות",
+        });
+      }, 800);
+      
     } catch (error) {
       console.error('Error saving measurements:', error);
       toast({
