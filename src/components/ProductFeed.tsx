@@ -165,7 +165,7 @@ export const ProductFeed = () => {
     setSearchQuery("");
   };
 
-  const brands = ["Zara", "H&M", "Mango", "Pull&Bear", "Bershka", "Nike", "Adidas", "Castro", "Fox"];
+  const brands = ["Zara", "H&M", "Mango", "Pull&Bear", "Bershka", "Nike", "Adidas", "Castro", "Fox", "אחר"];
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const conditions = ["חדש עם תווית 🏷️", "כמו חדש ✨", "משומש מצוין 👌", "משומש טוב 👍"];
   const shippingMethods = ["איסוף עצמי 🤝", "משלוח 📦", "שניהם 🎁"];
