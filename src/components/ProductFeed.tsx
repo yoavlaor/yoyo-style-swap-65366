@@ -6,6 +6,17 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
 
 interface Item {
   id: string;
@@ -27,6 +38,15 @@ export const ProductFeed = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const { toast } = useToast();
   const [userGender, setUserGender] = useState<string | null>(null);
+  const [filterOpen, setFilterOpen] = useState(false);
+  
+  // Filter states
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
+  const [selectedShipping, setSelectedShipping] = useState<string[]>([]);
+  const [maxDistance, setMaxDistance] = useState<number>(50);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     const loadUserGender = async () => {
@@ -59,16 +79,41 @@ export const ProductFeed = () => {
   }, []);
 
   const loadItems = async () => {
-    const { data } = await supabase
+    let query = supabase
       .from("items")
       .select("*, profiles(*)")
       .eq("is_sold", false)
-      .or(`gender.eq.${genderFilter},gender.eq.unisex`)
+      .or(`gender.eq.${genderFilter},gender.eq.unisex`);
+
+    // Apply filters
+    if (selectedBrands.length > 0) {
+      query = query.in("brand", selectedBrands);
+    }
+    if (selectedSizes.length > 0) {
+      query = query.in("size", selectedSizes);
+    }
+    if (selectedConditions.length > 0) {
+      query = query.in("condition", selectedConditions);
+    }
+    if (searchQuery) {
+      query = query.or(`title.ilike.%${searchQuery}%,brand.ilike.%${searchQuery}%,category.ilike.%${searchQuery}%`);
+    }
+
+    const { data } = await query
       .order("created_at", { ascending: false })
       .limit(20);
 
     if (data) {
-      setItems(data);
+      let filteredData = data;
+      
+      // Filter by shipping method (array contains)
+      if (selectedShipping.length > 0) {
+        filteredData = filteredData.filter(item =>
+          selectedShipping.some(method => item.shipping_method?.includes(method))
+        );
+      }
+      
+      setItems(filteredData);
     }
     setLoading(false);
   };
@@ -101,7 +146,29 @@ export const ProductFeed = () => {
 
   useEffect(() => {
     loadItems();
-  }, [genderFilter]);
+  }, [genderFilter, selectedBrands, selectedSizes, selectedConditions, selectedShipping, searchQuery]);
+
+  const toggleFilter = (value: string, selected: string[], setter: (val: string[]) => void) => {
+    if (selected.includes(value)) {
+      setter(selected.filter(item => item !== value));
+    } else {
+      setter([...selected, value]);
+    }
+  };
+
+  const clearFilters = () => {
+    setSelectedBrands([]);
+    setSelectedSizes([]);
+    setSelectedConditions([]);
+    setSelectedShipping([]);
+    setMaxDistance(50);
+    setSearchQuery("");
+  };
+
+  const brands = ["Zara", "H&M", "Mango", "Pull&Bear", "Bershka", "Nike", "Adidas", "Castro", "Fox"];
+  const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
+  const conditions = ["חדש עם תווית 🏷️", "כמו חדש ✨", "משומש מצוין 👌", "משומש טוב 👍"];
+  const shippingMethods = ["איסוף עצמי 🤝", "משלוח 📦", "שניהם 🎁"];
 
   return (
     <section className="py-20 px-4 bg-background">
@@ -127,18 +194,137 @@ export const ProductFeed = () => {
         </div>
 
         {/* Search & Filters */}
-        <div className="mb-8 flex flex-col md:flex-row gap-4">
+        <div className="mb-8 flex flex-col md:flex-row gap-4" dir="rtl">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input 
               placeholder="חפשו לפי מותג, סגנון או קטגוריה... 🔍" 
-              className="pl-10 bg-card border-border/50 focus:border-electric transition-colors"
+              className="pr-10 bg-card border-border/50 focus:border-electric transition-colors"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <Button variant="outline" className="border-border/50 hover:border-electric hover:text-electric transition-colors">
-            <SlidersHorizontal className="h-5 w-5 mr-2" />
-            סינונים 🎚️
-          </Button>
+          
+          <Sheet open={filterOpen} onOpenChange={setFilterOpen}>
+            <SheetTrigger asChild>
+              <Button variant="outline" className="border-border/50 hover:border-electric hover:text-electric transition-colors">
+                <SlidersHorizontal className="h-5 w-5 ml-2" />
+                סינונים 🎚️
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
+              <SheetHeader>
+                <SheetTitle className="text-right">תסננו בול מה שמתאים לכם ✨</SheetTitle>
+                <SheetDescription className="text-right">
+                  בחרו את כל מה שחשוב לכם ונמצא בדיוק מה שאתם מחפשים 🎯
+                </SheetDescription>
+              </SheetHeader>
+              
+              <div className="mt-6 space-y-6" dir="rtl">
+                {/* Brand Filter */}
+                <div className="space-y-3">
+                  <Label className="text-base font-semibold">מותגים אהובים 💕</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {brands.map(brand => (
+                      <div key={brand} className="flex items-center space-x-2 space-x-reverse">
+                        <Checkbox
+                          id={`brand-${brand}`}
+                          checked={selectedBrands.includes(brand)}
+                          onCheckedChange={() => toggleFilter(brand, selectedBrands, setSelectedBrands)}
+                        />
+                        <label htmlFor={`brand-${brand}`} className="text-sm cursor-pointer">
+                          {brand}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Size Filter */}
+                <div className="space-y-3">
+                  <Label className="text-base font-semibold">מידות 📏</Label>
+                  <div className="flex flex-wrap gap-2">
+                    {sizes.map(size => (
+                      <Button
+                        key={size}
+                        variant={selectedSizes.includes(size) ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => toggleFilter(size, selectedSizes, setSelectedSizes)}
+                        className="transition-all"
+                      >
+                        {size}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Condition Filter */}
+                <div className="space-y-3">
+                  <Label className="text-base font-semibold">מצב הבגד 👕</Label>
+                  <div className="space-y-2">
+                    {conditions.map(condition => (
+                      <div key={condition} className="flex items-center space-x-2 space-x-reverse">
+                        <Checkbox
+                          id={`condition-${condition}`}
+                          checked={selectedConditions.includes(condition)}
+                          onCheckedChange={() => toggleFilter(condition, selectedConditions, setSelectedConditions)}
+                        />
+                        <label htmlFor={`condition-${condition}`} className="text-sm cursor-pointer">
+                          {condition}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Shipping Method Filter */}
+                <div className="space-y-3">
+                  <Label className="text-base font-semibold">אופציות משלוח 🚚</Label>
+                  <div className="space-y-2">
+                    {shippingMethods.map(method => (
+                      <div key={method} className="flex items-center space-x-2 space-x-reverse">
+                        <Checkbox
+                          id={`shipping-${method}`}
+                          checked={selectedShipping.includes(method)}
+                          onCheckedChange={() => toggleFilter(method, selectedShipping, setSelectedShipping)}
+                        />
+                        <label htmlFor={`shipping-${method}`} className="text-sm cursor-pointer">
+                          {method}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Distance Filter */}
+                <div className="space-y-3">
+                  <Label className="text-base font-semibold">מרחק מקסימלי 📍</Label>
+                  <div className="pt-2">
+                    <Slider
+                      value={[maxDistance]}
+                      onValueChange={(value) => setMaxDistance(value[0])}
+                      max={100}
+                      step={5}
+                      className="w-full"
+                    />
+                    <p className="text-sm text-muted-foreground mt-2 text-center">
+                      עד {maxDistance} ק״מ ממכם
+                    </p>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-2 pt-4">
+                  <Button onClick={clearFilters} variant="outline" className="flex-1">
+                    נקה הכל 🗑️
+                  </Button>
+                  <Button onClick={() => setFilterOpen(false)} className="flex-1">
+                    הצג תוצאות 🎉
+                  </Button>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
 
         {/* Product Grid */}
