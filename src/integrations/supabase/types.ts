@@ -162,26 +162,47 @@ export type Database = {
         Row: {
           avatar_url: string | null
           bio: string | null
+          body_type: string | null
+          chest_size: number | null
           created_at: string | null
           full_name: string | null
+          height: number | null
+          hip_size: number | null
           id: string
+          is_face_verified: boolean | null
           username: string
+          waist_size: number | null
+          weight: number | null
         }
         Insert: {
           avatar_url?: string | null
           bio?: string | null
+          body_type?: string | null
+          chest_size?: number | null
           created_at?: string | null
           full_name?: string | null
+          height?: number | null
+          hip_size?: number | null
           id: string
+          is_face_verified?: boolean | null
           username: string
+          waist_size?: number | null
+          weight?: number | null
         }
         Update: {
           avatar_url?: string | null
           bio?: string | null
+          body_type?: string | null
+          chest_size?: number | null
           created_at?: string | null
           full_name?: string | null
+          height?: number | null
+          hip_size?: number | null
           id?: string
+          is_face_verified?: boolean | null
           username?: string
+          waist_size?: number | null
+          weight?: number | null
         }
         Relationships: []
       }

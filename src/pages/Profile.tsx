@@ -11,6 +11,9 @@ import { User } from "@supabase/supabase-js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Trash2, Edit } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import { VirtualMannequin } from "@/components/VirtualMannequin";
+import { BodyMeasurementsForm } from "@/components/BodyMeasurementsForm";
+import { FaceVerificationCard } from "@/components/FaceVerificationCard";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,6 +36,7 @@ const Profile = () => {
   const [bio, setBio] = useState("");
   const [myItems, setMyItems] = useState<any[]>([]);
   const [myPurchases, setMyPurchases] = useState<any[]>([]);
+  const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -66,6 +70,7 @@ const Profile = () => {
       .single();
 
     if (data) {
+      setProfile(data);
       setUsername(data.username || "");
       setFullName(data.full_name || "");
       setBio(data.bio || "");
@@ -165,8 +170,9 @@ const Profile = () => {
           </div>
 
           <Tabs defaultValue="profile">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="profile">קצת עלי 👤</TabsTrigger>
+              <TabsTrigger value="mannequin">הבובה שלי 👗</TabsTrigger>
               <TabsTrigger value="items">מה אני מוכר/ת 👕</TabsTrigger>
               <TabsTrigger value="purchases">מה קניתי 🛍️</TabsTrigger>
             </TabsList>
@@ -214,6 +220,38 @@ const Profile = () => {
                   </form>
                 </CardContent>
               </Card>
+              
+              <FaceVerificationCard 
+                userId={user?.id || ""} 
+                isVerified={profile?.is_face_verified || false}
+                onVerificationChange={() => loadProfile(user?.id || "")}
+              />
+            </TabsContent>
+
+            <TabsContent value="mannequin">
+              <VirtualMannequin
+                height={profile?.height || undefined}
+                weight={profile?.weight || undefined}
+                bodyType={profile?.body_type || undefined}
+                chestSize={profile?.chest_size || undefined}
+                waistSize={profile?.waist_size || undefined}
+                hipSize={profile?.hip_size || undefined}
+              />
+
+              <div className="mt-4">
+                <BodyMeasurementsForm
+                  userId={user?.id || ""}
+                  initialData={{
+                    height: profile?.height || undefined,
+                    weight: profile?.weight || undefined,
+                    bodyType: profile?.body_type || undefined,
+                    chestSize: profile?.chest_size || undefined,
+                    waistSize: profile?.waist_size || undefined,
+                    hipSize: profile?.hip_size || undefined,
+                  }}
+                  onSave={() => loadProfile(user?.id || "")}
+                />
+              </div>
             </TabsContent>
 
             <TabsContent value="items">

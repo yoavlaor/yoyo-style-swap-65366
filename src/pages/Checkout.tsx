@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, User as UserIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import { VirtualMannequin } from "@/components/VirtualMannequin";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const Checkout = () => {
   const { itemId } = useParams();
@@ -14,6 +16,7 @@ const Checkout = () => {
   const { toast } = useToast();
   const [user, setUser] = useState<User | null>(null);
   const [item, setItem] = useState<any>(null);
+  const [userProfile, setUserProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [selectedShippingMethod, setSelectedShippingMethod] = useState<string>("");
@@ -23,6 +26,7 @@ const Checkout = () => {
       if (session?.user) {
         setUser(session.user);
         loadItem();
+        loadUserProfile(session.user.id);
       } else {
         navigate("/auth");
       }
@@ -40,6 +44,18 @@ const Checkout = () => {
       setItem(data);
     }
     setLoading(false);
+  };
+
+  const loadUserProfile = async (userId: string) => {
+    const { data } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", userId)
+      .single();
+    
+    if (data) {
+      setUserProfile(data);
+    }
   };
 
   const handlePurchase = async () => {
@@ -191,6 +207,48 @@ const Checkout = () => {
                 </div>
               </div>
             </div>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="w-full mb-4">
+                  <UserIcon className="w-4 h-4 ml-2" />
+                  מדוד על הבובה שלי 👗
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle className="text-right">מדידה וירטואלית</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  {userProfile?.height || userProfile?.weight ? (
+                    <>
+                      <VirtualMannequin
+                        height={userProfile?.height}
+                        weight={userProfile?.weight}
+                        bodyType={userProfile?.body_type}
+                        chestSize={userProfile?.chest_size}
+                        waistSize={userProfile?.waist_size}
+                        hipSize={userProfile?.hip_size}
+                      />
+                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-right">
+                        <p className="text-yellow-800">
+                          🤖 <strong>תכונה בפיתוח:</strong> בעתיד תוכלו לראות את הפריט על הבובה שלכם בצורה מדויקת באמצעות בינה מלאכותית
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-center py-8">
+                      <p className="text-muted-foreground mb-4">
+                        כדי להשתמש בתכונה זו, יש להוסיף את מידות הגוף בפרופיל שלכם
+                      </p>
+                      <Button onClick={() => navigate('/profile')}>
+                        עבור לפרופיל
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </DialogContent>
+            </Dialog>
 
             <div className="flex gap-4">
               <Button
