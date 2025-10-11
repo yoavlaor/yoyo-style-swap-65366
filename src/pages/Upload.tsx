@@ -9,9 +9,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Upload as UploadIcon, X } from "lucide-react";
+import { Upload as UploadIcon, X, Edit } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { ItemVerificationCard } from "@/components/ItemVerificationCard";
+import { ImageEditor } from "@/components/ImageEditor";
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const Upload = () => {
   const [gender, setGender] = useState("");
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [editingImageIndex, setEditingImageIndex] = useState<number | null>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -74,6 +76,33 @@ const Upload = () => {
   const removeImage = (index: number) => {
     setImageFiles(imageFiles.filter((_, i) => i !== index));
     setImagePreviews(imagePreviews.filter((_, i) => i !== index));
+  };
+
+  const handleEditImage = (index: number) => {
+    setEditingImageIndex(index);
+  };
+
+  const handleSaveEditedImage = (blob: Blob) => {
+    if (editingImageIndex === null) return;
+
+    const file = new File([blob], imageFiles[editingImageIndex].name, { type: "image/jpeg" });
+    const newImageFiles = [...imageFiles];
+    newImageFiles[editingImageIndex] = file;
+    setImageFiles(newImageFiles);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const newPreviews = [...imagePreviews];
+      newPreviews[editingImageIndex] = reader.result as string;
+      setImagePreviews(newPreviews);
+    };
+    reader.readAsDataURL(file);
+
+    setEditingImageIndex(null);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingImageIndex(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -198,13 +227,24 @@ const Upload = () => {
                             alt={`תצוגה מקדימה ${index + 1}`}
                             className="w-full h-24 object-cover rounded-lg shadow-soft"
                           />
-                          <button
-                            type="button"
-                            onClick={() => removeImage(index)}
-                            className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <X className="w-4 h-4" />
-                          </button>
+                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => handleEditImage(index)}
+                              className="bg-primary text-primary-foreground rounded-full p-2 hover:bg-primary/90 transition-colors"
+                              title="עריכה"
+                            >
+                              <Edit className="w-4 h-4" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => removeImage(index)}
+                              className="bg-destructive text-destructive-foreground rounded-full p-2 hover:bg-destructive/90 transition-colors"
+                              title="מחיקה"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -431,6 +471,15 @@ const Upload = () => {
               </form>
             </CardContent>
           </Card>
+
+          {editingImageIndex !== null && (
+            <ImageEditor
+              imageSrc={imagePreviews[editingImageIndex]}
+              onSave={handleSaveEditedImage}
+              onCancel={handleCancelEdit}
+              isOpen={true}
+            />
+          )}
         </div>
       </div>
     </>
