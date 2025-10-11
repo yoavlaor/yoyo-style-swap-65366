@@ -55,34 +55,66 @@ const Auth = () => {
     
     setLoading(true);
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/`,
-        data: {
-          username,
-          phone,
-          address,
-        },
-      },
-    });
+    if (verificationMethod === "sms") {
+      // Format phone number to international format
+      const formattedPhone = phone.startsWith('+') ? phone : `+972${phone.replace(/^0/, '')}`;
+      
+      const { error } = await supabase.auth.signInWithOtp({
+        phone: formattedPhone,
+        options: {
+          data: {
+            username,
+            email,
+            address,
+          }
+        }
+      });
 
-    if (error) {
-      toast({
-        title: "שגיאה בהרשמה",
-        description: error.message,
-        variant: "destructive",
-      });
-      setLoading(false);
+      if (error) {
+        toast({
+          title: "שגיאה בשליחת SMS",
+          description: error.message,
+          variant: "destructive",
+        });
+        setLoading(false);
+      } else {
+        setOtpSent(true);
+        toast({
+          title: "קוד נשלח!",
+          description: "קוד אימות נשלח לטלפון שלך דרך SMS",
+        });
+        setLoading(false);
+      }
     } else {
-      // Send OTP for verification
-      setOtpSent(true);
-      toast({
-        title: "נרשמת בהצלחה!",
-        description: `קוד אימות נשלח ל${verificationMethod === "email" ? "אימייל" : "טלפון"} שלך`,
+      // Email verification
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+          data: {
+            username,
+            phone,
+            address,
+          },
+        },
       });
-      setLoading(false);
+
+      if (error) {
+        toast({
+          title: "שגיאה בהרשמה",
+          description: error.message,
+          variant: "destructive",
+        });
+        setLoading(false);
+      } else {
+        setOtpSent(true);
+        toast({
+          title: "נרשמת בהצלחה!",
+          description: "קוד אימות נשלח לאימייל שלך",
+        });
+        setLoading(false);
+      }
     }
   };
 
@@ -90,11 +122,23 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await supabase.auth.verifyOtp({
-      email,
-      token: otp,
-      type: 'email',
-    });
+    let verifyOptions;
+    if (verificationMethod === "sms") {
+      const formattedPhone = phone.startsWith('+') ? phone : `+972${phone.replace(/^0/, '')}`;
+      verifyOptions = {
+        phone: formattedPhone,
+        token: otp,
+        type: 'sms' as const,
+      };
+    } else {
+      verifyOptions = {
+        email,
+        token: otp,
+        type: 'email' as const,
+      };
+    }
+
+    const { error } = await supabase.auth.verifyOtp(verifyOptions);
 
     if (error) {
       toast({
@@ -110,7 +154,7 @@ const Auth = () => {
         await supabase.from('profiles').update({
           phone,
           address,
-          is_phone_verified: true
+          is_phone_verified: verificationMethod === "sms"
         }).eq('id', user.id);
       }
       
@@ -254,6 +298,27 @@ const Auth = () => {
                       placeholder="לפחות 6 תווים"
                     />
                   </div>
+                  <div className="space-y-3">
+                    <Label>איך תרצו לקבל את קוד האימות? 📲</Label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button
+                        type="button"
+                        variant={verificationMethod === "email" ? "default" : "outline"}
+                        className="w-full"
+                        onClick={() => setVerificationMethod("email")}
+                      >
+                        📧 אימייל
+                      </Button>
+                      <Button
+                        type="button"
+                        variant={verificationMethod === "sms" ? "default" : "outline"}
+                        className="w-full"
+                        onClick={() => setVerificationMethod("sms")}
+                      >
+                        📱 SMS
+                      </Button>
+                    </div>
+                  </div>
                   <div className="flex items-start gap-3 py-2">
                     <Checkbox
                       id="terms"
@@ -280,7 +345,7 @@ const Auth = () => {
                   <div className="space-y-2">
                     <Label htmlFor="otp-code">הזינו את קוד האימות 🔐</Label>
                     <p className="text-sm text-muted-foreground text-center mb-4">
-                      שלחנו קוד בן 6 ספרות ל{email}
+                      שלחנו קוד בן 6 ספרות {verificationMethod === "email" ? `לאימייל ${email}` : `לטלפון ${phone}`}
                     </p>
                     <Input
                       id="otp-code"
