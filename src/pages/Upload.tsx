@@ -385,19 +385,19 @@ const Upload = () => {
                       <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
                         <input
                           type="checkbox"
-                          id="pickup"
-                          checked={shippingMethods.includes("איסוף עצמי 🤝")}
+                          id="face-to-face"
+                          checked={shippingMethods.includes("פנים אל פנים 🤝")}
                           onChange={(e) => {
                             if (e.target.checked) {
-                              setShippingMethods([...shippingMethods, "איסוף עצמי 🤝"]);
+                              setShippingMethods([...shippingMethods, "פנים אל פנים 🤝"]);
                             } else {
-                              setShippingMethods(shippingMethods.filter(m => m !== "איסוף עצמי 🤝"));
+                              setShippingMethods(shippingMethods.filter(m => m !== "פנים אל פנים 🤝"));
                             }
                           }}
                           className="w-4 h-4 accent-primary"
                         />
-                        <label htmlFor="pickup" className="flex-1 cursor-pointer text-sm">
-                          איסוף עצמי 🤝
+                        <label htmlFor="face-to-face" className="flex-1 cursor-pointer text-sm">
+                          פנים אל פנים 🤝
                         </label>
                       </div>
                       <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
@@ -421,13 +421,13 @@ const Upload = () => {
                       <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
                         <input
                           type="checkbox"
-                          id="both"
-                          checked={shippingMethods.includes("שניהם 🎁")}
+                          id="yoyo-station"
+                          checked={shippingMethods.includes("איסוף מתחנת יויו 🏪")}
                           onChange={(e) => {
                             if (e.target.checked) {
-                              setShippingMethods([...shippingMethods, "שניהם 🎁"]);
+                              setShippingMethods([...shippingMethods, "איסוף מתחנת יויו 🏪"]);
                             } else {
-                              setShippingMethods(shippingMethods.filter(m => m !== "שניהם 🎁"));
+                              setShippingMethods(shippingMethods.filter(m => m !== "איסוף מתחנת יויו 🏪"));
                             }
                           }}
                           className="w-4 h-4 accent-primary"

@@ -160,6 +160,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          address: string | null
           avatar_url: string | null
           bio: string | null
           body_type: string | null
@@ -169,10 +170,13 @@ export type Database = {
           height: number | null
           id: string
           is_face_verified: boolean | null
+          is_phone_verified: boolean | null
+          phone: string | null
           username: string
           weight: number | null
         }
         Insert: {
+          address?: string | null
           avatar_url?: string | null
           bio?: string | null
           body_type?: string | null
@@ -182,10 +186,13 @@ export type Database = {
           height?: number | null
           id: string
           is_face_verified?: boolean | null
+          is_phone_verified?: boolean | null
+          phone?: string | null
           username: string
           weight?: number | null
         }
         Update: {
+          address?: string | null
           avatar_url?: string | null
           bio?: string | null
           body_type?: string | null
@@ -195,6 +202,8 @@ export type Database = {
           height?: number | null
           id?: string
           is_face_verified?: boolean | null
+          is_phone_verified?: boolean | null
+          phone?: string | null
           username?: string
           weight?: number | null
         }

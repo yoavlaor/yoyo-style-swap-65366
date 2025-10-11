@@ -168,7 +168,7 @@ export const ProductFeed = () => {
   const brands = ["Zara", "H&M", "Mango", "Pull&Bear", "Bershka", "Nike", "Adidas", "Castro", "Fox", "אחר"];
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const conditions = ["חדש עם תווית 🏷️", "כמו חדש ✨", "משומש מצוין 👌", "משומש טוב 👍"];
-  const shippingMethods = ["איסוף עצמי 🤝", "משלוח 📦", "שניהם 🎁"];
+  const shippingMethods = ["פנים אל פנים 🤝", "משלוח 📦", "איסוף מתחנת יויו 🏪"];
 
   return (
     <section className="py-20 px-4 bg-background">
