@@ -133,15 +133,15 @@ const Upload = () => {
 
       const { error } = await supabase.from("items").insert({
         seller_id: user.id,
-        title,
-        description,
-        price: parseFloat(price),
-        category,
-        size,
-        condition,
-        brand,
-        shipping_method: shippingMethods,
-        gender,
+        title: title || "פריט ללא שם",
+        description: description || null,
+        price: price ? parseFloat(price) : 0,
+        category: category || null,
+        size: size || null,
+        condition: condition || null,
+        brand: brand || null,
+        shipping_method: shippingMethods.length > 0 ? shippingMethods : null,
+        gender: gender || null,
         images: imageUrls,
       });
 
@@ -257,7 +257,6 @@ const Upload = () => {
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    required
                     placeholder="למשל: חולצה מושלמת לקיץ ☀️"
                     className="bg-background"
                   />
@@ -284,7 +283,6 @@ const Upload = () => {
                       step="0.01"
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
-                      required
                       dir="ltr"
                       placeholder="100"
                       className="bg-background"
@@ -367,7 +365,7 @@ const Upload = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="gender">למי זה מיועד? 👥</Label>
-                    <Select value={gender} onValueChange={setGender} required>
+                    <Select value={gender} onValueChange={setGender}>
                       <SelectTrigger className="bg-background">
                         <SelectValue placeholder="בחרו" />
                       </SelectTrigger>
@@ -454,7 +452,7 @@ const Upload = () => {
                 <div className="flex gap-4 pt-4">
                   <Button 
                     type="submit" 
-                    disabled={loading || imageFiles.length === 0 || shippingMethods.length === 0} 
+                    disabled={loading} 
                     className="flex-1 shadow-warm hover:shadow-lg transition-shadow"
                   >
                     {loading ? "מעלה... רגע קטן! ⏳" : "יאללה, בואו נמכור! 🎉"}
