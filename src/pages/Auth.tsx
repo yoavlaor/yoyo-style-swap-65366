@@ -9,7 +9,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TermsOfService } from "@/components/TermsOfService";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -278,23 +277,22 @@ const Auth = () => {
                 </form>
               ) : (
                 <form onSubmit={handleVerifyOTP} className="space-y-4">
-                  <div className="space-y-2 text-center">
-                    <Label>הזינו את קוד האימות 🔐</Label>
-                    <p className="text-sm text-muted-foreground">
-                      שלחנו קוד ל{email}
+                  <div className="space-y-2">
+                    <Label htmlFor="otp-code">הזינו את קוד האימות 🔐</Label>
+                    <p className="text-sm text-muted-foreground text-center mb-4">
+                      שלחנו קוד בן 6 ספרות ל{email}
                     </p>
-                    <div className="flex justify-center py-4">
-                      <InputOTP maxLength={6} value={otp} onChange={setOtp}>
-                        <InputOTPGroup>
-                          <InputOTPSlot index={0} />
-                          <InputOTPSlot index={1} />
-                          <InputOTPSlot index={2} />
-                          <InputOTPSlot index={3} />
-                          <InputOTPSlot index={4} />
-                          <InputOTPSlot index={5} />
-                        </InputOTPGroup>
-                      </InputOTP>
-                    </div>
+                    <Input
+                      id="otp-code"
+                      type="text"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                      placeholder="123456"
+                      maxLength={6}
+                      dir="ltr"
+                      className="text-center text-2xl tracking-widest font-mono"
+                      required
+                    />
                   </div>
                   <Button type="submit" className="w-full" disabled={loading || otp.length !== 6}>
                     {loading ? "מאמת... ⏳" : "אמת קוד ✓"}
