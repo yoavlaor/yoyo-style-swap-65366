@@ -162,6 +162,7 @@ export type Database = {
         Row: {
           address: string | null
           avatar_url: string | null
+          average_rating: number | null
           bio: string | null
           body_type: string | null
           created_at: string | null
@@ -172,12 +173,14 @@ export type Database = {
           is_face_verified: boolean | null
           is_phone_verified: boolean | null
           phone: string | null
+          total_ratings: number | null
           username: string
           weight: number | null
         }
         Insert: {
           address?: string | null
           avatar_url?: string | null
+          average_rating?: number | null
           bio?: string | null
           body_type?: string | null
           created_at?: string | null
@@ -188,12 +191,14 @@ export type Database = {
           is_face_verified?: boolean | null
           is_phone_verified?: boolean | null
           phone?: string | null
+          total_ratings?: number | null
           username: string
           weight?: number | null
         }
         Update: {
           address?: string | null
           avatar_url?: string | null
+          average_rating?: number | null
           bio?: string | null
           body_type?: string | null
           created_at?: string | null
@@ -204,8 +209,33 @@ export type Database = {
           is_face_verified?: boolean | null
           is_phone_verified?: boolean | null
           phone?: string | null
+          total_ratings?: number | null
           username?: string
           weight?: number | null
+        }
+        Relationships: []
+      }
+      seller_ratings: {
+        Row: {
+          created_at: string
+          id: string
+          rating: number
+          seller_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          rating: number
+          seller_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          rating?: number
+          seller_id?: string
+          user_id?: string
         }
         Relationships: []
       }
