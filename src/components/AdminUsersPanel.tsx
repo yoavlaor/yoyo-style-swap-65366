@@ -57,26 +57,36 @@ export const AdminUsersPanel = () => {
   const loadUsers = async () => {
     setLoading(true);
     
-    // Get profiles data with auth information
-    const { data: profiles } = await supabase
-      .from("profiles")
-      .select("*")
-      .order("created_at", { ascending: false });
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        toast({
+          title: "שגיאה",
+          description: "יש להתחבר מחדש",
+          variant: "destructive",
+        });
+        return;
+      }
 
-    if (profiles) {
-      // Get email from auth metadata if available
-      const usersWithEmail = await Promise.all(
-        profiles.map(async (profile) => {
-          const { data: { user } } = await supabase.auth.getUser();
-          // For now, we'll use the profile data only
-          // In production, you'd fetch email from auth.users table via API
-          return {
-            ...profile,
-            email: `${profile.username}@example.com`, // Placeholder
-          };
-        })
-      );
-      setUsers(usersWithEmail);
+      const { data, error } = await supabase.functions.invoke('list-users', {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (error) throw error;
+
+      if (data?.users) {
+        setUsers(data.users);
+      }
+    } catch (error: any) {
+      console.error('Error loading users:', error);
+      toast({
+        title: "שגיאה בטעינת משתמשים",
+        description: error.message,
+        variant: "destructive",
+      });
     }
     
     setLoading(false);
@@ -84,8 +94,23 @@ export const AdminUsersPanel = () => {
 
   const handleDeleteUser = async (userId: string, username: string) => {
     try {
-      // Delete user from auth (this will cascade delete from profiles due to FK)
-      const { error } = await supabase.auth.admin.deleteUser(userId);
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        toast({
+          title: "שגיאה",
+          description: "יש להתחבר מחדש",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const { data, error } = await supabase.functions.invoke('delete-user', {
+        body: { userId },
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
 
       if (error) throw error;
 
@@ -96,9 +121,10 @@ export const AdminUsersPanel = () => {
 
       loadUsers();
     } catch (error: any) {
+      console.error('Error deleting user:', error);
       toast({
         title: "שגיאה במחיקת משתמש",
-        description: error.message,
+        description: error.message || "אנא נסה שנית",
         variant: "destructive",
       });
     }
