@@ -341,6 +341,7 @@ export const ProductFeed = () => {
               <ProductCard
                 key={product.id}
                 id={product.id}
+                sellerId={product.seller_id}
                 image={product.images?.[0]}
                 title={product.title}
                 brand={product.brand}

@@ -9,6 +9,7 @@ import { ShoppingBag, User as UserIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { VirtualMannequin } from "@/components/VirtualMannequin";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { SellerRating } from "@/components/SellerRating";
 
 const Checkout = () => {
   const { itemId } = useParams();
@@ -174,8 +175,18 @@ const Checkout = () => {
                 </div>
                 <div>
                   <span className="text-muted-foreground">מוכר:</span>
-                  <span className="mr-2">{item.profiles?.username}</span>
+                  <button
+                    onClick={() => navigate(`/seller/${item.seller_id}`)}
+                    className="mr-2 text-primary hover:underline"
+                  >
+                    {item.profiles?.username}
+                  </button>
                 </div>
+              </div>
+
+              {/* Seller Rating */}
+              <div className="mt-4">
+                <SellerRating sellerId={item.seller_id} currentUserId={user?.id} />
               </div>
 
               <div className="border-t pt-4 space-y-4">

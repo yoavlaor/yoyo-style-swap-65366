@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   id?: string;
+  sellerId?: string;
   image: string;
   title: string;
   brand: string;
@@ -21,6 +22,7 @@ interface ProductCardProps {
 
 export const ProductCard = ({ 
   id,
+  sellerId,
   image, 
   title, 
   brand, 
@@ -104,7 +106,12 @@ export const ProductCard = ({
 
         <div className="flex items-center gap-1 text-sm text-muted-foreground">
           <MapPin className="h-4 w-4 text-sage" />
-          <span>{location}</span>
+          <button
+            onClick={() => sellerId && navigate(`/seller/${sellerId}`)}
+            className="hover:text-primary hover:underline transition-colors"
+          >
+            {location}
+          </button>
           <span className="text-xs">• {distance}</span>
         </div>
         

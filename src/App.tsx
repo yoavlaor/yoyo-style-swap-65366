@@ -10,6 +10,7 @@ import Upload from "./pages/Upload";
 import Checkout from "./pages/Checkout";
 import Chat from "./pages/Chat";
 import EditItem from "./pages/EditItem";
+import SellerProfile from "./pages/SellerProfile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/checkout/:itemId" element={<Checkout />} />
           <Route path="/chat/:chatId" element={<Chat />} />
           <Route path="/edit-item/:id" element={<EditItem />} />
+          <Route path="/seller/:sellerId" element={<SellerProfile />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
