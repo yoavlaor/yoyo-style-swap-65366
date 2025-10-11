@@ -117,18 +117,11 @@ export const ProductCard = ({
         
         {shippingMethods && shippingMethods.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-2">
-            {shippingMethods.map((method) => {
-              const methodLabels: Record<string, string> = {
-                "face-to-face": "פנים אל פנים 👥",
-                "digital-stamp": "בול דיגיטלי 📬",
-                "yoyo-station": "תחנת YOYO 🏪"
-              };
-              return (
-                <Badge key={method} variant="secondary" className="text-xs bg-primary/10 text-primary border-0">
-                  {methodLabels[method] || method}
-                </Badge>
-              );
-            })}
+            {shippingMethods.map((method, index) => (
+              <Badge key={index} variant="secondary" className="text-xs bg-primary/10 text-primary border-0">
+                {method}
+              </Badge>
+            ))}
           </div>
         )}
       </div>
