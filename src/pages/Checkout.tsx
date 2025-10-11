@@ -119,17 +119,17 @@ const Checkout = () => {
       description: "תודה על התרומה לקהילה הירוקה שלנו 🌿",
     });
 
-    // Redirect to YouTube video
-    window.open("https://www.youtube.com/watch?v=PrZbUAmbUWE&list=RDPrZbUAmbUWE&start_radio=1", "_blank");
+    // Open BitPay link
+    window.open("https://www.bitpay.co.il/he", "_blank");
     
-    // Navigate to chat after a short delay
+    // Navigate to chat
     setTimeout(() => {
       if (chat) {
         navigate(`/chat/${chat.id}`);
       } else {
         navigate("/profile");
       }
-    }, 1000);
+    }, 500);
   };
 
   if (loading) {
