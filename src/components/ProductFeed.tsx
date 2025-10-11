@@ -23,6 +23,27 @@ export const ProductFeed = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [genderFilter, setGenderFilter] = useState<string>("women");
+  const [userGender, setUserGender] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadUserGender = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("gender")
+          .eq("id", user.id)
+          .single();
+        
+        if (profile?.gender) {
+          setUserGender(profile.gender);
+          setGenderFilter(profile.gender === "male" ? "men" : "women");
+        }
+      }
+    };
+    
+    loadUserGender();
+  }, []);
 
   const loadItems = async () => {
     const { data } = await supabase

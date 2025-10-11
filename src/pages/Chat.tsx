@@ -132,6 +132,9 @@ const Chat = () => {
                   <p className="text-sm text-muted-foreground">
                     בשיחה עם {otherUser?.username} 🌿
                   </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    🤖 מנוע חיפוש מופעל על ידי בינה מלאכותית
+                  </p>
                 </div>
                 <Button variant="outline" onClick={() => navigate("/profile")}>
                   חזרה

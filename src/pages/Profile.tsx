@@ -233,9 +233,6 @@ const Profile = () => {
                 height={profile?.height || undefined}
                 weight={profile?.weight || undefined}
                 bodyType={profile?.body_type || undefined}
-                chestSize={profile?.chest_size || undefined}
-                waistSize={profile?.waist_size || undefined}
-                hipSize={profile?.hip_size || undefined}
               />
 
               <div className="mt-4">
@@ -245,9 +242,7 @@ const Profile = () => {
                     height: profile?.height || undefined,
                     weight: profile?.weight || undefined,
                     bodyType: profile?.body_type || undefined,
-                    chestSize: profile?.chest_size || undefined,
-                    waistSize: profile?.waist_size || undefined,
-                    hipSize: profile?.hip_size || undefined,
+                    gender: profile?.gender || undefined,
                   }}
                   onSave={() => loadProfile(user?.id || "")}
                 />

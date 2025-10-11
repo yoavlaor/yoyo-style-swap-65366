@@ -14,9 +14,7 @@ interface BodyMeasurementsFormProps {
     height?: number;
     weight?: number;
     bodyType?: string;
-    chestSize?: number;
-    waistSize?: number;
-    hipSize?: number;
+    gender?: string;
   };
   onSave?: () => void;
 }
@@ -28,9 +26,7 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
     height: initialData?.height?.toString() || "",
     weight: initialData?.weight?.toString() || "",
     bodyType: initialData?.bodyType || "",
-    chestSize: initialData?.chestSize?.toString() || "",
-    waistSize: initialData?.waistSize?.toString() || "",
-    hipSize: initialData?.hipSize?.toString() || "",
+    gender: initialData?.gender || "",
   });
 
   const handleSave = async () => {
@@ -42,9 +38,7 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
           height: measurements.height ? parseFloat(measurements.height) : null,
           weight: measurements.weight ? parseFloat(measurements.weight) : null,
           body_type: measurements.bodyType || null,
-          chest_size: measurements.chestSize ? parseFloat(measurements.chestSize) : null,
-          waist_size: measurements.waistSize ? parseFloat(measurements.waistSize) : null,
-          hip_size: measurements.hipSize ? parseFloat(measurements.hipSize) : null,
+          gender: measurements.gender || null,
         })
         .eq('id', userId);
 
@@ -78,25 +72,17 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="height">גובה (ס"מ)</Label>
-            <Input
-              id="height"
-              type="number"
-              placeholder="170"
-              value={measurements.height}
-              onChange={(e) => setMeasurements({ ...measurements, height: e.target.value })}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="weight">משקל (ק"ג)</Label>
-            <Input
-              id="weight"
-              type="number"
-              placeholder="65"
-              value={measurements.weight}
-              onChange={(e) => setMeasurements({ ...measurements, weight: e.target.value })}
-            />
+            <Label htmlFor="gender">מגדר</Label>
+            <Select value={measurements.gender} onValueChange={(value) => setMeasurements({ ...measurements, gender: value })}>
+              <SelectTrigger>
+                <SelectValue placeholder="בחרו מגדר" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="male">גבר</SelectItem>
+                <SelectItem value="female">אישה</SelectItem>
+                <SelectItem value="other">אחר</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
@@ -116,35 +102,24 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="chestSize">היקף חזה (ס"מ)</Label>
+            <Label htmlFor="height">גובה (ס"מ)</Label>
             <Input
-              id="chestSize"
+              id="height"
               type="number"
-              placeholder="90"
-              value={measurements.chestSize}
-              onChange={(e) => setMeasurements({ ...measurements, chestSize: e.target.value })}
+              placeholder="170"
+              value={measurements.height}
+              onChange={(e) => setMeasurements({ ...measurements, height: e.target.value })}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="waistSize">היקף מותניים (ס"מ)</Label>
+            <Label htmlFor="weight">משקל (ק"ג)</Label>
             <Input
-              id="waistSize"
+              id="weight"
               type="number"
-              placeholder="70"
-              value={measurements.waistSize}
-              onChange={(e) => setMeasurements({ ...measurements, waistSize: e.target.value })}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="hipSize">היקף ירכיים (ס"מ)</Label>
-            <Input
-              id="hipSize"
-              type="number"
-              placeholder="95"
-              value={measurements.hipSize}
-              onChange={(e) => setMeasurements({ ...measurements, hipSize: e.target.value })}
+              placeholder="65"
+              value={measurements.weight}
+              onChange={(e) => setMeasurements({ ...measurements, weight: e.target.value })}
             />
           </div>
         </div>

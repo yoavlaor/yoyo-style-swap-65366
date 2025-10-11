@@ -11,6 +11,7 @@ import { User } from "@supabase/supabase-js";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Upload as UploadIcon, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import { ItemVerificationCard } from "@/components/ItemVerificationCard";
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -388,6 +389,17 @@ const Upload = () => {
                     </div>
                   </div>
                 </div>
+
+                <ItemVerificationCard 
+                  onVerificationComplete={(verified) => {
+                    if (verified) {
+                      toast({
+                        title: "הפריט אומת בהצלחה! ✓",
+                        description: "הפריט שלך יקבל תג מאומת",
+                      });
+                    }
+                  }}
+                />
 
                 <div className="flex gap-4 pt-4">
                   <Button 

@@ -5,18 +5,12 @@ interface VirtualMannequinProps {
   height?: number;
   weight?: number;
   bodyType?: string;
-  chestSize?: number;
-  waistSize?: number;
-  hipSize?: number;
 }
 
 export const VirtualMannequin = ({
   height,
   weight,
   bodyType,
-  chestSize,
-  waistSize,
-  hipSize,
 }: VirtualMannequinProps) => {
   const hasData = height || weight || bodyType;
 
@@ -51,22 +45,10 @@ export const VirtualMannequin = ({
                   <span className="font-semibold mr-2">{weight} ק"ג</span>
                 </div>
               )}
-              {chestSize && (
-                <div className="text-right">
-                  <span className="text-muted-foreground">חזה:</span>
-                  <span className="font-semibold mr-2">{chestSize} ס"מ</span>
-                </div>
-              )}
-              {waistSize && (
-                <div className="text-right">
-                  <span className="text-muted-foreground">מותניים:</span>
-                  <span className="font-semibold mr-2">{waistSize} ס"מ</span>
-                </div>
-              )}
-              {hipSize && (
-                <div className="text-right">
-                  <span className="text-muted-foreground">ירכיים:</span>
-                  <span className="font-semibold mr-2">{hipSize} ס"מ</span>
+              {bodyType && (
+                <div className="text-right col-span-2">
+                  <span className="text-muted-foreground">מבנה גוף:</span>
+                  <span className="font-semibold mr-2">{bodyType}</span>
                 </div>
               )}
             </div>

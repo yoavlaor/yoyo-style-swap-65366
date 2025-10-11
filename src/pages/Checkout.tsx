@@ -226,9 +226,6 @@ const Checkout = () => {
                         height={userProfile?.height}
                         weight={userProfile?.weight}
                         bodyType={userProfile?.body_type}
-                        chestSize={userProfile?.chest_size}
-                        waistSize={userProfile?.waist_size}
-                        hipSize={userProfile?.hip_size}
                       />
                       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-right">
                         <p className="text-yellow-800">
