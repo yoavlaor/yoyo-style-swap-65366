@@ -309,7 +309,7 @@ const Upload = () => {
                       <SelectItem value="new">חדש לגמרי! 🌟</SelectItem>
                       <SelectItem value="like-new">כמעט לא נלבש 💎</SelectItem>
                       <SelectItem value="good">במצב טוב 👍</SelectItem>
-                      <SelectItem value="fair">נלבש אבל עדיין יפה 💚</SelectItem>
+                      <SelectItem value="fair">נלבש אבל תקין 💚</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
