@@ -41,6 +41,7 @@ export const ProductFeed = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   
   // Filter states
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
   const [selectedShipping, setSelectedShipping] = useState<string[]>([]);
@@ -85,6 +86,9 @@ export const ProductFeed = () => {
       .or(`gender.eq.${genderFilter},gender.eq.unisex`);
 
     // Apply filters
+    if (selectedCategories.length > 0) {
+      query = query.in("category", selectedCategories);
+    }
     if (selectedSizes.length > 0) {
       query = query.in("size", selectedSizes);
     }
@@ -142,7 +146,7 @@ export const ProductFeed = () => {
 
   useEffect(() => {
     loadItems();
-  }, [genderFilter, selectedSizes, selectedConditions, selectedShipping, searchQuery]);
+  }, [genderFilter, selectedCategories, selectedSizes, selectedConditions, selectedShipping, searchQuery]);
 
   const toggleFilter = (value: string, selected: string[], setter: (val: string[]) => void) => {
     if (selected.includes(value)) {
@@ -153,6 +157,7 @@ export const ProductFeed = () => {
   };
 
   const clearFilters = () => {
+    setSelectedCategories([]);
     setSelectedSizes([]);
     setSelectedConditions([]);
     setSelectedShipping([]);
@@ -160,6 +165,7 @@ export const ProductFeed = () => {
     setSearchQuery("");
   };
 
+  const categories = ["חולצה 👕", "מכנסיים 👖", "שמלה 👗", "חצאית 🎽", "ג'קט 🧥", "נעליים 👟", "תיק 👜", "אקססוריז 💍"];
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const conditions = ["חדש עם תווית 🏷️", "כמו חדש ✨", "משומש מצוין 👌", "משומש טוב 👍"];
   const shippingMethods = ["פנים אל פנים 🤝", "משלוח 📦", "איסוף מתחנת יויו 🏪"];
@@ -215,6 +221,25 @@ export const ProductFeed = () => {
               </SheetHeader>
               
               <div className="mt-6 space-y-6" dir="rtl">
+                {/* Category Filter */}
+                <div className="space-y-3">
+                  <Label className="text-base font-semibold">סוג הפריט 👔</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {categories.map(category => (
+                      <div key={category} className="flex items-center space-x-2 space-x-reverse">
+                        <Checkbox
+                          id={`category-${category}`}
+                          checked={selectedCategories.includes(category)}
+                          onCheckedChange={() => toggleFilter(category, selectedCategories, setSelectedCategories)}
+                        />
+                        <label htmlFor={`category-${category}`} className="text-sm cursor-pointer">
+                          {category}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Size Filter */}
                 <div className="space-y-3">
                   <Label className="text-base font-semibold">מידות 📏</Label>
