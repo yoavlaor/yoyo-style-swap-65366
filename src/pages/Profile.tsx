@@ -37,6 +37,7 @@ const Profile = () => {
   const [bio, setBio] = useState("");
   const [myItems, setMyItems] = useState<any[]>([]);
   const [myPurchases, setMyPurchases] = useState<any[]>([]);
+  const [mySales, setMySales] = useState<any[]>([]);
   const [profile, setProfile] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -47,6 +48,7 @@ const Profile = () => {
         loadProfile(session.user.id);
         loadMyItems(session.user.id);
         loadMyPurchases(session.user.id);
+        loadMySales(session.user.id);
         checkAdminStatus(session.user.id);
       } else {
         navigate("/auth");
@@ -111,6 +113,21 @@ const Profile = () => {
       .order("created_at", { ascending: false });
     
     if (data) setMyPurchases(data);
+  };
+
+  const loadMySales = async (userId: string) => {
+    const { data } = await supabase
+      .from("transactions")
+      .select(`
+        *,
+        items(*),
+        profiles!transactions_buyer_id_fkey(username, full_name),
+        chats!inner(id, buyer_id, seller_id, item_id)
+      `)
+      .eq("seller_id", userId)
+      .order("created_at", { ascending: false });
+    
+    if (data) setMySales(data);
   };
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
@@ -185,11 +202,12 @@ const Profile = () => {
           </div>
 
           <Tabs defaultValue="profile">
-            <TabsList className={`grid w-full ${isAdmin ? 'grid-cols-5' : 'grid-cols-4'}`}>
+            <TabsList className={`grid w-full ${isAdmin ? 'grid-cols-6' : 'grid-cols-5'}`}>
               <TabsTrigger value="profile">קצת עלי 👤</TabsTrigger>
               <TabsTrigger value="mannequin">הבובה שלי 👗</TabsTrigger>
               <TabsTrigger value="items">מה אני מוכר/ת 👕</TabsTrigger>
               <TabsTrigger value="purchases">מה קניתי 🛍️</TabsTrigger>
+              <TabsTrigger value="sales">מה מכרתי 💰</TabsTrigger>
               {isAdmin && <TabsTrigger value="admin">ניהול 👑</TabsTrigger>}
             </TabsList>
 
@@ -358,6 +376,70 @@ const Profile = () => {
                     {myPurchases.length === 0 && (
                       <p className="text-muted-foreground text-center py-8">
                         עדיין לא קניתם כלום... בואו נמצא משהו יפה! 🛍️
+                      </p>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="sales">
+              <Card className="shadow-card bg-gradient-card border-border/50">
+                <CardHeader>
+                  <CardTitle>המכירות שלי ({mySales.length})</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {mySales.map((sale) => (
+                      <Card key={sale.id} className="hover:shadow-lg transition-shadow">
+                        <CardContent className="p-4 space-y-3">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h3 className="font-semibold text-lg">{sale.items?.title}</h3>
+                              <p className="text-primary font-bold text-xl">₪{sale.amount}</p>
+                            </div>
+                            <div className="text-left">
+                              <p className="text-sm text-muted-foreground">נמכר ב:</p>
+                              <p className="text-sm">{new Date(sale.created_at).toLocaleDateString('he-IL')}</p>
+                            </div>
+                          </div>
+                          
+                          <div className="border-t pt-3 space-y-2">
+                            <div className="grid grid-cols-2 gap-2 text-sm">
+                              <div>
+                                <span className="text-muted-foreground">נקנה על ידי:</span>
+                                <p className="font-medium">{sale.profiles?.full_name || sale.profiles?.username || 'לא ידוע'}</p>
+                              </div>
+                              <div>
+                                <span className="text-muted-foreground">משלוח:</span>
+                                <p className="font-medium">{sale.shipping_method}</p>
+                              </div>
+                              <div>
+                                <span className="text-muted-foreground">סטטוס:</span>
+                                <p className="font-medium text-sage">{sale.status} ✓</p>
+                              </div>
+                              <div>
+                                <span className="text-muted-foreground">פרטי הפריט:</span>
+                                <p className="font-medium">{sale.items?.brand} | {sale.items?.size}</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {sale.chats && sale.chats.length > 0 && (
+                            <Button
+                              onClick={() => navigate(`/chat/${sale.chats[0].id}`)}
+                              variant="outline"
+                              className="w-full"
+                            >
+                              💬 צ'אט עם הקונה
+                            </Button>
+                          )}
+                        </CardContent>
+                      </Card>
+                    ))}
+                    {mySales.length === 0 && (
+                      <p className="text-muted-foreground text-center py-8">
+                        עדיין לא מכרתם כלום... בואו נעלה בגדים! 📸
                       </p>
                     )}
                   </div>
