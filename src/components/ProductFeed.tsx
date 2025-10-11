@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 
 interface Item {
   id: string;
@@ -23,6 +24,8 @@ export const ProductFeed = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [genderFilter, setGenderFilter] = useState<string>("women");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { toast } = useToast();
   const [userGender, setUserGender] = useState<string | null>(null);
 
   useEffect(() => {
@@ -39,6 +42,16 @@ export const ProductFeed = () => {
           setUserGender(profile.gender);
           setGenderFilter(profile.gender === "male" ? "men" : "women");
         }
+        
+        // Check if user is admin
+        const { data: roles } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', user.id)
+          .eq('role', 'admin')
+          .maybeSingle();
+        
+        setIsAdmin(!!roles);
       }
     };
     
@@ -58,6 +71,32 @@ export const ProductFeed = () => {
       setItems(data);
     }
     setLoading(false);
+  };
+
+  const handleDeleteItem = async (itemId: string) => {
+    try {
+      const { error } = await supabase
+        .from('items')
+        .delete()
+        .eq('id', itemId);
+
+      if (error) throw error;
+
+      toast({
+        title: "הפריט נמחק בהצלחה",
+        description: "הפריט הוסר מהמערכת",
+      });
+
+      // Refresh items
+      loadItems();
+    } catch (error) {
+      console.error('Error deleting item:', error);
+      toast({
+        title: "שגיאה במחיקת הפריט",
+        description: "אנא נסה שוב מאוחר יותר",
+        variant: "destructive",
+      });
+    }
   };
 
   useEffect(() => {
@@ -124,6 +163,8 @@ export const ProductFeed = () => {
                 verified={true}
                 distance=""
                 shippingMethods={product.shipping_method || []}
+                isAdmin={isAdmin}
+                onDelete={handleDeleteItem}
               />
             ))}
           </div>

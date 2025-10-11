@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Heart, MapPin, CheckCircle2 } from "lucide-react";
+import { Heart, MapPin, CheckCircle2, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +15,8 @@ interface ProductCardProps {
   verified?: boolean;
   distance?: string;
   shippingMethods?: string[];
+  isAdmin?: boolean;
+  onDelete?: (id: string) => void;
 }
 
 export const ProductCard = ({ 
@@ -26,7 +28,9 @@ export const ProductCard = ({
   location, 
   verified = false,
   distance = "2 km away",
-  shippingMethods = []
+  shippingMethods = [],
+  isAdmin = false,
+  onDelete
 }: ProductCardProps) => {
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
@@ -52,6 +56,21 @@ export const ProductCard = ({
             className={`h-5 w-5 transition-all duration-200 ${liked ? 'fill-terracotta text-terracotta' : 'text-foreground'}`} 
           />
         </button>
+
+        {/* Admin Delete Button */}
+        {isAdmin && onDelete && id && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              if (window.confirm("האם אתה בטוח שברצונך למחוק פריט זה?")) {
+                onDelete(id);
+              }
+            }}
+            className="absolute top-3 left-3 p-2 rounded-full bg-red-500/90 backdrop-blur-sm hover:bg-red-600 transition-all duration-200 hover:scale-110 shadow-soft"
+          >
+            <Trash2 className="h-5 w-5 text-white" />
+          </button>
+        )}
 
         {/* Verified Badge */}
         {verified && (
