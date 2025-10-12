@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TermsOfService } from "@/components/TermsOfService";
-import { getUserMessage } from "@/lib/validation";
+import { getUserMessage, signupSchema } from "@/lib/validation";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -21,9 +21,6 @@ const Auth = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
-  const [otp, setOtp] = useState("");
-  const [verificationMethod, setVerificationMethod] = useState<"email" | "sms">("email");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -54,80 +51,20 @@ const Auth = () => {
       });
       return;
     }
-    
-    setLoading(true);
 
-    if (verificationMethod === "sms") {
-      // Format phone number to international format
-      const formattedPhone = phone.startsWith('+') ? phone : `+972${phone.replace(/^0/, '')}`;
-      
-      const { error } = await supabase.auth.signInWithOtp({
-        phone: formattedPhone,
-        options: {
-          data: {
-            username,
-            email,
-            address,
-            password, // Store temporarily for later use
-          }
-        }
-      });
+    // Validate inputs
+    const result = signupSchema.safeParse({
+      username,
+      email,
+      phone,
+      address,
+      password,
+    });
 
-      if (error) {
-        toast({
-          title: "שגיאה בשליחת SMS",
-          description: error.message,
-          variant: "destructive",
-        });
-        setLoading(false);
-      } else {
-        setOtpSent(true);
-        toast({
-          title: "קוד נשלח! 📱",
-          description: "קוד אימות נשלח לטלפון שלך דרך SMS. יש להזין את הקוד כדי להשלים את ההרשמה",
-        });
-        setLoading(false);
-      }
-    } else {
-      // Email verification - must be verified before account is active
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`,
-          data: {
-            username,
-            phone,
-            address,
-          },
-        },
-      });
-
-      if (error) {
-        toast({
-          title: "שגיאה בהרשמה",
-          description: error.message,
-          variant: "destructive",
-        });
-        setLoading(false);
-      } else {
-        setOtpSent(true);
-        toast({
-          title: "קוד נשלח! 📧",
-          description: "קוד אימות נשלח לאימייל שלך. חובה להזין את הקוד כדי להשלים את ההרשמה",
-        });
-        setLoading(false);
-      }
-    }
-  };
-
-  const handleVerifyOTP = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (otp.length !== 6) {
+    if (!result.success) {
       toast({
-        title: "קוד לא תקין",
-        description: "יש להזין קוד בן 6 ספרות",
+        title: "שגיאה בנתונים",
+        description: getUserMessage(result.error),
         variant: "destructive",
       });
       return;
@@ -135,59 +72,36 @@ const Auth = () => {
     
     setLoading(true);
 
-    let verifyOptions;
-    if (verificationMethod === "sms") {
-      const formattedPhone = phone.startsWith('+') ? phone : `+972${phone.replace(/^0/, '')}`;
-      verifyOptions = {
-        phone: formattedPhone,
-        token: otp,
-        type: 'sms' as const,
-      };
-    } else {
-      verifyOptions = {
-        email,
-        token: otp,
-        type: 'email' as const,
-      };
-    }
-
-    const { error } = await supabase.auth.verifyOtp(verifyOptions);
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/`,
+        data: {
+          username,
+          phone,
+          address,
+        },
+      },
+    });
 
     if (error) {
       toast({
-        title: "שגיאה באימות",
-        description: "הקוד שהזנת אינו תקין. אנא בדוק ונסה שנית",
+        title: "שגיאה בהרשמה",
+        description: getUserMessage(error),
         variant: "destructive",
       });
       setLoading(false);
     } else {
-      // Update profile with verified phone/email
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { error: profileError } = await supabase.from('profiles').update({
-          phone,
-          address,
-          is_phone_verified: verificationMethod === "sms"
-        }).eq('id', user.id);
-
-        if (profileError) {
-          toast({
-            title: "עדכון פרופיל נכשל",
-            description: getUserMessage(profileError),
-            variant: "destructive",
-          });
-        }
-      }
-      
       toast({
-        title: "אומת בהצלחה! 🎉",
-        description: "ההרשמה הושלמה בהצלחה. ברוכים הבאים ליויו!",
+        title: "ההרשמה הושלמה! 🎉",
+        description: "ברוכים הבאים ליויו!",
       });
-      
       setLoading(false);
       navigate("/");
     }
   };
+
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -258,175 +172,105 @@ const Auth = () => {
             </TabsContent>
             
             <TabsContent value="signup">
-              {!otpSent ? (
-                <form onSubmit={handleSignUp} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-username">איך נקרא לך? ✏️</Label>
-                    <Input
-                      id="signup-username"
-                      type="text"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      required
-                      dir="rtl"
-                      placeholder="שם משתמש מגניב"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-email">מה האימייל? 📧</Label>
-                    <Input
-                      id="signup-email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      dir="ltr"
-                      placeholder="example@email.com"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-phone">מה הטלפון? 📱</Label>
-                    <Input
-                      id="signup-phone"
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                      dir="ltr"
-                      placeholder="05X-XXXXXXX"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-address">מה הכתובת? 🏠</Label>
-                    <Input
-                      id="signup-address"
-                      type="text"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      required
-                      dir="rtl"
-                      placeholder="רחוב, עיר"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-password">בחרו סיסמה 🔒</Label>
-                    <Input
-                      id="signup-password"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      minLength={6}
-                      dir="ltr"
-                      placeholder="לפחות 6 תווים"
-                    />
-                  </div>
-                  <div className="space-y-3">
-                    <Label>איך תרצו לקבל את קוד האימות? 📲</Label>
-                    <div className="grid grid-cols-2 gap-3">
-                      <Button
-                        type="button"
-                        variant={verificationMethod === "email" ? "default" : "outline"}
-                        className="w-full"
-                        onClick={() => setVerificationMethod("email")}
-                      >
-                        📧 אימייל
-                      </Button>
-                      <Button
-                        type="button"
-                        variant={verificationMethod === "sms" ? "default" : "outline"}
-                        className="w-full"
-                        onClick={() => setVerificationMethod("sms")}
-                      >
-                        📱 SMS
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 py-2">
-                    <Checkbox
-                      id="terms"
-                      checked={agreedToTerms}
-                      onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
-                      className="mt-1"
-                      required
-                    />
-                    <Label htmlFor="terms" className="text-sm leading-relaxed cursor-pointer">
-                      <span className="text-destructive">* </span>
-                      קראתי ואני מאשר/ת את{" "}
-                      <TermsOfService>
-                        <button type="button" className="text-primary underline hover:text-primary/80">
-                          תקנון השימוש
-                        </button>
-                      </TermsOfService>
-                      {" "}של יויו 📜 <span className="text-destructive font-bold">(חובה)</span>
-                    </Label>
-                  </div>
-                  {!agreedToTerms && (
-                    <p className="text-sm text-destructive text-center">
-                      ⚠️ חובה לאשר את התקנון כדי להמשיך
-                    </p>
-                  )}
-                  <Button 
-                    type="submit" 
-                    className="w-full" 
-                    disabled={loading || !agreedToTerms || !username || !email || !phone || !address || !password}
-                  >
-                    {loading ? "רגע... 🌱" : "שלח קוד אימות 📲"}
-                  </Button>
-                  {(!username || !email || !phone || !address || !password) && (
-                    <p className="text-sm text-muted-foreground text-center">
-                      נא למלא את כל השדות כדי להמשיך
-                    </p>
-                  )}
-                </form>
-              ) : (
-                <form onSubmit={handleVerifyOTP} className="space-y-4">
-                  <div className="bg-muted/50 p-4 rounded-lg border border-border mb-4">
-                    <p className="text-sm font-medium text-center mb-2">
-                      ⚠️ חובה להשלים את האימות
-                    </p>
-                    <p className="text-xs text-muted-foreground text-center">
-                      ההרשמה תושלם רק לאחר הזנת קוד האימות
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="otp-code">הזינו את קוד האימות 🔐</Label>
-                    <p className="text-sm text-muted-foreground text-center mb-4">
-                      שלחנו קוד בן 6 ספרות {verificationMethod === "email" ? `לאימייל ${email}` : `לטלפון ${phone}`}
-                    </p>
-                    <Input
-                      id="otp-code"
-                      type="text"
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                      placeholder="123456"
-                      maxLength={6}
-                      dir="ltr"
-                      className="text-center text-2xl tracking-widest font-mono"
-                      required
-                    />
-                  </div>
-                  <Button type="submit" className="w-full" disabled={loading || otp.length !== 6}>
-                    {loading ? "מאמת... ⏳" : "אמת והשלם הרשמה ✓"}
-                  </Button>
-                  {otp.length !== 6 && (
-                    <p className="text-sm text-muted-foreground text-center">
-                      נא להזין את כל 6 הספרות של הקוד
-                    </p>
-                  )}
-                  <Button 
-                    type="button" 
-                    variant="ghost" 
-                    className="w-full" 
-                    onClick={() => {
-                      setOtpSent(false);
-                      setOtp("");
-                    }}
-                  >
-                    חזרה לעריכת פרטים
-                  </Button>
-                </form>
-              )}
+              <form onSubmit={handleSignUp} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="signup-username">איך נקרא לך? ✏️</Label>
+                  <Input
+                    id="signup-username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    dir="rtl"
+                    placeholder="שם משתמש מגניב"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signup-email">מה האימייל? 📧</Label>
+                  <Input
+                    id="signup-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    dir="ltr"
+                    placeholder="example@email.com"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signup-phone">מה הטלפון? 📱</Label>
+                  <Input
+                    id="signup-phone"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    dir="ltr"
+                    placeholder="05X-XXXXXXX"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signup-address">מה הכתובת? 🏠</Label>
+                  <Input
+                    id="signup-address"
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    required
+                    dir="rtl"
+                    placeholder="רחוב, עיר"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signup-password">בחרו סיסמה 🔒</Label>
+                  <Input
+                    id="signup-password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                    dir="ltr"
+                    placeholder="לפחות 6 תווים"
+                  />
+                </div>
+                <div className="flex items-start gap-3 py-2">
+                  <Checkbox
+                    id="terms"
+                    checked={agreedToTerms}
+                    onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
+                    className="mt-1"
+                    required
+                  />
+                  <Label htmlFor="terms" className="text-sm leading-relaxed cursor-pointer">
+                    <span className="text-destructive">* </span>
+                    קראתי ואני מאשר/ת את{" "}
+                    <TermsOfService>
+                      <button type="button" className="text-primary underline hover:text-primary/80">
+                        תקנון השימוש
+                      </button>
+                    </TermsOfService>
+                    {" "}של יויו 📜 <span className="text-destructive font-bold">(חובה)</span>
+                  </Label>
+                </div>
+                {!agreedToTerms && (
+                  <p className="text-sm text-destructive text-center">
+                    ⚠️ חובה לאשר את התקנון כדי להמשיך
+                  </p>
+                )}
+                <Button 
+                  type="submit" 
+                  className="w-full" 
+                  disabled={loading || !agreedToTerms || !username || !email || !phone || !address || !password}
+                >
+                  {loading ? "רגע... 🌱" : "בואו נצטרף! ✨"}
+                </Button>
+                {(!username || !email || !phone || !address || !password) && (
+                  <p className="text-sm text-muted-foreground text-center">
+                    נא למלא את כל השדות כדי להמשיך
+                  </p>
+                )}
+              </form>
             </TabsContent>
           </Tabs>
         </CardContent>
