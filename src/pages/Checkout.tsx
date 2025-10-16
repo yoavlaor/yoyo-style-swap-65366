@@ -9,7 +9,6 @@ import { ShoppingBag, User as UserIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { VirtualMannequin } from "@/components/VirtualMannequin";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { SellerRating } from "@/components/SellerRating";
 
 const Checkout = () => {
   const { itemId } = useParams();
@@ -182,11 +181,6 @@ const Checkout = () => {
                     {item.profiles?.username}
                   </button>
                 </div>
-              </div>
-
-              {/* Seller Rating */}
-              <div className="mt-4">
-                <SellerRating sellerId={item.seller_id} currentUserId={user?.id} />
               </div>
 
               <div className="border-t pt-4 space-y-4">
