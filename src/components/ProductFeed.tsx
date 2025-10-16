@@ -52,31 +52,31 @@ export const ProductFeed = () => {
   const [currentStoryIndex, setCurrentStoryIndex] = useState<number>(0);
 
   useEffect(() => {
-    const loadUserGender = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("gender")
-          .eq("id", user.id)
-          .single();
-        
-        if (profile?.gender) {
-          setUserGender(profile.gender);
-          setGenderFilter(profile.gender === "male" ? "men" : "women");
-        }
-        
-        // Check if user is admin
-        const { data: roles } = await supabase
-          .from('user_roles')
-          .select('role')
-          .eq('user_id', user.id)
-          .eq('role', 'admin')
-          .maybeSingle();
-        
-        setIsAdmin(!!roles);
+  const loadUserGender = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("gender")
+        .eq("id", user.id)
+        .maybeSingle();
+      
+      if (profile?.gender) {
+        setUserGender(profile.gender);
+        setGenderFilter(profile.gender === "male" ? "men" : "women");
       }
-    };
+      
+      // Check if user is admin
+      const { data: roles } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
+      
+      setIsAdmin(!!roles);
+    }
+  };
     
     loadUserGender();
   }, []);
@@ -375,20 +375,20 @@ export const ProductFeed = () => {
           </div>
         ) : (
           <div className="relative">
-            {/* For You Header */}
-            <div className="text-center mb-4" dir="rtl">
-              <h2 className="text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">
+            {/* For You Header - Outside */}
+            <div className="text-center mb-6" dir="rtl">
+              <h2 className="text-4xl font-black bg-gradient-primary bg-clip-text text-transparent">
                 בשבילך ✨
               </h2>
+              <p className="text-muted-foreground text-sm mt-2">
+                {currentStoryIndex + 1} מתוך {items.length}
+              </p>
             </div>
             
             {/* Story View */}
-            <div className="relative h-[calc(100vh-240px)] overflow-hidden rounded-3xl">
+            <div className="relative h-[calc(100vh-280px)] overflow-hidden rounded-3xl">
               {items[currentStoryIndex] && (
-                <div 
-                  className="w-full h-full cursor-pointer"
-                  onClick={handleNextStory}
-                >
+                <div className="w-full h-full">
                   <ProductCard
                     id={items[currentStoryIndex].id}
                     sellerId={items[currentStoryIndex].seller_id}
@@ -421,20 +421,18 @@ export const ProductFeed = () => {
                   />
                 ))}
               </div>
-
-              {/* Navigation Hint */}
-              <div className="absolute bottom-20 left-0 right-0 text-center z-20 pointer-events-none">
-                <p className="text-white/80 text-sm font-medium drop-shadow-lg">
-                  👆 לחצו כדי לעבור לבא
-                </p>
-              </div>
             </div>
             
-            {/* Counter */}
-            <div className="text-center mt-4">
-              <p className="text-muted-foreground text-sm">
-                {currentStoryIndex + 1} מתוך {items.length}
-              </p>
+            {/* Navigation Button */}
+            <div className="text-center mt-6">
+              <Button
+                onClick={handleNextStory}
+                disabled={currentStoryIndex >= items.length - 1}
+                size="lg"
+                className="rounded-full px-8 shadow-glow text-lg font-semibold"
+              >
+                הבא 👉
+              </Button>
             </div>
           </div>
         )}
