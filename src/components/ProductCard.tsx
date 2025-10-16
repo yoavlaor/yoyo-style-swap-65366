@@ -38,24 +38,27 @@ export const ProductCard = ({
   const navigate = useNavigate();
 
   return (
-    <Card className="group overflow-hidden border-border bg-card hover:shadow-warm transition-all duration-300 hover:scale-[1.02] rounded-3xl">
-      <div className="relative aspect-[3/4] overflow-hidden">
+    <Card className="group overflow-hidden border-border/50 bg-card hover:shadow-2xl transition-all duration-500 hover:scale-[1.01] rounded-3xl">
+      <div className="relative aspect-[4/5] overflow-hidden cursor-pointer" onClick={() => id && navigate(`/checkout/${id}`)}>
         <img 
           src={image} 
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Dark Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0" />
         
-        {/* Like Button */}
+        {/* Like Button - Top Right */}
         <button 
-          onClick={() => setLiked(!liked)}
-          className="absolute top-3 right-3 p-2 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white transition-all duration-200 hover:scale-110 shadow-soft"
+          onClick={(e) => {
+            e.stopPropagation();
+            setLiked(!liked);
+          }}
+          className="absolute top-4 right-4 p-3 rounded-full bg-white/95 backdrop-blur-md hover:bg-white transition-all duration-200 hover:scale-110 shadow-xl z-10"
         >
           <Heart 
-            className={`h-5 w-5 transition-all duration-200 ${liked ? 'fill-terracotta text-terracotta' : 'text-foreground'}`} 
+            className={`h-6 w-6 transition-all duration-200 ${liked ? 'fill-terracotta text-terracotta' : 'text-foreground'}`} 
           />
         </button>
 
@@ -68,62 +71,48 @@ export const ProductCard = ({
                 onDelete(id);
               }
             }}
-            className="absolute top-3 left-3 p-2 rounded-full bg-red-500/90 backdrop-blur-sm hover:bg-red-600 transition-all duration-200 hover:scale-110 shadow-soft"
+            className="absolute top-4 left-4 p-3 rounded-full bg-red-500/95 backdrop-blur-md hover:bg-red-600 transition-all duration-200 hover:scale-110 shadow-xl z-10"
           >
-            <Trash2 className="h-5 w-5 text-white" />
+            <Trash2 className="h-6 w-6 text-white" />
           </button>
         )}
 
-        {/* Verified Badge */}
-        {verified && (
-          <Badge className="absolute top-3 left-3 bg-sage/95 text-white backdrop-blur-sm border-0 shadow-soft">
-            <CheckCircle2 className="h-3 w-3 mr-1" />
-            Verified
-          </Badge>
-        )}
-
-        {/* Quick Actions - Show on Hover */}
-        <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-          <Button
-            onClick={() => id && navigate(`/checkout/${id}`)}
-            className="w-full bg-terracotta/95 hover:bg-terracotta text-white backdrop-blur-sm shadow-warm rounded-full"
-          >
-            קנה עכשיו
-          </Button>
-        </div>
-      </div>
-
-      <div className="p-5 space-y-2">
-        <div className="flex items-start justify-between gap-2">
-          <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-lg truncate text-foreground">{title}</h3>
-            <p className="text-sm text-muted-foreground">{brand}</p>
+        {/* Content Overlay - Bottom */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 text-white space-y-3">
+          <div className="flex items-end justify-between gap-4">
+            <div className="flex-1 min-w-0 space-y-1">
+              <h3 className="font-bold text-3xl truncate drop-shadow-lg">{title}</h3>
+              <p className="text-lg text-white/90 font-medium">{brand}</p>
+              
+              <div className="flex items-center gap-2 text-base text-white/80 mt-2">
+                <MapPin className="h-5 w-5 flex-shrink-0" />
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    sellerId && navigate(`/seller/${sellerId}`);
+                  }}
+                  className="hover:text-white hover:underline transition-colors truncate"
+                >
+                  {location}
+                </button>
+              </div>
+            </div>
+            
+            <div className="text-right flex-shrink-0">
+              <div className="text-4xl font-black text-white drop-shadow-lg">₪{price}</div>
+            </div>
           </div>
-          <div className="text-right">
-            <div className="text-xl font-bold text-terracotta">₪{price}</div>
-          </div>
-        </div>
 
-        <div className="flex items-center gap-1 text-sm text-muted-foreground">
-          <MapPin className="h-4 w-4 text-sage" />
-          <button
-            onClick={() => sellerId && navigate(`/seller/${sellerId}`)}
-            className="hover:text-primary hover:underline transition-colors"
-          >
-            {location}
-          </button>
-          <span className="text-xs">• {distance}</span>
+          {shippingMethods && shippingMethods.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-3">
+              {shippingMethods.map((method, index) => (
+                <Badge key={index} className="text-sm px-3 py-1 bg-white/90 text-foreground border-0 backdrop-blur-md">
+                  {method}
+                </Badge>
+              ))}
+            </div>
+          )}
         </div>
-        
-        {shippingMethods && shippingMethods.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-2">
-            {shippingMethods.map((method, index) => (
-              <Badge key={index} variant="secondary" className="text-xs bg-primary/10 text-primary border-0">
-                {method}
-              </Badge>
-            ))}
-          </div>
-        )}
       </div>
     </Card>
   );
