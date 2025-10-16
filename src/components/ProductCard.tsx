@@ -78,14 +78,14 @@ export const ProductCard = ({
         )}
 
         {/* Content Overlay - Bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 text-white space-y-2">
-          <div className="flex items-end justify-between gap-3">
-            <div className="flex-1 min-w-0 space-y-1">
-              <h3 className="font-bold text-lg truncate drop-shadow-lg">{title}</h3>
-              <p className="text-sm text-white/90 font-medium">{brand}</p>
+        <div className="absolute bottom-0 left-0 right-0 p-6 text-white space-y-3">
+          <div className="flex items-end justify-between gap-4">
+            <div className="flex-1 min-w-0 space-y-2">
+              <h3 className="font-bold text-2xl truncate drop-shadow-lg">{title}</h3>
+              <p className="text-base text-white/90 font-medium">{brand}</p>
               
-              <div className="flex items-center gap-1 text-xs text-white/80">
-                <MapPin className="h-4 w-4 flex-shrink-0" />
+              <div className="flex items-center gap-1.5 text-sm text-white/80">
+                <MapPin className="h-5 w-5 flex-shrink-0" />
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -99,14 +99,14 @@ export const ProductCard = ({
             </div>
             
             <div className="text-right flex-shrink-0">
-              <div className="text-2xl font-black text-white drop-shadow-lg">₪{price}</div>
+              <div className="text-3xl font-black text-white drop-shadow-lg">₪{price}</div>
             </div>
           </div>
 
           {shippingMethods && shippingMethods.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {shippingMethods.map((method, index) => (
-                <Badge key={index} className="text-xs px-2 py-0.5 bg-secondary/95 text-white border-0 backdrop-blur-md shadow-glow">
+                <Badge key={index} className="text-sm px-3 py-1 bg-secondary/95 text-white border-0 backdrop-blur-md shadow-glow">
                   {method}
                 </Badge>
               ))}
