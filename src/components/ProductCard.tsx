@@ -38,7 +38,7 @@ export const ProductCard = ({
   const navigate = useNavigate();
 
   return (
-    <Card className="group overflow-hidden border-border/50 bg-card hover:shadow-2xl transition-all duration-500 hover:scale-[1.01] rounded-3xl">
+    <Card className="group overflow-hidden border-border/50 bg-card hover:shadow-glow transition-all duration-500 hover:scale-[1.01] rounded-3xl">
       <div className="relative aspect-[4/5] overflow-hidden cursor-pointer" onClick={() => id && navigate(`/checkout/${id}`)}>
         <img 
           src={image} 
@@ -46,8 +46,8 @@ export const ProductCard = ({
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         
-        {/* Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0" />
+        {/* Vibrant Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/0 to-primary/0" />
         
         {/* Like Button - Top Right */}
         <button 
@@ -55,10 +55,10 @@ export const ProductCard = ({
             e.stopPropagation();
             setLiked(!liked);
           }}
-          className="absolute top-4 right-4 p-3 rounded-full bg-white/95 backdrop-blur-md hover:bg-white transition-all duration-200 hover:scale-110 shadow-xl z-10"
+          className="absolute top-4 right-4 p-3 rounded-full bg-white/95 backdrop-blur-md hover:bg-white transition-all duration-200 hover:scale-110 shadow-glow z-10"
         >
           <Heart 
-            className={`h-6 w-6 transition-all duration-200 ${liked ? 'fill-terracotta text-terracotta' : 'text-foreground'}`} 
+            className={`h-6 w-6 transition-all duration-200 ${liked ? 'fill-accent text-accent' : 'text-foreground'}`} 
           />
         </button>
 
@@ -71,7 +71,7 @@ export const ProductCard = ({
                 onDelete(id);
               }
             }}
-            className="absolute top-4 left-4 p-3 rounded-full bg-red-500/95 backdrop-blur-md hover:bg-red-600 transition-all duration-200 hover:scale-110 shadow-xl z-10"
+            className="absolute top-4 left-4 p-3 rounded-full bg-red-500/95 backdrop-blur-md hover:bg-red-600 transition-all duration-200 hover:scale-110 shadow-glow z-10"
           >
             <Trash2 className="h-6 w-6 text-white" />
           </button>
@@ -106,7 +106,7 @@ export const ProductCard = ({
           {shippingMethods && shippingMethods.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-3">
               {shippingMethods.map((method, index) => (
-                <Badge key={index} className="text-sm px-3 py-1 bg-white/90 text-foreground border-0 backdrop-blur-md">
+                <Badge key={index} className="text-sm px-3 py-1 bg-secondary/95 text-white border-0 backdrop-blur-md shadow-glow">
                   {method}
                 </Badge>
               ))}

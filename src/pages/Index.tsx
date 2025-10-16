@@ -38,7 +38,7 @@ const Index = () => {
       description: "גלו בגדים מדהימים במחירים משתלמים",
       icon: Home,
       path: "/feed",
-      gradient: "from-primary to-primary-glow",
+      gradient: "from-primary to-accent",
       emoji: "🛍️",
     },
     {
@@ -46,7 +46,7 @@ const Index = () => {
       description: "העלו את הבגדים שלכם למכירה",
       icon: Upload,
       path: "/upload",
-      gradient: "from-secondary to-accent",
+      gradient: "from-secondary to-mint",
       emoji: "📸",
     },
     {
@@ -54,7 +54,7 @@ const Index = () => {
       description: "ניהול הפרופיל והפריטים שלכם",
       icon: User,
       path: "/profile",
-      gradient: "from-sage to-emerald-600",
+      gradient: "from-accent to-primary",
       emoji: "👤",
     },
   ];
@@ -80,14 +80,14 @@ const Index = () => {
         {/* Logo & Slogan */}
         <div className="text-center mb-12 animate-slide-up">
           <h1 className="font-sans text-6xl md:text-8xl font-black mb-6 drop-shadow-2xl">
-            <span className="bg-gradient-to-r from-terracotta via-sage to-warmYellow bg-clip-text text-transparent animate-glow-pulse">
+            <span className="bg-gradient-primary bg-clip-text text-transparent animate-glow-pulse">
               YOYO
             </span>
           </h1>
           
           <div className="space-y-2 mb-8">
             <p className="text-xl md:text-3xl font-bold tracking-tight">
-              <span className="bg-gradient-to-l from-terracotta via-sage to-terracotta bg-clip-text text-transparent">
+              <span className="bg-gradient-primary bg-clip-text text-transparent">
                 אמינות · חדשנות · אקולוגיה
               </span>
             </p>
@@ -99,7 +99,7 @@ const Index = () => {
         </div>
 
         <div className="text-center space-y-4 mb-12">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-sage bg-clip-text text-transparent animate-fade-in">
+          <h2 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent animate-fade-in">
             לאן תרצו להגיע היום?
           </h2>
         </div>

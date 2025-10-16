@@ -22,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -47,11 +48,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        terracotta: "hsl(var(--terracotta))",
-        sage: "hsl(var(--sage-green))",
-        cream: "hsl(var(--warm-cream))",
-        warmYellow: "hsl(var(--warm-yellow))",
-        peach: "hsl(var(--soft-peach))",
+        terracotta: "hsl(var(--vibrant-purple))",
+        sage: "hsl(var(--electric-teal))",
+        cream: "hsl(var(--background))",
+        warmYellow: "hsl(var(--hot-pink))",
+        peach: "hsl(var(--sunset-orange))",
+        electric: "hsl(var(--electric-teal))",
+        mint: "hsl(var(--neon-green))",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
@@ -59,6 +62,7 @@ export default {
       },
       backgroundImage: {
         "gradient-primary": "var(--gradient-primary)",
+        "gradient-secondary": "var(--gradient-secondary)",
         "gradient-card": "var(--gradient-card)",
         "gradient-hero": "var(--gradient-hero)",
       },
@@ -66,6 +70,7 @@ export default {
         warm: "var(--shadow-warm)",
         soft: "var(--shadow-soft)",
         card: "var(--shadow-card)",
+        glow: "var(--shadow-glow)",
       },
       borderRadius: {
         lg: "var(--radius)",
