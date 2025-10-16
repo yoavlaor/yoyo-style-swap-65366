@@ -26,6 +26,7 @@ interface Item {
   images: string[];
   is_sold: boolean;
   shipping_method: string[];
+  seller_id: string;
   profiles: {
     username: string;
   };
@@ -48,6 +49,7 @@ export const ProductFeed = () => {
   const [maxDistance, setMaxDistance] = useState<number>(50);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [viewMode, setViewMode] = useState<"grid" | "story">("grid");
+  const [currentStoryIndex, setCurrentStoryIndex] = useState<number>(0);
 
   useEffect(() => {
     const loadUserGender = async () => {
@@ -148,6 +150,18 @@ export const ProductFeed = () => {
   useEffect(() => {
     loadItems();
   }, [genderFilter, selectedCategories, selectedSizes, selectedConditions, selectedShipping, searchQuery]);
+
+  const handleNextStory = () => {
+    if (currentStoryIndex < items.length - 1) {
+      setCurrentStoryIndex(currentStoryIndex + 1);
+    }
+  };
+
+  const handlePrevStory = () => {
+    if (currentStoryIndex > 0) {
+      setCurrentStoryIndex(currentStoryIndex - 1);
+    }
+  };
 
   const toggleFilter = (value: string, selected: string[], setter: (val: string[]) => void) => {
     if (selected.includes(value)) {
@@ -360,25 +374,68 @@ export const ProductFeed = () => {
             ))}
           </div>
         ) : (
-          <div className="space-y-4 snap-y snap-mandatory overflow-y-scroll h-[calc(100vh-200px)]" style={{ scrollSnapType: "y mandatory" }}>
-            {items.map((product: any, index: number) => (
-              <div key={product.id} className="snap-start snap-always h-[calc(100vh-200px)]">
-                <ProductCard
-                  id={product.id}
-                  sellerId={product.seller_id}
-                  image={product.images?.[0]}
-                  title={product.title}
-                  brand={product.brand}
-                  price={product.price}
-                  location={product.profiles?.username}
-                  verified={true}
-                  distance=""
-                  shippingMethods={product.shipping_method || []}
-                  isAdmin={isAdmin}
-                  onDelete={handleDeleteItem}
-                />
+          <div className="relative">
+            {/* For You Header */}
+            <div className="text-center mb-4" dir="rtl">
+              <h2 className="text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">
+                בשבילך ✨
+              </h2>
+            </div>
+            
+            {/* Story View */}
+            <div className="relative h-[calc(100vh-240px)] overflow-hidden rounded-3xl">
+              {items[currentStoryIndex] && (
+                <div 
+                  className="w-full h-full cursor-pointer"
+                  onClick={handleNextStory}
+                >
+                  <ProductCard
+                    id={items[currentStoryIndex].id}
+                    sellerId={items[currentStoryIndex].seller_id}
+                    image={items[currentStoryIndex].images?.[0]}
+                    title={items[currentStoryIndex].title}
+                    brand={items[currentStoryIndex].brand}
+                    price={items[currentStoryIndex].price}
+                    location={items[currentStoryIndex].profiles?.username}
+                    verified={true}
+                    distance=""
+                    shippingMethods={items[currentStoryIndex].shipping_method || []}
+                    isAdmin={isAdmin}
+                    onDelete={handleDeleteItem}
+                  />
+                </div>
+              )}
+              
+              {/* Progress Indicator */}
+              <div className="absolute top-4 left-0 right-0 flex gap-1 px-4 z-20">
+                {items.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`flex-1 h-1 rounded-full transition-all duration-300 ${
+                      index === currentStoryIndex
+                        ? "bg-white shadow-glow"
+                        : index < currentStoryIndex
+                        ? "bg-white/70"
+                        : "bg-white/30"
+                    }`}
+                  />
+                ))}
               </div>
-            ))}
+
+              {/* Navigation Hint */}
+              <div className="absolute bottom-20 left-0 right-0 text-center z-20 pointer-events-none">
+                <p className="text-white/80 text-sm font-medium drop-shadow-lg">
+                  👆 לחצו כדי לעבור לבא
+                </p>
+              </div>
+            </div>
+            
+            {/* Counter */}
+            <div className="text-center mt-4">
+              <p className="text-muted-foreground text-sm">
+                {currentStoryIndex + 1} מתוך {items.length}
+              </p>
+            </div>
           </div>
         )}
 
