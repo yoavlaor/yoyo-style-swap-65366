@@ -386,7 +386,7 @@ export const ProductFeed = () => {
             </div>
             
             {/* Story View */}
-            <div className="relative h-[calc(100vh-220px)] overflow-hidden rounded-3xl">
+            <div className="relative h-[85vh] overflow-hidden rounded-3xl">
               {items[currentStoryIndex] && (
                 <div className="w-full h-full">
                   <ProductCard
