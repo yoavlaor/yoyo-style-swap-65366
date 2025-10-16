@@ -81,7 +81,7 @@ export const ProductCard = ({
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white space-y-3">
           <div className="flex items-end justify-between gap-4">
             <div className="flex-1 min-w-0 space-y-2">
-              <h3 className="font-bold text-2xl truncate drop-shadow-lg">{title}</h3>
+              <h3 className="font-bold text-2xl drop-shadow-lg line-clamp-2">{title}</h3>
               <p className="text-base text-white/90 font-medium">{brand}</p>
               
               <div className="flex items-center gap-1.5 text-sm text-white/80">
