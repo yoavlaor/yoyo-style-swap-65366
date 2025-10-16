@@ -37,7 +37,7 @@ const Menu = () => {
       title: "הבית",
       description: "גלו בגדים מדהימים במחירים משתלמים",
       icon: Home,
-      path: "/",
+      path: "/feed",
       gradient: "from-primary to-primary-glow",
       emoji: "🏠",
     },
