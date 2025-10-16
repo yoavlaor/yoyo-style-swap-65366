@@ -388,7 +388,7 @@ export const ProductFeed = () => {
             {/* Story View */}
             <div className="relative h-[85vh] overflow-hidden rounded-3xl">
               {items[currentStoryIndex] && (
-                <div className="w-full h-full">
+                <div className="w-full h-full [&>div]:h-full [&>div>div]:!aspect-auto">
                   <ProductCard
                     id={items[currentStoryIndex].id}
                     sellerId={items[currentStoryIndex].seller_id}
