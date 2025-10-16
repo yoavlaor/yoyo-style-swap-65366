@@ -34,10 +34,6 @@ const Navbar = () => {
 
   const navItems = [
     { name: "תפריט ראשי 📋", path: "/", icon: Grid },
-    ...(user ? [
-      { name: "העלאה ⬆️", path: "/upload", icon: Upload },
-      { name: "האזור שלי 👤", path: "/profile", icon: UserIcon },
-    ] : []),
   ];
 
   const isActive = (path: string) => location.pathname === path;
