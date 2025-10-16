@@ -34,12 +34,12 @@ const Menu = () => {
 
   const menuItems = [
     {
-      title: "הבית",
+      title: "החנות",
       description: "גלו בגדים מדהימים במחירים משתלמים",
       icon: Home,
       path: "/feed",
       gradient: "from-primary to-primary-glow",
-      emoji: "🏠",
+      emoji: "🛍️",
     },
     {
       title: "העלאה",

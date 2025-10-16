@@ -171,24 +171,14 @@ export const ProductFeed = () => {
   const shippingMethods = ["פנים אל פנים 🤝", "משלוח 📦", "איסוף מתחנת יויו 🏪"];
 
   return (
-    <section className="py-20 px-4 bg-background">
+    <section className="py-12 px-4 bg-background">
       <div className="container mx-auto max-w-7xl">
-        {/* Header */}
-        <div className="mb-12 text-center">
-          <h2 className="font-tech text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-electric to-mint bg-clip-text text-transparent">
-            גלו אופנה מדהימה 👗✨
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            פריטים משומשים מאומתים בבינה מלאכותית ממש קרוב אליכם
-          </p>
-        </div>
-
         {/* Gender Tabs */}
-        <div className="mb-8 flex justify-center" dir="rtl">
-          <Tabs value={genderFilter} onValueChange={setGenderFilter} className="w-full max-w-md">
-            <TabsList className="grid w-full grid-cols-2 bg-muted">
-              <TabsTrigger value="women">👩 נשים</TabsTrigger>
-              <TabsTrigger value="men">👨 גברים</TabsTrigger>
+        <div className="mb-8" dir="rtl">
+          <Tabs value={genderFilter} onValueChange={setGenderFilter} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 bg-muted max-w-md mx-auto">
+              <TabsTrigger value="women" className="text-lg">👩 נשים</TabsTrigger>
+              <TabsTrigger value="men" className="text-lg">👨 גברים</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>

@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { name: "הבית 🏠", path: "/feed", icon: Home },
+    { name: "החנות 🛍️", path: "/feed", icon: Home },
     ...(user ? [
       { name: "העלאה ⬆️", path: "/upload", icon: Upload },
       { name: "האזור שלי 👤", path: "/profile", icon: UserIcon },
