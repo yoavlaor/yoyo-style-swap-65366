@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from "@supabase/supabase-js";
-import { Home, Upload, User as UserIcon, LogOut, Menu, X } from "lucide-react";
+import { Home, Upload, User as UserIcon, LogOut, Menu, X, Grid } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Navbar = () => {
@@ -33,6 +33,7 @@ const Navbar = () => {
   };
 
   const navItems = [
+    { name: "תפריט ראשי 📋", path: "/", icon: Grid },
     { name: "החנות 🛍️", path: "/feed", icon: Home },
     ...(user ? [
       { name: "העלאה ⬆️", path: "/upload", icon: Upload },
