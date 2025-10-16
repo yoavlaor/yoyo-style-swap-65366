@@ -180,22 +180,22 @@ const Upload = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-hero p-4" dir="rtl">
-        <div className="max-w-2xl mx-auto py-8">
-          <Card className="shadow-card bg-gradient-card border-border/50">
-            <CardHeader className="text-center space-y-2">
-              <div className="mx-auto w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center shadow-warm">
-                <UploadIcon className="w-8 h-8 text-primary" />
+      <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/5 p-6" dir="rtl">
+        <div className="max-w-3xl mx-auto py-12">
+          <Card className="shadow-glow bg-gradient-to-br from-card to-card/80 backdrop-blur-md border-border/30 rounded-3xl animate-fade-in">
+            <CardHeader className="text-center space-y-6 pb-10">
+              <div className="mx-auto w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow animate-scale-in">
+                <UploadIcon className="w-10 h-10 text-white" />
               </div>
-              <CardTitle className="text-3xl font-bold">בואו נמכור משהו מגניב! ✨</CardTitle>
-              <p className="text-muted-foreground">תנו לבגדים שלכם סיפור חדש 💚</p>
+              <CardTitle className="text-5xl md:text-6xl font-black bg-gradient-primary bg-clip-text text-transparent drop-shadow-lg">בואו נמכור משהו מגניב! ✨</CardTitle>
+              <p className="text-xl text-muted-foreground font-medium">תנו לבגדים שלכם סיפור חדש 💚</p>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+            <CardContent className="px-8 pb-10">
+              <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Image Upload */}
-                <div className="space-y-3">
-                  <Label htmlFor="images">בואו נראה אותו! 📸</Label>
-                  <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary transition-colors bg-muted/30">
+                <div className="space-y-4">
+                  <Label htmlFor="images" className="text-lg font-semibold">בואו נראה אותו! 📸</Label>
+                  <div className="border-2 border-dashed border-border rounded-2xl p-8 text-center hover:border-primary hover:bg-primary/5 transition-all duration-300 bg-muted/30">
                     <input
                       type="file"
                       id="images"
@@ -205,44 +205,44 @@ const Upload = () => {
                       className="hidden"
                     />
                     <label htmlFor="images" className="cursor-pointer">
-                      <UploadIcon className="w-12 h-12 mx-auto text-muted-foreground mb-2" />
-                      <p className="text-sm text-muted-foreground mb-3">
+                      <UploadIcon className="w-16 h-16 mx-auto text-primary mb-4 animate-pulse" />
+                      <p className="text-base text-muted-foreground mb-4 font-medium">
                         כמה תמונות יפות מזוויות שונות (עד 5) ✨
                       </p>
-                      <div className="text-xs text-muted-foreground bg-primary/5 rounded-lg p-3 text-right space-y-1">
-                        <p className="font-semibold text-primary">💡 טיפים לצילום מושלם:</p>
-                        <p>📐 על משטח ישר ונקי</p>
-                        <p>👕 תצלמו את הבגד במלואו</p>
-                        <p>🏷️ וודאו שהתווית של החברה נראית בתמונה</p>
+                      <div className="text-sm text-muted-foreground bg-gradient-primary/10 rounded-xl p-4 text-right space-y-2">
+                        <p className="font-bold text-lg text-primary">💡 טיפים לצילום מושלם:</p>
+                        <p className="font-medium">📐 על משטח ישר ונקי</p>
+                        <p className="font-medium">👕 תצלמו את הבגד במלואו</p>
+                        <p className="font-medium">🏷️ וודאו שהתווית של החברה נראית בתמונה</p>
                       </div>
                     </label>
                   </div>
                   
                   {imagePreviews.length > 0 && (
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-4">
                       {imagePreviews.map((preview, index) => (
                         <div key={index} className="relative group">
                           <img
                             src={preview}
                             alt={`תצוגה מקדימה ${index + 1}`}
-                            className="w-full h-24 object-cover rounded-lg shadow-soft"
+                            className="w-full h-32 object-cover rounded-2xl shadow-glow transition-transform duration-300 group-hover:scale-105"
                           />
-                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
+                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl flex items-center justify-center gap-3">
                             <button
                               type="button"
                               onClick={() => handleEditImage(index)}
-                              className="bg-primary text-primary-foreground rounded-full p-2 hover:bg-primary/90 transition-colors"
+                              className="bg-primary text-white rounded-full p-3 hover:scale-110 transition-transform shadow-glow"
                               title="עריכה"
                             >
-                              <Edit className="w-4 h-4" />
+                              <Edit className="w-5 h-5" />
                             </button>
                             <button
                               type="button"
                               onClick={() => removeImage(index)}
-                              className="bg-destructive text-destructive-foreground rounded-full p-2 hover:bg-destructive/90 transition-colors"
+                              className="bg-red-500 text-white rounded-full p-3 hover:scale-110 transition-transform shadow-glow"
                               title="מחיקה"
                             >
-                              <X className="w-4 h-4" />
+                              <X className="w-5 h-5" />
                             </button>
                           </div>
                         </div>
@@ -251,32 +251,32 @@ const Upload = () => {
                   )}
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="title">איזה שם נותנים לו? ✏️</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="title" className="text-lg font-semibold">איזה שם נותנים לו? ✏️</Label>
                   <Input
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="למשל: חולצה מושלמת לקיץ ☀️"
-                    className="bg-background"
+                    className="bg-background h-14 text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="description">ספרו לנו עליו! 💭</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="description" className="text-lg font-semibold">ספרו לנו עליו! 💭</Label>
                   <Textarea
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    rows={4}
+                    rows={6}
                     placeholder="מה מיוחד בבגד הזה? איפה לבשתם אותו? למה הוא מחכה לבית חדש?"
-                    className="bg-background resize-none"
+                    className="bg-background text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all resize-none"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="price">כמה נבקש? 💰</Label>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <Label htmlFor="price" className="text-lg font-semibold">כמה נבקש? 💰</Label>
                     <Input
                       id="price"
                       type="number"
@@ -285,14 +285,14 @@ const Upload = () => {
                       onChange={(e) => setPrice(e.target.value)}
                       dir="ltr"
                       placeholder="100"
-                      className="bg-background"
+                      className="bg-background h-14 text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="brand">איזה מותג? 🏷️</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="brand" className="text-lg font-semibold">איזה מותג? 🏷️</Label>
                     <Select value={brand} onValueChange={setBrand}>
-                      <SelectTrigger className="bg-background">
+                      <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו מותג" />
                       </SelectTrigger>
                       <SelectContent>
@@ -311,11 +311,11 @@ const Upload = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="category">מה זה בעצם? 🤔</Label>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <Label htmlFor="category" className="text-lg font-semibold">מה זה בעצם? 🤔</Label>
                     <Select value={category} onValueChange={setCategory}>
-                      <SelectTrigger className="bg-background">
+                      <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו קטגוריה" />
                       </SelectTrigger>
                       <SelectContent>
@@ -332,10 +332,10 @@ const Upload = () => {
                     </Select>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="size">מה המידה? 📏</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="size" className="text-lg font-semibold">מה המידה? 📏</Label>
                     <Select value={size} onValueChange={setSize}>
-                      <SelectTrigger className="bg-background">
+                      <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו מידה" />
                       </SelectTrigger>
                       <SelectContent>
@@ -350,10 +350,10 @@ const Upload = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="condition">במה מצב? ✨</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="condition" className="text-lg font-semibold">במה מצב? ✨</Label>
                   <Select value={condition} onValueChange={setCondition}>
-                    <SelectTrigger className="bg-background">
+                    <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                       <SelectValue placeholder="בחרו מצב" />
                     </SelectTrigger>
                     <SelectContent>
@@ -365,11 +365,11 @@ const Upload = () => {
                   </Select>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="gender">למי זה מיועד? 👥</Label>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <Label htmlFor="gender" className="text-lg font-semibold">למי זה מיועד? 👥</Label>
                     <Select value={gender} onValueChange={setGender}>
-                      <SelectTrigger className="bg-background">
+                      <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו" />
                       </SelectTrigger>
                       <SelectContent>
@@ -380,10 +380,10 @@ const Upload = () => {
                     </Select>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="shippingMethod">איך נשלח? 📦</Label>
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
+                  <div className="space-y-3">
+                    <Label htmlFor="shippingMethod" className="text-lg font-semibold">איך נשלח? 📦</Label>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
                         <input
                           type="checkbox"
                           id="face-to-face"
@@ -395,13 +395,13 @@ const Upload = () => {
                               setShippingMethods(shippingMethods.filter(m => m !== "פנים אל פנים 🤝"));
                             }
                           }}
-                          className="w-4 h-4 accent-primary"
+                          className="w-5 h-5 accent-primary"
                         />
-                        <label htmlFor="face-to-face" className="flex-1 cursor-pointer text-sm">
+                        <label htmlFor="face-to-face" className="flex-1 cursor-pointer text-base font-medium">
                           פנים אל פנים 🤝
                         </label>
                       </div>
-                      <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
+                      <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
                         <input
                           type="checkbox"
                           id="delivery"
@@ -413,13 +413,13 @@ const Upload = () => {
                               setShippingMethods(shippingMethods.filter(m => m !== "משלוח 📦"));
                             }
                           }}
-                          className="w-4 h-4 accent-primary"
+                          className="w-5 h-5 accent-primary"
                         />
-                        <label htmlFor="delivery" className="flex-1 cursor-pointer text-sm">
+                        <label htmlFor="delivery" className="flex-1 cursor-pointer text-base font-medium">
                           משלוח 📦
                         </label>
                       </div>
-                      <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
+                      <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
                         <input
                           type="checkbox"
                           id="yoyo-station"
@@ -431,9 +431,9 @@ const Upload = () => {
                               setShippingMethods(shippingMethods.filter(m => m !== "איסוף מתחנת יויו 🏪"));
                             }
                           }}
-                          className="w-4 h-4 accent-primary"
+                          className="w-5 h-5 accent-primary"
                         />
-                        <label htmlFor="yoyo-station" className="flex-1 cursor-pointer text-sm">
+                        <label htmlFor="yoyo-station" className="flex-1 cursor-pointer text-base font-medium">
                           איסוף מתחנת יויו 🏪
                         </label>
                       </div>
@@ -452,19 +452,21 @@ const Upload = () => {
                   }}
                 />
 
-                <div className="flex gap-4 pt-4">
+                <div className="flex gap-6 pt-6">
                   <Button 
                     type="submit" 
                     disabled={loading} 
-                    className="flex-1 shadow-warm hover:shadow-lg transition-shadow"
+                    size="lg"
+                    className="flex-1 shadow-glow text-lg font-bold rounded-2xl h-16 hover:scale-105 transition-transform"
                   >
                     {loading ? "מעלה... רגע קטן! ⏳" : "יאללה, בואו נמכור! 🎉"}
                   </Button>
                   <Button 
                     type="button" 
                     variant="outline" 
+                    size="lg"
                     onClick={() => navigate("/")} 
-                    className="flex-1"
+                    className="flex-1 text-lg font-semibold rounded-2xl h-16 hover:scale-105 transition-transform"
                   >
                     ביטול
                   </Button>
