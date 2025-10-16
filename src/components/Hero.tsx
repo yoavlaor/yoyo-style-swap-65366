@@ -43,7 +43,7 @@ export const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 text-center">
         <h1 className="font-sans text-6xl md:text-8xl lg:text-9xl font-black mb-8 animate-slide-up drop-shadow-2xl">
           <span className="bg-gradient-to-r from-terracotta via-sage to-warmYellow bg-clip-text text-transparent animate-glow-pulse">
-            יויו
+            YOYO
           </span>
         </h1>
 

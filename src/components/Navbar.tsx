@@ -52,7 +52,7 @@ const Navbar = () => {
               <span className="text-2xl">🌿</span>
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              יויו
+              YOYO
             </span>
           </Link>
 
