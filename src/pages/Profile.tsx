@@ -33,7 +33,6 @@ const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("");
-  const [fullName, setFullName] = useState("");
   const [bio, setBio] = useState("");
   const [myItems, setMyItems] = useState<any[]>([]);
   const [myPurchases, setMyPurchases] = useState<any[]>([]);
@@ -78,7 +77,6 @@ const Profile = () => {
     if (data) {
       setProfile(data);
       setUsername(data.username || "");
-      setFullName(data.full_name || "");
       setBio(data.bio || "");
     }
     setLoading(false);
@@ -138,7 +136,6 @@ const Profile = () => {
       .from("profiles")
       .update({
         username,
-        full_name: fullName,
         bio,
       })
       .eq("id", user.id);
@@ -226,16 +223,6 @@ const Profile = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                         placeholder="שם משתמש מגניב"
-                        className="bg-background"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="fullName">מה השם המלא? 📛</Label>
-                      <Input
-                        id="fullName"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        placeholder="השם המלא שלך"
                         className="bg-background"
                       />
                     </div>
@@ -408,7 +395,7 @@ const Profile = () => {
                             <div className="grid grid-cols-2 gap-2 text-sm">
                               <div>
                                 <span className="text-muted-foreground">נקנה על ידי:</span>
-                                <p className="font-medium">{sale.profiles?.full_name || sale.profiles?.username || 'לא ידוע'}</p>
+                                <p className="font-medium">{sale.profiles?.username || 'לא ידוע'}</p>
                               </div>
                               <div>
                                 <span className="text-muted-foreground">משלוח:</span>
