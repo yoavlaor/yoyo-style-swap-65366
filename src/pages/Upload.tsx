@@ -26,6 +26,8 @@ const Upload = () => {
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
   const [brand, setBrand] = useState("");
+  const [customBrand, setCustomBrand] = useState("");
+  const [showCustomBrand, setShowCustomBrand] = useState(false);
   const [shippingMethods, setShippingMethods] = useState<string[]>([]);
   const [gender, setGender] = useState("");
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -139,7 +141,7 @@ const Upload = () => {
         category: category || null,
         size: size || null,
         condition: condition || null,
-        brand: brand || null,
+        brand: brand === "אחר" ? customBrand : brand || null,
         shipping_method: shippingMethods.length > 0 ? shippingMethods : null,
         gender: gender || null,
         images: imageUrls,
@@ -160,6 +162,8 @@ const Upload = () => {
       setSize("");
       setCondition("");
       setBrand("");
+      setCustomBrand("");
+      setShowCustomBrand(false);
       setShippingMethods([]);
       setGender("");
       setImageFiles([]);
@@ -291,7 +295,16 @@ const Upload = () => {
 
                   <div className="space-y-3">
                     <Label htmlFor="brand" className="text-lg font-semibold">איזה מותג? 🏷️</Label>
-                    <Select value={brand} onValueChange={setBrand}>
+                    <Select 
+                      value={brand} 
+                      onValueChange={(value) => {
+                        setBrand(value);
+                        setShowCustomBrand(value === "אחר");
+                        if (value !== "אחר") {
+                          setCustomBrand("");
+                        }
+                      }}
+                    >
                       <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו מותג" />
                       </SelectTrigger>
@@ -305,9 +318,18 @@ const Upload = () => {
                         <SelectItem value="Adidas">Adidas</SelectItem>
                         <SelectItem value="Castro">Castro</SelectItem>
                         <SelectItem value="Fox">Fox</SelectItem>
-                        <SelectItem value="אחר">אחר</SelectItem>
+                        <SelectItem value="אחר">אחר - כתוב ידנית ✏️</SelectItem>
                       </SelectContent>
                     </Select>
+                    {showCustomBrand && (
+                      <Input
+                        id="customBrand"
+                        value={customBrand}
+                        onChange={(e) => setCustomBrand(e.target.value)}
+                        placeholder="כתבו את שם המותג..."
+                        className="bg-background h-14 text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all animate-fade-in"
+                      />
+                    )}
                   </div>
                 </div>
 
