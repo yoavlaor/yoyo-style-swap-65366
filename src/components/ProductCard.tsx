@@ -103,20 +103,27 @@ export const ProductCard = ({
 
         {shippingMethods && shippingMethods.length > 0 && (
           <div className="flex flex-col gap-1.5">
-            {shippingMethods.map((method, index) => (
-              <Badge 
-                key={index} 
-                className={`text-xs px-2 py-1 border-0 ${
-                  index % 3 === 0 
-                    ? 'bg-primary text-primary-foreground' 
-                    : index % 3 === 1 
-                    ? 'bg-accent text-accent-foreground' 
-                    : 'bg-secondary text-secondary-foreground'
-                }`}
-              >
-                {method}
-              </Badge>
-            ))}
+            {shippingMethods.map((method, index) => {
+              const methodLower = method.toLowerCase();
+              let badgeClass = 'bg-secondary text-secondary-foreground';
+              
+              if (methodLower.includes('פנים אל פנים') || methodLower.includes('face to face')) {
+                badgeClass = 'bg-green-500 text-white';
+              } else if (methodLower.includes('משלוח') || methodLower.includes('shipping')) {
+                badgeClass = 'bg-blue-500 text-white';
+              } else if (methodLower.includes('איסוף') || methodLower.includes('pickup') || methodLower.includes('יויו')) {
+                badgeClass = 'bg-red-500 text-white';
+              }
+              
+              return (
+                <Badge 
+                  key={index} 
+                  className={`text-xs px-2 py-1 border-0 ${badgeClass}`}
+                >
+                  {method}
+                </Badge>
+              );
+            })}
           </div>
         )}
       </div>
