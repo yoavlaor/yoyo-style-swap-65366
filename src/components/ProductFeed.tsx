@@ -165,14 +165,14 @@ export const ProductFeed = () => {
     setSearchQuery("");
   };
 
-  const categories = ["חולצה 👕", "מכנסיים 👖", "נעליים 👟", "גרביים 🧦", "בגדי חורף 🧥", "בגד ים 🩱", "אקססוריז 💍", "תיק 👜", "שמלות וחצאיות 👗"];
+  const categories = ["חולצה 👕", "מכנסיים 👖", "נעליים 👟", "שמלה וחצאית 👗", "בגדי חורף 🧥", "בגד ים 🩱", "אקססוריז 💍", "תיק 👜", "אחר"];
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const conditions = ["חדש עם תווית 🏷️", "כמו חדש ✨", "משומש מצוין 👌", "משומש טוב 👍"];
   const shippingMethods = ["פנים אל פנים 🤝", "משלוח 📦", "איסוף מתחנת יויו 🏪"];
 
   return (
     <section className="py-4 px-4 bg-background min-h-screen">
-      <div className="container mx-auto max-w-2xl">
+      <div className="container mx-auto max-w-xl">
         {/* Gender Tabs - Big & Clean */}
         <div className="mb-6" dir="rtl">
           <Tabs value={genderFilter} onValueChange={setGenderFilter} className="w-full">

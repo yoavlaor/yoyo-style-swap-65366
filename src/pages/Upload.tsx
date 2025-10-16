@@ -319,12 +319,15 @@ const Upload = () => {
                         <SelectValue placeholder="בחרו קטגוריה" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="חולצות">חולצות 👕</SelectItem>
-                        <SelectItem value="מכנסיים">מכנסיים 👖</SelectItem>
-                        <SelectItem value="שמלות">שמלות 👗</SelectItem>
-                        <SelectItem value="נעליים">נעליים 👟</SelectItem>
-                        <SelectItem value="תיקים">תיקים 👜</SelectItem>
-                        <SelectItem value="אחר">אחר ✨</SelectItem>
+                        <SelectItem value="חולצה 👕">חולצה 👕</SelectItem>
+                        <SelectItem value="מכנסיים 👖">מכנסיים 👖</SelectItem>
+                        <SelectItem value="שמלה וחצאית 👗">שמלה וחצאית 👗</SelectItem>
+                        <SelectItem value="נעליים 👟">נעליים 👟</SelectItem>
+                        <SelectItem value="בגדי חורף 🧥">בגדי חורף 🧥</SelectItem>
+                        <SelectItem value="בגד ים 🩱">בגד ים 🩱</SelectItem>
+                        <SelectItem value="אקססוריז 💍">אקססוריז 💍</SelectItem>
+                        <SelectItem value="תיק 👜">תיק 👜</SelectItem>
+                        <SelectItem value="אחר">אחר</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
