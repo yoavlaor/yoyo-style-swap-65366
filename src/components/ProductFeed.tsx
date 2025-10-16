@@ -171,25 +171,29 @@ export const ProductFeed = () => {
   const shippingMethods = ["פנים אל פנים 🤝", "משלוח 📦", "איסוף מתחנת יויו 🏪"];
 
   return (
-    <section className="py-12 px-4 bg-background">
+    <section className="py-8 px-4 bg-background min-h-screen">
       <div className="container mx-auto max-w-7xl">
-        {/* Gender Tabs */}
+        {/* Gender Tabs - Clean & Centered */}
         <div className="mb-8" dir="rtl">
           <Tabs value={genderFilter} onValueChange={setGenderFilter} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 bg-muted max-w-md mx-auto">
-              <TabsTrigger value="women" className="text-lg">👩 נשים</TabsTrigger>
-              <TabsTrigger value="men" className="text-lg">👨 גברים</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 bg-card/50 backdrop-blur-sm max-w-xs mx-auto h-12 rounded-full border border-border/50">
+              <TabsTrigger value="women" className="text-base rounded-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                👩 נשים
+              </TabsTrigger>
+              <TabsTrigger value="men" className="text-base rounded-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                👨 גברים
+              </TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
 
-        {/* Search & Filters */}
-        <div className="mb-8 flex flex-col md:flex-row gap-4" dir="rtl">
+        {/* Search & Filters - Minimal */}
+        <div className="mb-8 flex flex-col md:flex-row gap-3 max-w-2xl mx-auto" dir="rtl">
           <div className="relative flex-1">
-            <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input 
-              placeholder="חפשו לפי מותג, סגנון או קטגוריה... 🔍" 
-              className="pr-10 bg-card border-border/50 focus:border-electric transition-colors"
+              placeholder="חיפוש..." 
+              className="pr-10 bg-card/50 backdrop-blur-sm border-border/50 rounded-full h-11 focus:border-primary transition-colors"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -197,23 +201,23 @@ export const ProductFeed = () => {
           
           <Sheet open={filterOpen} onOpenChange={setFilterOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" className="border-border/50 hover:border-electric hover:text-electric transition-colors">
-                <SlidersHorizontal className="h-5 w-5 ml-2" />
-                סינונים 🎚️
+              <Button variant="outline" className="border-border/50 rounded-full h-11 px-6 hover:border-primary hover:bg-primary/5 transition-colors">
+                <SlidersHorizontal className="h-4 w-4 ml-2" />
+                סינון
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
               <SheetHeader>
-                <SheetTitle className="text-right">תסננו בול מה שמתאים לכם ✨</SheetTitle>
+                <SheetTitle className="text-right">סינון חכם ✨</SheetTitle>
                 <SheetDescription className="text-right">
-                  בחרו את כל מה שחשוב לכם ונמצא בדיוק מה שאתם מחפשים 🎯
+                  מצאו בדיוק מה שאתם מחפשים
                 </SheetDescription>
               </SheetHeader>
               
               <div className="mt-6 space-y-6" dir="rtl">
                 {/* Category Filter */}
                 <div className="space-y-3">
-                  <Label className="text-base font-semibold">סוג הפריט 👔</Label>
+                  <Label className="text-sm font-semibold">קטגוריה</Label>
                   <div className="grid grid-cols-2 gap-2">
                     {categories.map(category => (
                       <div key={category} className="flex items-center space-x-2 space-x-reverse">
@@ -232,7 +236,7 @@ export const ProductFeed = () => {
 
                 {/* Size Filter */}
                 <div className="space-y-3">
-                  <Label className="text-base font-semibold">מידות 📏</Label>
+                  <Label className="text-sm font-semibold">מידה</Label>
                   <div className="flex flex-wrap gap-2">
                     {sizes.map(size => (
                       <Button
@@ -240,7 +244,7 @@ export const ProductFeed = () => {
                         variant={selectedSizes.includes(size) ? "default" : "outline"}
                         size="sm"
                         onClick={() => toggleFilter(size, selectedSizes, setSelectedSizes)}
-                        className="transition-all"
+                        className="rounded-full transition-all"
                       >
                         {size}
                       </Button>
@@ -250,7 +254,7 @@ export const ProductFeed = () => {
 
                 {/* Condition Filter */}
                 <div className="space-y-3">
-                  <Label className="text-base font-semibold">מצב הבגד 👕</Label>
+                  <Label className="text-sm font-semibold">מצב</Label>
                   <div className="space-y-2">
                     {conditions.map(condition => (
                       <div key={condition} className="flex items-center space-x-2 space-x-reverse">
@@ -269,7 +273,7 @@ export const ProductFeed = () => {
 
                 {/* Shipping Method Filter */}
                 <div className="space-y-3">
-                  <Label className="text-base font-semibold">אופציות משלוח 🚚</Label>
+                  <Label className="text-sm font-semibold">משלוח</Label>
                   <div className="space-y-2">
                     {shippingMethods.map(method => (
                       <div key={method} className="flex items-center space-x-2 space-x-reverse">
@@ -305,11 +309,11 @@ export const ProductFeed = () => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-2 pt-4">
-                  <Button onClick={clearFilters} variant="outline" className="flex-1">
-                    נקה הכל 🗑️
+                  <Button onClick={clearFilters} variant="outline" className="flex-1 rounded-full">
+                    נקה
                   </Button>
-                  <Button onClick={() => setFilterOpen(false)} className="flex-1">
-                    הצג תוצאות 🎉
+                  <Button onClick={() => setFilterOpen(false)} className="flex-1 rounded-full">
+                    הצג
                   </Button>
                 </div>
               </div>
@@ -319,14 +323,15 @@ export const ProductFeed = () => {
 
         {/* Product Grid */}
         {loading ? (
-          <div className="text-center py-12">טוען מוצרים...</div>
+          <div className="text-center py-20">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
         ) : items.length === 0 ? (
-          <div className="text-center py-12" dir="rtl">
-            <p className="text-muted-foreground text-lg mb-4">עדיין אין פריטים בקטגוריה הזו 😊</p>
-            <p className="text-muted-foreground">היו הראשונים להעלות משהו מגניב! ✨</p>
+          <div className="text-center py-20" dir="rtl">
+            <p className="text-muted-foreground text-lg">אין פריטים להצגה</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {items.map((product: any) => (
               <ProductCard
                 key={product.id}
@@ -348,15 +353,17 @@ export const ProductFeed = () => {
         )}
 
         {/* Load More */}
-        <div className="mt-12 text-center">
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="border-electric text-electric hover:bg-electric/10 transition-colors"
-          >
-            עוד פריטים מגניבים 🎁
-          </Button>
-        </div>
+        {items.length > 0 && (
+          <div className="mt-8 text-center">
+            <Button 
+              variant="outline" 
+              size="lg"
+              className="rounded-full border-primary/20 hover:bg-primary/5 transition-colors"
+            >
+              עוד פריטים
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
