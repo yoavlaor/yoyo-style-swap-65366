@@ -354,7 +354,7 @@ export const ProductFeed = () => {
             <p className="text-muted-foreground text-xl">אין פריטים להצגה</p>
           </div>
         ) : viewMode === "grid" ? (
-          <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
+          <div className="grid grid-cols-2 gap-4">
             {items.map((product: any) => (
               <ProductCard
                 key={product.id}
