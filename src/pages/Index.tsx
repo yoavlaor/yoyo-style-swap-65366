@@ -113,29 +113,17 @@ const Index = () => {
               onClick={() => navigate(item.path)}
             >
               <div className={`h-2 bg-gradient-to-r ${item.gradient}`} />
-              <CardContent className="p-8 space-y-6">
+              <CardContent className="p-12 space-y-6">
                 <div className="flex justify-center">
-                  <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${item.gradient} flex items-center justify-center text-5xl transform group-hover:scale-110 transition-transform duration-300 shadow-glow`}>
+                  <div className={`w-32 h-32 rounded-full bg-gradient-to-br ${item.gradient} flex items-center justify-center text-6xl transform group-hover:scale-110 transition-transform duration-300 shadow-glow`}>
                     {item.emoji}
                   </div>
                 </div>
-                <div className="text-center space-y-3">
-                  <h2 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <div className="text-center">
+                  <h2 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                     {item.title}
                   </h2>
-                  <p className="text-muted-foreground text-lg">
-                    {item.description}
-                  </p>
                 </div>
-                <Button
-                  className={`w-full shadow-warm bg-gradient-to-r ${item.gradient} hover:opacity-90 text-white text-lg py-6`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(item.path);
-                  }}
-                >
-                  בואו נתחיל! 🚀
-                </Button>
               </CardContent>
             </Card>
           ))}
