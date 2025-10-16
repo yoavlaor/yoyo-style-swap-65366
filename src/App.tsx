@@ -13,6 +13,7 @@ import EditItem from "./pages/EditItem";
 import SellerProfile from "./pages/SellerProfile";
 import NotFound from "./pages/NotFound";
 import Menu from "./pages/Menu";
+import Feed from "./pages/Feed";
 
 const queryClient = new QueryClient();
 
@@ -23,8 +24,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Menu />} />
-          <Route path="/feed" element={<Index />} />
+          <Route path="/" element={<Index />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/menu" element={<Menu />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/upload" element={<Upload />} />
