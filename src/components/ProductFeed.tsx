@@ -354,7 +354,7 @@ export const ProductFeed = () => {
             <p className="text-muted-foreground text-xl">אין פריטים להצגה</p>
           </div>
         ) : viewMode === "grid" ? (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
             {items.map((product: any) => (
               <ProductCard
                 key={product.id}
@@ -386,9 +386,9 @@ export const ProductFeed = () => {
             </div>
             
             {/* Story View */}
-            <div className="relative h-[85vh] overflow-hidden rounded-3xl">
+            <div className="relative h-[calc(100vh-280px)] overflow-hidden rounded-3xl">
               {items[currentStoryIndex] && (
-                <div className="w-full h-full [&>div]:h-full [&>div>div]:!aspect-auto">
+                <div className="w-full h-full">
                   <ProductCard
                     id={items[currentStoryIndex].id}
                     sellerId={items[currentStoryIndex].seller_id}
