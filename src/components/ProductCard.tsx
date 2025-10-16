@@ -102,9 +102,18 @@ export const ProductCard = ({
         </div>
 
         {shippingMethods && shippingMethods.length > 0 && (
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-col gap-1.5">
             {shippingMethods.map((method, index) => (
-              <Badge key={index} variant="secondary" className="text-xs px-2 py-0.5">
+              <Badge 
+                key={index} 
+                className={`text-xs px-2 py-1 border-0 ${
+                  index % 3 === 0 
+                    ? 'bg-primary text-primary-foreground' 
+                    : index % 3 === 1 
+                    ? 'bg-accent text-accent-foreground' 
+                    : 'bg-secondary text-secondary-foreground'
+                }`}
+              >
                 {method}
               </Badge>
             ))}
