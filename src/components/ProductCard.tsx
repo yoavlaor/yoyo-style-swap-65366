@@ -46,9 +46,6 @@ export const ProductCard = ({
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         
-        {/* Vibrant Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/0 to-primary/0" />
-        
         {/* Like Button - Top Right */}
         <button 
           onClick={(e) => {
@@ -76,43 +73,43 @@ export const ProductCard = ({
             <Trash2 className="h-5 w-5 text-white" />
           </button>
         )}
+      </div>
 
-        {/* Content Overlay - Bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white space-y-3">
-          <div className="flex items-end justify-between gap-4">
-            <div className="flex-1 min-w-0 space-y-2">
-              <h3 className="font-bold text-2xl drop-shadow-lg line-clamp-2">{title}</h3>
-              <p className="text-base text-white/90 font-medium">{brand}</p>
-              
-              <div className="flex items-center gap-1.5 text-sm text-white/80">
-                <MapPin className="h-5 w-5 flex-shrink-0" />
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    sellerId && navigate(`/seller/${sellerId}`);
-                  }}
-                  className="hover:text-white hover:underline transition-colors truncate"
-                >
-                  {location}
-                </button>
-              </div>
-            </div>
+      {/* Content - Below Image */}
+      <div className="p-4 space-y-2">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 min-w-0 space-y-1">
+            <h3 className="font-bold text-lg text-foreground">{title}</h3>
+            <p className="text-sm text-muted-foreground font-medium">{brand}</p>
             
-            <div className="text-right flex-shrink-0">
-              <div className="text-3xl font-black text-white drop-shadow-lg">₪{price}</div>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              <MapPin className="h-4 w-4 flex-shrink-0" />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  sellerId && navigate(`/seller/${sellerId}`);
+                }}
+                className="hover:text-foreground hover:underline transition-colors"
+              >
+                {location}
+              </button>
             </div>
           </div>
-
-          {shippingMethods && shippingMethods.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {shippingMethods.map((method, index) => (
-                <Badge key={index} className="text-sm px-3 py-1 bg-secondary/95 text-white border-0 backdrop-blur-md shadow-glow">
-                  {method}
-                </Badge>
-              ))}
-            </div>
-          )}
+          
+          <div className="text-right flex-shrink-0">
+            <div className="text-xl font-black text-foreground">₪{price}</div>
+          </div>
         </div>
+
+        {shippingMethods && shippingMethods.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {shippingMethods.map((method, index) => (
+              <Badge key={index} variant="secondary" className="text-xs px-2 py-0.5">
+                {method}
+              </Badge>
+            ))}
+          </div>
+        )}
       </div>
     </Card>
   );
