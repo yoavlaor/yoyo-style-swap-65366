@@ -77,13 +77,31 @@ const Index = () => {
       )}
 
       <div className="container mx-auto px-4 py-16">
-        <div className="text-center space-y-4 mb-16">
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-sage bg-clip-text text-transparent animate-fade-in">
-            ברוכים הבאים ל-YoYo! ✨
+        {/* Logo & Slogan */}
+        <div className="text-center mb-12 animate-slide-up">
+          <h1 className="font-sans text-6xl md:text-8xl font-black mb-6 drop-shadow-2xl">
+            <span className="bg-gradient-to-r from-terracotta via-sage to-warmYellow bg-clip-text text-transparent animate-glow-pulse">
+              YOYO
+            </span>
           </h1>
-          <p className="text-xl text-muted-foreground">
+          
+          <div className="space-y-2 mb-8">
+            <p className="text-xl md:text-3xl font-bold tracking-tight">
+              <span className="bg-gradient-to-l from-terracotta via-sage to-terracotta bg-clip-text text-transparent">
+                אמינות · חדשנות · אקולוגיה
+              </span>
+            </p>
+            
+            <p className="text-lg md:text-2xl font-semibold text-muted-foreground/90">
+              ✨ משנים את כללי המשחק ✨
+            </p>
+          </div>
+        </div>
+
+        <div className="text-center space-y-4 mb-12">
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-sage bg-clip-text text-transparent animate-fade-in">
             לאן תרצו להגיע היום?
-          </p>
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
