@@ -1,5 +1,5 @@
 import { ProductCard } from "./ProductCard";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Search, SlidersHorizontal, Grid, List } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
@@ -47,6 +47,7 @@ export const ProductFeed = () => {
   const [selectedShipping, setSelectedShipping] = useState<string[]>([]);
   const [maxDistance, setMaxDistance] = useState<number>(50);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [viewMode, setViewMode] = useState<"grid" | "story">("grid");
 
   useEffect(() => {
     const loadUserGender = async () => {
@@ -187,7 +188,7 @@ export const ProductFeed = () => {
           </Tabs>
         </div>
 
-        {/* Search & Filters - Big & Minimal */}
+        {/* Search, Filters & View Toggle */}
         <div className="mb-6 flex gap-3" dir="rtl">
           <div className="relative flex-1">
             <Search className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -199,9 +200,18 @@ export const ProductFeed = () => {
             />
           </div>
           
+          {/* View Mode Toggle */}
+          <Button
+            variant={viewMode === "grid" ? "default" : "outline"}
+            onClick={() => setViewMode(viewMode === "grid" ? "story" : "grid")}
+            className="rounded-2xl h-14 px-4 transition-all shadow-lg bg-card/80 backdrop-blur-md"
+          >
+            {viewMode === "grid" ? <List className="h-5 w-5" /> : <Grid className="h-5 w-5" />}
+          </Button>
+          
           <Sheet open={filterOpen} onOpenChange={setFilterOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" className="border-border/50 rounded-2xl h-14 px-6 hover:border-primary hover:bg-primary/5 transition-all shadow-lg bg-card/80 backdrop-blur-md">
+              <Button variant="outline" className="border-border/50 rounded-2xl h-14 px-4 hover:border-primary hover:bg-primary/5 transition-all shadow-lg bg-card/80 backdrop-blur-md">
                 <SlidersHorizontal className="h-5 w-5" />
               </Button>
             </SheetTrigger>
@@ -320,7 +330,7 @@ export const ProductFeed = () => {
           </Sheet>
         </div>
 
-        {/* Product Grid - Tinder Style: Large Cards */}
+        {/* Product Display */}
         {loading ? (
           <div className="text-center py-20">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-primary"></div>
@@ -329,8 +339,8 @@ export const ProductFeed = () => {
           <div className="text-center py-20" dir="rtl">
             <p className="text-muted-foreground text-xl">אין פריטים להצגה</p>
           </div>
-        ) : (
-          <div className="space-y-6">
+        ) : viewMode === "grid" ? (
+          <div className="grid grid-cols-2 gap-4">
             {items.map((product: any) => (
               <ProductCard
                 key={product.id}
@@ -349,10 +359,31 @@ export const ProductFeed = () => {
               />
             ))}
           </div>
+        ) : (
+          <div className="space-y-4 snap-y snap-mandatory overflow-y-scroll h-[calc(100vh-200px)]" style={{ scrollSnapType: "y mandatory" }}>
+            {items.map((product: any, index: number) => (
+              <div key={product.id} className="snap-start snap-always h-[calc(100vh-200px)]">
+                <ProductCard
+                  id={product.id}
+                  sellerId={product.seller_id}
+                  image={product.images?.[0]}
+                  title={product.title}
+                  brand={product.brand}
+                  price={product.price}
+                  location={product.profiles?.username}
+                  verified={true}
+                  distance=""
+                  shippingMethods={product.shipping_method || []}
+                  isAdmin={isAdmin}
+                  onDelete={handleDeleteItem}
+                />
+              </div>
+            ))}
+          </div>
         )}
 
         {/* Load More */}
-        {items.length > 0 && (
+        {items.length > 0 && viewMode === "grid" && (
           <div className="mt-8 text-center">
             <Button 
               variant="outline" 
