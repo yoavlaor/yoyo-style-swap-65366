@@ -75,12 +75,13 @@ const Auth = () => {
       setLoading(false);
     } else {
       toast({
-        title: "ההרשמה הושלמה! 🎉",
-        description: "ברוכים הבאים ליויו!",
+        title: "נרשמת בהצלחה! 🎉",
+        description: "שלחנו לך אימייל לאימות. אנא בדקו את תיבת הדואר ולחצו על הקישור לאימות כדי להתחבר.",
+        duration: 8000,
       });
       
       setLoading(false);
-      navigate("/");
+      // Don't navigate - user needs to verify email first
     }
   };
 
