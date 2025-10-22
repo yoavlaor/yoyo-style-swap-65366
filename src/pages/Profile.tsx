@@ -189,55 +189,55 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/5 p-6" dir="rtl">
-        <div className="max-w-6xl mx-auto space-y-8 py-12">
-          <div className="text-center space-y-4 animate-fade-in">
-            <h1 className="text-6xl md:text-7xl font-black bg-gradient-primary bg-clip-text text-transparent drop-shadow-lg">
+      <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/5 p-3 sm:p-6" dir="rtl">
+        <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8 py-6 sm:py-12">
+          <div className="text-center space-y-3 sm:space-y-4 animate-fade-in">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black bg-gradient-primary bg-clip-text text-transparent drop-shadow-lg">
               האזור האישי שלי ✨
             </h1>
-            <p className="text-xl text-muted-foreground font-medium">הכל במקום אחד, נוח ופשוט 💚</p>
+            <p className="text-base sm:text-xl text-muted-foreground font-medium">הכל במקום אחד, נוח ופשוט 💚</p>
           </div>
 
           <Tabs defaultValue="profile" className="animate-scale-in">
-            <TabsList className={`grid w-full h-16 ${isAdmin ? 'grid-cols-6' : 'grid-cols-5'} bg-card/80 backdrop-blur-md shadow-glow rounded-2xl p-2`}>
-              <TabsTrigger value="profile" className="text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all">קצת עלי 👤</TabsTrigger>
-              <TabsTrigger value="mannequin" className="text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all">הבובה שלי 👗</TabsTrigger>
-              <TabsTrigger value="items" className="text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all">מה אני מוכר/ת 👕</TabsTrigger>
-              <TabsTrigger value="purchases" className="text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all">מה קניתי 🛍️</TabsTrigger>
-              <TabsTrigger value="sales" className="text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all">מה מכרתי 💰</TabsTrigger>
-              {isAdmin && <TabsTrigger value="admin" className="text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all">ניהול 👑</TabsTrigger>}
+            <TabsList className="w-full h-auto min-h-14 bg-card/80 backdrop-blur-md shadow-glow rounded-2xl p-2 flex flex-wrap gap-2 justify-center">
+              <TabsTrigger value="profile" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">קצת עלי 👤</TabsTrigger>
+              <TabsTrigger value="mannequin" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">הבובה שלי 👗</TabsTrigger>
+              <TabsTrigger value="items" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">מה אני מוכר/ת 👕</TabsTrigger>
+              <TabsTrigger value="purchases" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">מה קניתי 🛍️</TabsTrigger>
+              <TabsTrigger value="sales" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">מה מכרתי 💰</TabsTrigger>
+              {isAdmin && <TabsTrigger value="admin" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">ניהול 👑</TabsTrigger>}
             </TabsList>
 
             <TabsContent value="profile" className="animate-fade-in">
               <Card className="shadow-glow bg-gradient-to-br from-card to-card/80 backdrop-blur-md border-border/30 rounded-3xl">
-                <CardHeader className="pb-8">
-                  <CardTitle className="text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">בואו נכיר! 👋</CardTitle>
+                <CardHeader className="pb-4 sm:pb-8">
+                  <CardTitle className="text-2xl sm:text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">בואו נכיר! 👋</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleUpdateProfile} className="space-y-8">
-                    <div className="space-y-3">
-                      <Label htmlFor="username" className="text-lg font-semibold">איך קוראים לך? ✏️</Label>
+                  <form onSubmit={handleUpdateProfile} className="space-y-6 sm:space-y-8">
+                    <div className="space-y-2 sm:space-y-3">
+                      <Label htmlFor="username" className="text-base sm:text-lg font-semibold">איך קוראים לך? ✏️</Label>
                       <Input
                         id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                         placeholder="שם משתמש מגניב"
-                        className="bg-background h-14 text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all"
+                        className="bg-background h-12 sm:h-14 text-base sm:text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all"
                       />
                     </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="bio" className="text-lg font-semibold">ספרו לנו משהו עליכם! 💭</Label>
+                    <div className="space-y-2 sm:space-y-3">
+                      <Label htmlFor="bio" className="text-base sm:text-lg font-semibold">ספרו לנו משהו עליכם! 💭</Label>
                       <Textarea
                         id="bio"
                         value={bio}
                         onChange={(e) => setBio(e.target.value)}
-                        rows={6}
+                        rows={4}
                         placeholder="מה מיוחד בכם? מה אתם אוהבים? שתפו אותנו! ✨"
-                        className="bg-background text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all resize-none"
+                        className="bg-background text-base sm:text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all resize-none"
                       />
                     </div>
-                    <Button type="submit" size="lg" className="shadow-glow text-lg font-bold px-8 rounded-2xl hover:scale-105 transition-transform">שמירה 💚</Button>
+                    <Button type="submit" size="lg" className="shadow-glow text-base sm:text-lg font-bold px-6 sm:px-8 rounded-2xl hover:scale-105 transition-transform w-full sm:w-auto">שמירה 💚</Button>
                   </form>
                 </CardContent>
               </Card>
@@ -272,19 +272,19 @@ const Profile = () => {
 
             <TabsContent value="items" className="animate-fade-in">
               <Card className="shadow-glow bg-gradient-to-br from-card to-card/80 backdrop-blur-md border-border/30 rounded-3xl">
-                <CardHeader className="pb-8">
-                  <CardTitle className="text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">הבגדים שלי ({myItems.length})</CardTitle>
+                <CardHeader className="pb-4 sm:pb-8">
+                  <CardTitle className="text-2xl sm:text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">הבגדים שלי ({myItems.length})</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     {myItems.map((item) => (
                       <Card key={item.id} className="hover:shadow-glow hover:scale-105 transition-all duration-300 rounded-2xl border-border/30 bg-gradient-to-br from-card to-card/80">
-                        <CardContent className="p-6 space-y-3">
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="flex-1 space-y-2">
-                              <h3 className="font-bold text-xl">{item.title}</h3>
-                              <p className="text-primary font-black text-2xl">₪{item.price}</p>
-                              <p className="text-base flex items-center gap-2 font-medium">
+                        <CardContent className="p-4 sm:p-6 space-y-3">
+                          <div className="flex items-start justify-between gap-2 sm:gap-3">
+                            <div className="flex-1 space-y-1 sm:space-y-2">
+                              <h3 className="font-bold text-lg sm:text-xl">{item.title}</h3>
+                              <p className="text-primary font-black text-xl sm:text-2xl">₪{item.price}</p>
+                              <p className="text-sm sm:text-base flex items-center gap-2 font-medium">
                                 {item.is_sold ? (
                                   <span className="text-secondary">נמכר ✓</span>
                                 ) : (
@@ -292,12 +292,12 @@ const Profile = () => {
                                 )}
                               </p>
                             </div>
-                            <div className="flex gap-2">
+                            <div className="flex gap-1 sm:gap-2 flex-shrink-0">
                               <Button
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => navigate(`/edit-item/${item.id}`)}
-                                className="hover:bg-primary/10 hover:text-primary"
+                                className="hover:bg-primary/10 hover:text-primary h-9 w-9 sm:h-10 sm:w-10"
                               >
                                 <Edit className="h-4 w-4" />
                               </Button>
@@ -306,23 +306,23 @@ const Profile = () => {
                                   <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="hover:bg-destructive/10 hover:text-destructive"
+                                    className="hover:bg-destructive/10 hover:text-destructive h-9 w-9 sm:h-10 sm:w-10"
                                   >
                                     <Trash2 className="h-4 w-4" />
                                   </Button>
                                 </AlertDialogTrigger>
-                                <AlertDialogContent dir="rtl">
+                                <AlertDialogContent dir="rtl" className="max-w-[90vw] sm:max-w-md">
                                   <AlertDialogHeader>
-                                    <AlertDialogTitle>רגע, בטוחים? 🤔</AlertDialogTitle>
-                                    <AlertDialogDescription>
+                                    <AlertDialogTitle className="text-lg sm:text-xl">רגע, בטוחים? 🤔</AlertDialogTitle>
+                                    <AlertDialogDescription className="text-sm sm:text-base">
                                       אתם עומדים למחוק את "{item.title}" - זה לא ניתן לשחזור אחר כך
                                     </AlertDialogDescription>
                                   </AlertDialogHeader>
-                                  <AlertDialogFooter>
-                                    <AlertDialogCancel>לא, חזרה! 🔙</AlertDialogCancel>
+                                  <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+                                    <AlertDialogCancel className="m-0">לא, חזרה! 🔙</AlertDialogCancel>
                                     <AlertDialogAction
                                       onClick={() => handleDeleteItem(item.id)}
-                                      className="bg-destructive hover:bg-destructive/90"
+                                      className="bg-destructive hover:bg-destructive/90 m-0"
                                     >
                                       כן, למחוק 🗑️
                                     </AlertDialogAction>
@@ -335,7 +335,7 @@ const Profile = () => {
                       </Card>
                     ))}
                     {myItems.length === 0 && (
-                      <p className="text-muted-foreground col-span-2 text-center py-8">
+                      <p className="text-muted-foreground col-span-full text-center py-8 text-sm sm:text-base">
                         עדיין לא העלתם בגדים... בואו נתחיל! 🌱
                       </p>
                     )}
@@ -346,22 +346,22 @@ const Profile = () => {
 
             <TabsContent value="purchases" className="animate-fade-in">
               <Card className="shadow-glow bg-gradient-to-br from-card to-card/80 backdrop-blur-md border-border/30 rounded-3xl">
-                <CardHeader className="pb-8">
-                  <CardTitle className="text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">הקניות שלי ({myPurchases.length})</CardTitle>
+                <CardHeader className="pb-4 sm:pb-8">
+                  <CardTitle className="text-2xl sm:text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">הקניות שלי ({myPurchases.length})</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     {myPurchases.map((transaction) => (
                       <Card key={transaction.id} className="hover:shadow-glow hover:scale-105 transition-all duration-300 rounded-2xl border-border/30 bg-gradient-to-br from-card to-card/80">
-                        <CardContent className="p-6 space-y-3">
-                          <h3 className="font-bold text-2xl">{transaction.items?.title}</h3>
-                          <p className="text-primary font-black text-3xl">₪{transaction.amount}</p>
-                          <p className="text-base text-green-500 font-semibold">סטטוס: {transaction.status} ✓</p>
+                        <CardContent className="p-4 sm:p-6 space-y-2 sm:space-y-3">
+                          <h3 className="font-bold text-lg sm:text-2xl">{transaction.items?.title}</h3>
+                          <p className="text-primary font-black text-2xl sm:text-3xl">₪{transaction.amount}</p>
+                          <p className="text-sm sm:text-base text-green-500 font-semibold">סטטוס: {transaction.status} ✓</p>
                         </CardContent>
                       </Card>
                     ))}
                     {myPurchases.length === 0 && (
-                      <p className="text-muted-foreground text-center py-8">
+                      <p className="text-muted-foreground text-center py-8 text-sm sm:text-base">
                         עדיין לא קניתם כלום... בואו נמצא משהו יפה! 🛍️
                       </p>
                     )}
@@ -372,27 +372,27 @@ const Profile = () => {
 
             <TabsContent value="sales" className="animate-fade-in">
               <Card className="shadow-glow bg-gradient-to-br from-card to-card/80 backdrop-blur-md border-border/30 rounded-3xl">
-                <CardHeader className="pb-8">
-                  <CardTitle className="text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">המכירות שלי ({mySales.length})</CardTitle>
+                <CardHeader className="pb-4 sm:pb-8">
+                  <CardTitle className="text-2xl sm:text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">המכירות שלי ({mySales.length})</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     {mySales.map((sale) => (
                       <Card key={sale.id} className="hover:shadow-glow hover:scale-105 transition-all duration-300 rounded-2xl border-border/30 bg-gradient-to-br from-card to-card/80">
-                        <CardContent className="p-6 space-y-4">
-                          <div className="flex justify-between items-start">
-                            <div className="space-y-2">
-                              <h3 className="font-bold text-2xl">{sale.items?.title}</h3>
-                              <p className="text-primary font-black text-3xl">₪{sale.amount}</p>
+                        <CardContent className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+                          <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
+                            <div className="space-y-1 sm:space-y-2">
+                              <h3 className="font-bold text-lg sm:text-2xl">{sale.items?.title}</h3>
+                              <p className="text-primary font-black text-2xl sm:text-3xl">₪{sale.amount}</p>
                             </div>
-                            <div className="text-left space-y-1">
-                              <p className="text-base text-muted-foreground font-medium">נמכר ב:</p>
-                              <p className="text-lg font-semibold">{new Date(sale.created_at).toLocaleDateString('he-IL')}</p>
+                            <div className="text-right sm:text-left space-y-1 w-full sm:w-auto">
+                              <p className="text-sm sm:text-base text-muted-foreground font-medium">נמכר ב:</p>
+                              <p className="text-base sm:text-lg font-semibold">{new Date(sale.created_at).toLocaleDateString('he-IL')}</p>
                             </div>
                           </div>
                           
                           <div className="border-t pt-3 space-y-2">
-                            <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-2 text-sm">
                               <div>
                                 <span className="text-muted-foreground">נקנה על ידי:</span>
                                 <p className="font-medium">{sale.profiles?.username || 'לא ידוע'}</p>
@@ -416,7 +416,7 @@ const Profile = () => {
                             <Button
                               onClick={() => navigate(`/chat/${sale.chats[0].id}`)}
                               variant="outline"
-                              className="w-full"
+                              className="w-full text-sm sm:text-base"
                             >
                               💬 צ'אט עם הקונה
                             </Button>
@@ -425,7 +425,7 @@ const Profile = () => {
                       </Card>
                     ))}
                     {mySales.length === 0 && (
-                      <p className="text-muted-foreground text-center py-8">
+                      <p className="text-muted-foreground text-center py-8 text-sm sm:text-base">
                         עדיין לא מכרתם כלום... בואו נעלה בגדים! 📸
                       </p>
                     )}
