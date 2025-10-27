@@ -25,7 +25,6 @@ interface Item {
   price: number;
   images: string[];
   is_sold: boolean;
-  shipping_method: string[];
   seller_id: string;
   profiles: {
     username: string;
@@ -45,7 +44,6 @@ export const ProductFeed = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
-  const [selectedShipping, setSelectedShipping] = useState<string[]>([]);
   const [maxDistance, setMaxDistance] = useState<number>(50);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [viewMode, setViewMode] = useState<"grid" | "story">("grid");
@@ -107,16 +105,7 @@ export const ProductFeed = () => {
       .limit(20);
 
     if (data) {
-      let filteredData = data;
-      
-      // Filter by shipping method (array contains)
-      if (selectedShipping.length > 0) {
-        filteredData = filteredData.filter(item =>
-          selectedShipping.some(method => item.shipping_method?.includes(method))
-        );
-      }
-      
-      setItems(filteredData);
+      setItems(data);
     }
     setLoading(false);
   };
@@ -149,7 +138,7 @@ export const ProductFeed = () => {
 
   useEffect(() => {
     loadItems();
-  }, [genderFilter, selectedCategories, selectedSizes, selectedConditions, selectedShipping, searchQuery]);
+  }, [genderFilter, selectedCategories, selectedSizes, selectedConditions, searchQuery]);
 
   const handleNextStory = () => {
     if (currentStoryIndex < items.length - 1) {
@@ -175,7 +164,6 @@ export const ProductFeed = () => {
     setSelectedCategories([]);
     setSelectedSizes([]);
     setSelectedConditions([]);
-    setSelectedShipping([]);
     setMaxDistance(50);
     setSearchQuery("");
   };
@@ -183,7 +171,6 @@ export const ProductFeed = () => {
   const categories = ["חולצה", "מכנסיים", "נעליים", "שמלה וחצאית", "בגדי חורף", "בגד ים", "אקססוריז", "תיק", "אחר"];
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const conditions = ["חדש עם תווית", "כמו חדש", "משומש מצוין", "משומש טוב"];
-  const shippingMethods = ["פנים אל פנים", "משלוח", "איסוף מתחנת יויו"];
 
   return (
     <section className="py-4 px-4 bg-background min-h-screen">
@@ -294,25 +281,6 @@ export const ProductFeed = () => {
                   </div>
                 </div>
 
-                {/* Shipping Method Filter */}
-                <div className="space-y-3">
-                  <Label className="text-sm font-semibold">משלוח</Label>
-                  <div className="space-y-2">
-                    {shippingMethods.map(method => (
-                      <div key={method} className="flex items-center space-x-2 space-x-reverse">
-                        <Checkbox
-                          id={`shipping-${method}`}
-                          checked={selectedShipping.includes(method)}
-                          onCheckedChange={() => toggleFilter(method, selectedShipping, setSelectedShipping)}
-                        />
-                        <label htmlFor={`shipping-${method}`} className="text-sm cursor-pointer">
-                          {method}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
                 {/* Distance Filter */}
                 <div className="space-y-3">
                   <Label className="text-base font-semibold">מרחק מקסימלי</Label>
@@ -367,7 +335,6 @@ export const ProductFeed = () => {
                 location={product.profiles?.username}
                 verified={true}
                 distance=""
-                shippingMethods={product.shipping_method || []}
                 isAdmin={isAdmin}
                 onDelete={handleDeleteItem}
               />
@@ -399,7 +366,6 @@ export const ProductFeed = () => {
                     location={items[currentStoryIndex].profiles?.username}
                     verified={true}
                     distance=""
-                    shippingMethods={items[currentStoryIndex].shipping_method || []}
                     isAdmin={isAdmin}
                     onDelete={handleDeleteItem}
                   />

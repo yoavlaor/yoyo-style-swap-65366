@@ -137,7 +137,6 @@ const SellerProfile = () => {
                       price={item.price}
                       location={seller.username}
                       verified={seller.is_face_verified}
-                      shippingMethods={item.shipping_method || []}
                     />
                   ))}
                 </div>

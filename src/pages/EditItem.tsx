@@ -25,7 +25,6 @@ const EditItem = () => {
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
   const [brand, setBrand] = useState("");
-  const [shippingMethods, setShippingMethods] = useState<string[]>([]);
   const [gender, setGender] = useState("");
   const [existingImages, setExistingImages] = useState<string[]>([]);
 
@@ -67,7 +66,6 @@ const EditItem = () => {
     setSize(data.size || "");
     setCondition(data.condition || "");
     setBrand(data.brand || "");
-    setShippingMethods(data.shipping_method || []);
     setGender(data.gender || "");
     setExistingImages(data.images || []);
   };
@@ -89,7 +87,6 @@ const EditItem = () => {
           size,
           condition,
           brand,
-          shipping_method: shippingMethods,
           gender,
         })
         .eq("id", id)
@@ -250,88 +247,24 @@ const EditItem = () => {
                   </Select>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="gender">למי זה מיועד? 👥</Label>
-                    <Select value={gender} onValueChange={setGender} required>
-                      <SelectTrigger className="bg-background">
-                        <SelectValue placeholder="בחרו" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="women">נשים 👩</SelectItem>
-                        <SelectItem value="men">גברים 👨</SelectItem>
-                        <SelectItem value="unisex">יוניסקס 🌈</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>איך נשלח? 📦</Label>
-                    <div className="text-xs text-muted-foreground">(ניתן לבחור יותר מאחד)</div>
-                  </div>
-                </div>
-
                 <div className="space-y-2">
-                  <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
-                    <input
-                      type="checkbox"
-                      id="face-to-face"
-                      checked={shippingMethods.includes("פנים אל פנים 🤝")}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setShippingMethods([...shippingMethods, "פנים אל פנים 🤝"]);
-                        } else {
-                          setShippingMethods(shippingMethods.filter(m => m !== "פנים אל פנים 🤝"));
-                        }
-                      }}
-                      className="w-4 h-4 accent-primary"
-                    />
-                    <label htmlFor="face-to-face" className="flex-1 cursor-pointer text-sm">
-                      פנים אל פנים 🤝
-                    </label>
-                  </div>
-                  <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
-                    <input
-                      type="checkbox"
-                      id="delivery"
-                      checked={shippingMethods.includes("משלוח 📦")}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setShippingMethods([...shippingMethods, "משלוח 📦"]);
-                        } else {
-                          setShippingMethods(shippingMethods.filter(m => m !== "משלוח 📦"));
-                        }
-                      }}
-                      className="w-4 h-4 accent-primary"
-                    />
-                    <label htmlFor="delivery" className="flex-1 cursor-pointer text-sm">
-                      משלוח 📦
-                    </label>
-                  </div>
-                  <div className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border border-border bg-background hover:bg-accent transition-colors">
-                    <input
-                      type="checkbox"
-                      id="yoyo-station"
-                      checked={shippingMethods.includes("איסוף מתחנת יויו 🏪")}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setShippingMethods([...shippingMethods, "איסוף מתחנת יויו 🏪"]);
-                        } else {
-                          setShippingMethods(shippingMethods.filter(m => m !== "איסוף מתחנת יויו 🏪"));
-                        }
-                      }}
-                      className="w-4 h-4 accent-primary"
-                    />
-                    <label htmlFor="yoyo-station" className="flex-1 cursor-pointer text-sm">
-                      איסוף מתחנת יויו 🏪
-                    </label>
-                  </div>
+                  <Label htmlFor="gender">למי זה מיועד? 👥</Label>
+                  <Select value={gender} onValueChange={setGender} required>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="בחרו" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="women">נשים 👩</SelectItem>
+                      <SelectItem value="men">גברים 👨</SelectItem>
+                      <SelectItem value="unisex">יוניסקס 🌈</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="flex gap-4 pt-4">
                   <Button 
                     type="submit" 
-                    disabled={loading || shippingMethods.length === 0} 
+                    disabled={loading} 
                     className="flex-1 shadow-warm hover:shadow-lg transition-shadow"
                   >
                     {loading ? "שומר... רגע קטן! ⏳" : "שמירת השינויים 💚"}

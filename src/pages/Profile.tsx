@@ -406,10 +406,6 @@ const Profile = () => {
                                 <p className="font-medium">{sale.profiles?.username || 'לא ידוע'}</p>
                               </div>
                               <div>
-                                <span className="text-muted-foreground">משלוח:</span>
-                                <p className="font-medium">{sale.shipping_method}</p>
-                              </div>
-                              <div>
                                 <span className="text-muted-foreground">סטטוס:</span>
                                 <p className="font-medium text-sage">{sale.status}</p>
                               </div>
