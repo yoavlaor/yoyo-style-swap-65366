@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Camera, CheckCircle, XCircle } from "lucide-react";
+import { Camera, CheckCircle, XCircle, Check } from "lucide-react";
 
 interface ItemVerificationCardProps {
   itemId?: string;
@@ -47,7 +47,10 @@ export const ItemVerificationCard = ({ itemId, onVerificationComplete }: ItemVer
     <Card className="p-6">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-semibold">אימות פריט</h3>
+          <h3 className="text-xl font-semibold flex items-center gap-2">
+            אימות פריט
+            <Check className="w-5 h-5 text-blue-500" />
+          </h3>
           {isVerified ? (
             <div className="flex items-center gap-2 text-green-600">
               <CheckCircle className="w-5 h-5" />
