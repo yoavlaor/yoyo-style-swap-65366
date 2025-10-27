@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Upload as UploadIcon, X, Edit, Sparkles, Tag, Star, ThumbsUp } from "lucide-react";
+import { Upload as UploadIcon, X, Edit, Sparkles, Tag, Star, ThumbsUp, Shirt, TrendingUp, Scissors, Footprints, CloudSnow, Waves, Watch, ShoppingBag, MoreHorizontal, Users, User as UserIcon, Zap } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { ItemVerificationCard } from "@/components/ItemVerificationCard";
 import { ImageEditor } from "@/components/ImageEditor";
@@ -333,16 +333,61 @@ const Upload = () => {
                       <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו קטגוריה" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="חולצה">חולצה</SelectItem>
-                        <SelectItem value="מכנסיים">מכנסיים</SelectItem>
-                        <SelectItem value="שמלה וחצאית">שמלה וחצאית</SelectItem>
-                        <SelectItem value="נעליים">נעליים</SelectItem>
-                        <SelectItem value="בגדי חורף">בגדי חורף</SelectItem>
-                        <SelectItem value="בגד ים">בגד ים</SelectItem>
-                        <SelectItem value="אקססוריז">אקססוריז</SelectItem>
-                        <SelectItem value="תיק">תיק</SelectItem>
-                        <SelectItem value="אחר">אחר</SelectItem>
+                      <SelectContent className="bg-background/95 backdrop-blur-md border-2 border-primary/20 rounded-2xl shadow-2xl">
+                        <SelectItem value="חולצה" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <div className="flex items-center gap-3">
+                            <Shirt className="w-5 h-5 text-primary" />
+                            <span className="font-medium">חולצה</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="מכנסיים" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <div className="flex items-center gap-3">
+                            <TrendingUp className="w-5 h-5 text-accent" />
+                            <span className="font-medium">מכנסיים</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="שמלה וחצאית" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <div className="flex items-center gap-3">
+                            <Scissors className="w-5 h-5 text-secondary" />
+                            <span className="font-medium">שמלה וחצאית</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="נעליים" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <div className="flex items-center gap-3">
+                            <Footprints className="w-5 h-5 text-primary" />
+                            <span className="font-medium">נעליים</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="בגדי חורף" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <div className="flex items-center gap-3">
+                            <CloudSnow className="w-5 h-5 text-blue-500" />
+                            <span className="font-medium">בגדי חורף</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="בגד ים" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <div className="flex items-center gap-3">
+                            <Waves className="w-5 h-5 text-cyan-500" />
+                            <span className="font-medium">בגד ים</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="אקססוריז" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <div className="flex items-center gap-3">
+                            <Watch className="w-5 h-5 text-accent" />
+                            <span className="font-medium">אקססוריז</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="תיק" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <div className="flex items-center gap-3">
+                            <ShoppingBag className="w-5 h-5 text-secondary" />
+                            <span className="font-medium">תיק</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="אחר" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <div className="flex items-center gap-3">
+                            <MoreHorizontal className="w-5 h-5 text-muted-foreground" />
+                            <span className="font-medium">אחר</span>
+                          </div>
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -353,13 +398,25 @@ const Upload = () => {
                       <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו מידה" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="XS">XS</SelectItem>
-                        <SelectItem value="S">S</SelectItem>
-                        <SelectItem value="M">M</SelectItem>
-                        <SelectItem value="L">L</SelectItem>
-                        <SelectItem value="XL">XL</SelectItem>
-                        <SelectItem value="XXL">XXL</SelectItem>
+                      <SelectContent className="bg-background/95 backdrop-blur-md border-2 border-primary/20 rounded-2xl shadow-2xl">
+                        <SelectItem value="XS" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <span className="font-medium">XS</span>
+                        </SelectItem>
+                        <SelectItem value="S" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <span className="font-medium">S</span>
+                        </SelectItem>
+                        <SelectItem value="M" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <span className="font-medium">M</span>
+                        </SelectItem>
+                        <SelectItem value="L" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <span className="font-medium">L</span>
+                        </SelectItem>
+                        <SelectItem value="XL" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <span className="font-medium">XL</span>
+                        </SelectItem>
+                        <SelectItem value="XXL" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                          <span className="font-medium">XXL</span>
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -406,10 +463,25 @@ const Upload = () => {
                     <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                       <SelectValue placeholder="בחרו" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="women">נשים</SelectItem>
-                      <SelectItem value="men">גברים</SelectItem>
-                      <SelectItem value="unisex">יוניסקס</SelectItem>
+                    <SelectContent className="bg-background/95 backdrop-blur-md border-2 border-primary/20 rounded-2xl shadow-2xl">
+                      <SelectItem value="women" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                        <div className="flex items-center gap-3">
+                          <UserIcon className="w-5 h-5 text-pink-500" />
+                          <span className="font-medium">נשים</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="men" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                        <div className="flex items-center gap-3">
+                          <UserIcon className="w-5 h-5 text-blue-500" />
+                          <span className="font-medium">גברים</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="unisex" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                        <div className="flex items-center gap-3">
+                          <Users className="w-5 h-5 text-purple-500" />
+                          <span className="font-medium">יוניסקס</span>
+                        </div>
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
