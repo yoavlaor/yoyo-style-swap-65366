@@ -47,7 +47,7 @@ const Index = () => {
       description: "העלו את הבגדים שלכם למכירה",
       icon: Upload,
       path: "/upload",
-      gradient: "from-secondary to-mint",
+      gradient: "from-primary to-accent",
       
     },
     {
@@ -93,8 +93,10 @@ const Index = () => {
               </span>
             </p>
             
-            <p className="text-lg md:text-2xl font-semibold text-muted-foreground/90">
-              צאו מהארון..
+            <p className="text-lg md:text-2xl font-semibold">
+              <span className="bg-gradient-primary bg-clip-text text-transparent">
+                צאו מהארון..
+              </span>
             </p>
           </div>
         </div>
