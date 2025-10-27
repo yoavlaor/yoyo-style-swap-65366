@@ -150,8 +150,8 @@ const Upload = () => {
       if (error) throw error;
 
       toast({
-        title: "יאללה! הבגד עלה לאוויר! 🎉",
-        description: "עכשיו כולם יכולים להתאהב בפריט המיוחד שלך ✨",
+        title: "הבגד עלה בהצלחה",
+        description: "הפריט שלך כעת מוצג לכולם",
       });
       
       // Reset form
@@ -188,18 +188,17 @@ const Upload = () => {
         <div className="max-w-3xl mx-auto py-12">
           <Card className="shadow-glow bg-gradient-to-br from-card to-card/80 backdrop-blur-md border-border/30 rounded-3xl animate-fade-in">
             <CardHeader className="text-center space-y-6 pb-10">
-              <div className="mx-auto w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow animate-scale-in">
-                <UploadIcon className="w-10 h-10 text-white" />
+              <div className="mx-auto w-24 h-24 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow animate-scale-in">
+                <UploadIcon className="w-12 h-12 text-white" />
               </div>
-              <CardTitle className="text-5xl md:text-6xl font-black bg-gradient-primary bg-clip-text text-transparent drop-shadow-lg">בואו נמכור משהו מגניב! ✨</CardTitle>
-              <p className="text-xl text-muted-foreground font-medium">תנו לבגדים שלכם סיפור חדש 💚</p>
+              <CardTitle className="text-5xl md:text-6xl font-black bg-gradient-primary bg-clip-text text-transparent drop-shadow-lg">בואו נמכור משהו</CardTitle>
             </CardHeader>
             <CardContent className="px-8 pb-10">
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Image Upload */}
                 <div className="space-y-4">
-                  <Label htmlFor="images" className="text-lg font-semibold">בואו נראה אותו! 📸</Label>
-                  <div className="border-2 border-dashed border-border rounded-2xl p-8 text-center hover:border-primary hover:bg-primary/5 transition-all duration-300 bg-muted/30">
+                  <Label htmlFor="images" className="text-xl font-bold">תמונות</Label>
+                  <div className="border-2 border-dashed border-border rounded-2xl p-10 text-center hover:border-primary hover:bg-primary/5 transition-all duration-300 bg-muted/30">
                     <input
                       type="file"
                       id="images"
@@ -209,15 +208,15 @@ const Upload = () => {
                       className="hidden"
                     />
                     <label htmlFor="images" className="cursor-pointer">
-                      <UploadIcon className="w-16 h-16 mx-auto text-primary mb-4 animate-pulse" />
-                      <p className="text-base text-muted-foreground mb-4 font-medium">
-                        כמה תמונות יפות מזוויות שונות (עד 5) ✨
+                      <UploadIcon className="w-20 h-20 mx-auto text-primary mb-6" />
+                      <p className="text-lg text-foreground mb-6 font-semibold">
+                        העלו תמונות (עד 5)
                       </p>
-                      <div className="text-sm text-muted-foreground bg-gradient-primary/10 rounded-xl p-4 text-right space-y-2">
-                        <p className="font-bold text-lg text-primary">💡 טיפים לצילום מושלם:</p>
-                        <p className="font-medium">📐 על משטח ישר ונקי</p>
-                        <p className="font-medium">👕 תצלמו את הבגד במלואו</p>
-                        <p className="font-medium">🏷️ וודאו שהתווית של החברה נראית בתמונה</p>
+                      <div className="text-sm text-muted-foreground bg-muted rounded-xl p-6 text-right space-y-3">
+                        <p className="font-bold text-base text-foreground">טיפים לצילום:</p>
+                        <p>על משטח ישר ונקי</p>
+                        <p>צלמו את הבגד במלואו</p>
+                        <p>וודאו שהתווית נראית</p>
                       </div>
                     </label>
                   </div>
@@ -256,31 +255,31 @@ const Upload = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <Label htmlFor="title" className="text-lg font-semibold">איזה שם נותנים לו? ✏️</Label>
+                  <Label htmlFor="title" className="text-xl font-bold">שם הפריט</Label>
                   <Input
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="למשל: חולצה מושלמת לקיץ ☀️"
+                    placeholder="למשל: חולצה מושלמת לקיץ"
                     className="bg-background h-14 text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all"
                   />
                 </div>
 
                 <div className="space-y-3">
-                  <Label htmlFor="description" className="text-lg font-semibold">ספרו לנו עליו! 💭</Label>
+                  <Label htmlFor="description" className="text-xl font-bold">תיאור</Label>
                   <Textarea
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     rows={6}
-                    placeholder="מה מיוחד בבגד הזה? איפה לבשתם אותו? למה הוא מחכה לבית חדש?"
+                    placeholder="מה מיוחד בבגד הזה? איפה לבשתם אותו?"
                     className="bg-background text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all resize-none"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-3">
-                    <Label htmlFor="price" className="text-lg font-semibold">כמה נבקש? 💰</Label>
+                    <Label htmlFor="price" className="text-xl font-bold">מחיר</Label>
                     <Input
                       id="price"
                       type="number"
@@ -294,7 +293,7 @@ const Upload = () => {
                   </div>
 
                   <div className="space-y-3">
-                    <Label htmlFor="brand" className="text-lg font-semibold">איזה מותג? 🏷️</Label>
+                    <Label htmlFor="brand" className="text-xl font-bold">מותג</Label>
                     <Select 
                       value={brand} 
                       onValueChange={(value) => {
@@ -318,7 +317,7 @@ const Upload = () => {
                         <SelectItem value="Adidas">Adidas</SelectItem>
                         <SelectItem value="Castro">Castro</SelectItem>
                         <SelectItem value="Fox">Fox</SelectItem>
-                        <SelectItem value="אחר">אחר - כתוב ידנית ✏️</SelectItem>
+                        <SelectItem value="אחר">אחר - כתוב ידנית</SelectItem>
                       </SelectContent>
                     </Select>
                     {showCustomBrand && (
@@ -335,27 +334,27 @@ const Upload = () => {
 
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-3">
-                    <Label htmlFor="category" className="text-lg font-semibold">מה זה בעצם? 🤔</Label>
+                    <Label htmlFor="category" className="text-xl font-bold">קטגוריה</Label>
                     <Select value={category} onValueChange={setCategory}>
                       <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו קטגוריה" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="חולצה 👕">חולצה 👕</SelectItem>
-                        <SelectItem value="מכנסיים 👖">מכנסיים 👖</SelectItem>
-                        <SelectItem value="שמלה וחצאית 👗">שמלה וחצאית 👗</SelectItem>
-                        <SelectItem value="נעליים 👟">נעליים 👟</SelectItem>
-                        <SelectItem value="בגדי חורף 🧥">בגדי חורף 🧥</SelectItem>
-                        <SelectItem value="בגד ים 🩱">בגד ים 🩱</SelectItem>
-                        <SelectItem value="אקססוריז 💍">אקססוריז 💍</SelectItem>
-                        <SelectItem value="תיק 👜">תיק 👜</SelectItem>
+                        <SelectItem value="חולצה">חולצה</SelectItem>
+                        <SelectItem value="מכנסיים">מכנסיים</SelectItem>
+                        <SelectItem value="שמלה וחצאית">שמלה וחצאית</SelectItem>
+                        <SelectItem value="נעליים">נעליים</SelectItem>
+                        <SelectItem value="בגדי חורף">בגדי חורף</SelectItem>
+                        <SelectItem value="בגד ים">בגד ים</SelectItem>
+                        <SelectItem value="אקססוריז">אקססוריז</SelectItem>
+                        <SelectItem value="תיק">תיק</SelectItem>
                         <SelectItem value="אחר">אחר</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-3">
-                    <Label htmlFor="size" className="text-lg font-semibold">מה המידה? 📏</Label>
+                    <Label htmlFor="size" className="text-xl font-bold">מידה</Label>
                     <Select value={size} onValueChange={setSize}>
                       <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו מידה" />
@@ -373,90 +372,90 @@ const Upload = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <Label htmlFor="condition" className="text-lg font-semibold">במה מצב? ✨</Label>
+                  <Label htmlFor="condition" className="text-xl font-bold">מצב</Label>
                   <Select value={condition} onValueChange={setCondition}>
                     <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                       <SelectValue placeholder="בחרו מצב" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="חדש עם תווית 🏷️">חדש עם תווית 🏷️</SelectItem>
-                      <SelectItem value="כמו חדש ✨">כמו חדש ✨</SelectItem>
-                      <SelectItem value="משומש מצוין 👌">משומש מצוין 👌</SelectItem>
-                      <SelectItem value="משומש טוב 👍">משומש טוב 👍</SelectItem>
+                      <SelectItem value="חדש עם תווית">חדש עם תווית</SelectItem>
+                      <SelectItem value="כמו חדש">כמו חדש</SelectItem>
+                      <SelectItem value="משומש מצוין">משומש מצוין</SelectItem>
+                      <SelectItem value="משומש טוב">משומש טוב</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-3">
-                    <Label htmlFor="gender" className="text-lg font-semibold">למי זה מיועד? 👥</Label>
+                    <Label htmlFor="gender" className="text-xl font-bold">מגדר</Label>
                     <Select value={gender} onValueChange={setGender}>
                       <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="women">נשים 👩</SelectItem>
-                        <SelectItem value="men">גברים 👨</SelectItem>
-                        <SelectItem value="unisex">יוניסקס 🌈</SelectItem>
+                        <SelectItem value="women">נשים</SelectItem>
+                        <SelectItem value="men">גברים</SelectItem>
+                        <SelectItem value="unisex">יוניסקס</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-3">
-                    <Label htmlFor="shippingMethod" className="text-lg font-semibold">איך נשלח? 📦</Label>
+                    <Label htmlFor="shippingMethod" className="text-xl font-bold">משלוח</Label>
                     <div className="space-y-3">
                       <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
                         <input
                           type="checkbox"
                           id="face-to-face"
-                          checked={shippingMethods.includes("פנים אל פנים 🤝")}
+                          checked={shippingMethods.includes("פנים אל פנים")}
                           onChange={(e) => {
                             if (e.target.checked) {
-                              setShippingMethods([...shippingMethods, "פנים אל פנים 🤝"]);
+                              setShippingMethods([...shippingMethods, "פנים אל פנים"]);
                             } else {
-                              setShippingMethods(shippingMethods.filter(m => m !== "פנים אל פנים 🤝"));
+                              setShippingMethods(shippingMethods.filter(m => m !== "פנים אל פנים"));
                             }
                           }}
                           className="w-5 h-5 accent-primary"
                         />
                         <label htmlFor="face-to-face" className="flex-1 cursor-pointer text-base font-medium">
-                          פנים אל פנים 🤝
+                          פנים אל פנים
                         </label>
                       </div>
                       <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
                         <input
                           type="checkbox"
                           id="delivery"
-                          checked={shippingMethods.includes("משלוח 📦")}
+                          checked={shippingMethods.includes("משלוח")}
                           onChange={(e) => {
                             if (e.target.checked) {
-                              setShippingMethods([...shippingMethods, "משלוח 📦"]);
+                              setShippingMethods([...shippingMethods, "משלוח"]);
                             } else {
-                              setShippingMethods(shippingMethods.filter(m => m !== "משלוח 📦"));
+                              setShippingMethods(shippingMethods.filter(m => m !== "משלוח"));
                             }
                           }}
                           className="w-5 h-5 accent-primary"
                         />
                         <label htmlFor="delivery" className="flex-1 cursor-pointer text-base font-medium">
-                          משלוח 📦
+                          משלוח
                         </label>
                       </div>
                       <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
                         <input
                           type="checkbox"
                           id="yoyo-station"
-                          checked={shippingMethods.includes("איסוף מתחנת יויו 🏪")}
+                          checked={shippingMethods.includes("איסוף מתחנת יויו")}
                           onChange={(e) => {
                             if (e.target.checked) {
-                              setShippingMethods([...shippingMethods, "איסוף מתחנת יויו 🏪"]);
+                              setShippingMethods([...shippingMethods, "איסוף מתחנת יויו"]);
                             } else {
-                              setShippingMethods(shippingMethods.filter(m => m !== "איסוף מתחנת יויו 🏪"));
+                              setShippingMethods(shippingMethods.filter(m => m !== "איסוף מתחנת יויו"));
                             }
                           }}
                           className="w-5 h-5 accent-primary"
                         />
                         <label htmlFor="yoyo-station" className="flex-1 cursor-pointer text-base font-medium">
-                          איסוף מתחנת יויו 🏪
+                          איסוף מתחנת יויו
                         </label>
                       </div>
                     </div>
@@ -467,7 +466,7 @@ const Upload = () => {
                   onVerificationComplete={(verified) => {
                     if (verified) {
                       toast({
-                        title: "הפריט אומת בהצלחה! ✓",
+                        title: "הפריט אומת בהצלחה",
                         description: "הפריט שלך יקבל תג מאומת",
                       });
                     }
@@ -481,7 +480,7 @@ const Upload = () => {
                     size="lg"
                     className="flex-1 shadow-glow text-lg font-bold rounded-2xl h-16 hover:scale-105 transition-transform"
                   >
-                    {loading ? "מעלה... רגע קטן! ⏳" : "יאללה, בואו נמכור! 🎉"}
+                    {loading ? "מעלה..." : "העלה פריט"}
                   </Button>
                   <Button 
                     type="button" 
