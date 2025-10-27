@@ -21,7 +21,6 @@ const Checkout = () => {
   const [userProfile, setUserProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState<string>("");
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
@@ -65,15 +64,6 @@ const Checkout = () => {
   const handlePurchase = async () => {
     if (!user || !item) return;
 
-    if (!selectedShippingMethod) {
-      toast({
-        title: "יש לבחור אופציית משלוח",
-        description: "אנא בחר את דרך המשלוח המועדפת עליך",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setProcessing(true);
 
     try {
@@ -87,7 +77,6 @@ const Checkout = () => {
           amount: item.price,
           price_agreed: item.price,
           status: "started",
-          shipping_method: selectedShippingMethod,
         })
         .select()
         .single();
@@ -246,29 +235,7 @@ const Checkout = () => {
                 </div>
               </div>
 
-              <div className="border-t pt-4 space-y-4">
-                <div>
-                  <h4 className="font-semibold mb-3">בחר אופציית משלוח:</h4>
-                  <div className="space-y-2">
-                    {item.shipping_method?.map((method: string) => (
-                      <label
-                        key={method}
-                        className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-accent transition-colors"
-                      >
-                        <input
-                          type="radio"
-                          name="shipping"
-                          value={method}
-                          checked={selectedShippingMethod === method}
-                          onChange={(e) => setSelectedShippingMethod(e.target.value)}
-                          className="w-4 h-4"
-                        />
-                        <span>{method}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                
+              <div className="border-t pt-4">
                 <div className="flex justify-between items-center text-xl font-bold pt-2">
                   <span>סה"כ לתשלום:</span>
                   <span>₪{item.price}</span>
