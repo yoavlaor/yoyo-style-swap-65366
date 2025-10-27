@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ExternalLink, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
 
 interface PaymentProofUploadProps {
   transactionId: string;
@@ -30,14 +30,12 @@ export function PaymentProofUpload({
   const [targetInfo, setTargetInfo] = useState("");
   const [screenshot, setScreenshot] = useState<File | null>(null);
 
-  const handleOpenApp = () => {
-    if (paymentMethod === "bit" && sellerPaymentInfo.bit_number) {
-      // Bit deep link (if supported by Bit app)
-      window.open(`bit://payment?phone=${sellerPaymentInfo.bit_number}&amount=${amount}`, "_blank");
-    } else if (paymentMethod === "paybox" && sellerPaymentInfo.paybox_handle) {
-      // PayBox deep link (if supported)
-      window.open(`paybox://payment?handle=${sellerPaymentInfo.paybox_handle}&amount=${amount}`, "_blank");
-    }
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "הועתק ללוח",
+      description: `${label} הועתק בהצלחה`,
+    });
   };
 
   const handleSubmitProof = async () => {
@@ -118,27 +116,52 @@ export function PaymentProofUpload({
       </h2>
       
       <div className="space-y-4">
-        <div className="bg-muted p-4 rounded-lg">
-          <p className="text-sm mb-2">
-            <span className="font-semibold">סכום לתשלום:</span> ₪{amount}
-          </p>
-          {paymentTarget && (
-            <p className="text-sm">
-              <span className="font-semibold">העבר אל:</span> {paymentTarget}
-            </p>
-          )}
-        </div>
+        <div className="bg-primary/5 border-2 border-primary/20 p-4 rounded-lg space-y-3">
+          <h3 className="font-semibold text-lg">פרטי התשלום:</h3>
+          
+          <div className="flex items-center justify-between bg-background p-3 rounded">
+            <div>
+              <p className="text-xs text-muted-foreground">סכום לתשלום</p>
+              <p className="text-xl font-bold">₪{amount}</p>
+            </div>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => copyToClipboard(amount.toString(), "הסכום")}
+            >
+              העתק
+            </Button>
+          </div>
 
-        {paymentTarget && (
-          <Button
-            onClick={handleOpenApp}
-            variant="outline"
-            className="w-full"
-          >
-            <ExternalLink className="w-4 h-4 ml-2" />
-            פתח אפליקציית {paymentMethod === "bit" ? "Bit" : "PayBox"}
-          </Button>
-        )}
+          {paymentTarget && (
+            <div className="flex items-center justify-between bg-background p-3 rounded">
+              <div>
+                <p className="text-xs text-muted-foreground">
+                  {paymentMethod === "bit" ? "מספר טלפון" : "שם משתמש"}
+                </p>
+                <p className="text-lg font-semibold">{paymentTarget}</p>
+              </div>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => copyToClipboard(paymentTarget, paymentMethod === "bit" ? "מספר הטלפון" : "שם המשתמש")}
+              >
+                העתק
+              </Button>
+            </div>
+          )}
+
+          <div className="bg-yellow-500/10 border border-yellow-500/20 p-3 rounded text-sm">
+            <p className="font-semibold mb-1">📱 הוראות:</p>
+            <ol className="list-decimal list-inside space-y-1 text-xs">
+              <li>פתח את אפליקציית {paymentMethod === "bit" ? "Bit" : "PayBox"}</li>
+              <li>בחר "העברת כסף" או "תשלום"</li>
+              <li>הזן את {paymentMethod === "bit" ? "מספר הטלפון" : "שם המשתמש"} והסכום</li>
+              <li>אשר את התשלום</li>
+              <li>חזור לכאן ומלא את הפרטים למטה</li>
+            </ol>
+          </div>
+        </div>
 
         <div className="border-t pt-4">
           <h3 className="font-semibold mb-3">אחרי שהעברת את התשלום:</h3>
