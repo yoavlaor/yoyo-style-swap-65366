@@ -130,34 +130,22 @@ const Index = () => {
         </div>
 
         {!isAuthenticated && (
-          <div className="text-center mt-16 animate-fade-in">
-            <Card className="max-w-md mx-auto bg-gradient-card border-border/50 shadow-glow">
-              <CardContent className="p-8 space-y-4">
-                <h3 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                  בואו להצטרף אלינו! ✨
-                </h3>
-                <p className="text-muted-foreground">
-                  התחברו או הירשמו כדי להתחיל למכור ולקנות
-                </p>
-                <div className="flex gap-3 pt-2">
-                  <Button
-                    size="lg"
-                    onClick={() => navigate("/auth")}
-                    className="flex-1"
-                  >
-                    כניסה
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    size="lg"
-                    onClick={() => navigate("/auth")}
-                    className="flex-1"
-                  >
-                    הרשמה
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="flex justify-center gap-4 mt-16 animate-fade-in">
+            <Button
+              size="lg"
+              onClick={() => navigate("/auth")}
+              className="text-xl px-12 py-7 font-bold shadow-glow hover:scale-105 transition-transform"
+            >
+              כניסה
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              onClick={() => navigate("/auth")}
+              className="text-xl px-12 py-7 font-bold shadow-glow hover:scale-105 transition-transform"
+            >
+              הרשמה
+            </Button>
           </div>
         )}
       </div>
