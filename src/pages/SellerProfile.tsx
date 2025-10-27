@@ -6,7 +6,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, User as UserIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import BottomNav from "@/components/BottomNav";
 import { ProductCard } from "@/components/ProductCard";
 import { SellerRating } from "@/components/SellerRating";
 
@@ -84,7 +83,7 @@ const SellerProfile = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-hero p-4 pb-24" dir="rtl">
+      <div className="min-h-screen bg-gradient-hero p-4" dir="rtl">
         <div className="max-w-6xl mx-auto py-8 space-y-6">
           {/* Seller Info Card */}
           <Card className="shadow-card bg-gradient-card border-border/50">
@@ -151,7 +150,6 @@ const SellerProfile = () => {
           </Card>
         </div>
       </div>
-      <BottomNav />
     </>
   );
 };

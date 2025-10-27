@@ -11,7 +11,6 @@ import { User } from "@supabase/supabase-js";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Upload as UploadIcon, X, Edit, Sparkles, Tag, Star, ThumbsUp, Shirt, TrendingUp, Scissors, Footprints, CloudSnow, Waves, Watch, ShoppingBag, MoreHorizontal, Users, User as UserIcon, Zap } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import BottomNav from "@/components/BottomNav";
 import { ItemVerificationCard } from "@/components/ItemVerificationCard";
 import { ImageEditor } from "@/components/ImageEditor";
 
@@ -181,7 +180,7 @@ const Upload = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6 pb-24" dir="rtl">
+      <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6" dir="rtl">
         <div className="max-w-3xl mx-auto py-12">
           <Card className="shadow-2xl bg-gradient-to-br from-card via-card/95 to-primary/5 backdrop-blur-md border-primary/20 rounded-3xl animate-fade-in overflow-hidden">
             {/* Decorative top bar */}
@@ -591,7 +590,6 @@ const Upload = () => {
           )}
         </div>
       </div>
-      <BottomNav />
     </>
   );
 };

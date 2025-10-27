@@ -7,7 +7,6 @@ import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import { ShoppingBag, User as UserIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import BottomNav from "@/components/BottomNav";
 import { VirtualMannequin } from "@/components/VirtualMannequin";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
@@ -143,7 +142,7 @@ const Checkout = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-hero p-4 pb-24" dir="rtl">
+      <div className="min-h-screen bg-gradient-hero p-4" dir="rtl">
         <div className="max-w-2xl mx-auto py-8">
           <Card className="shadow-card bg-gradient-card border-border/50">
             <CardHeader className="text-center space-y-2">
@@ -277,7 +276,6 @@ const Checkout = () => {
           </Card>
         </div>
       </div>
-      <BottomNav />
     </>
   );
 };

@@ -8,7 +8,6 @@ import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import { Send } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import BottomNav from "@/components/BottomNav";
 
 interface Message {
   id: string;
@@ -121,7 +120,7 @@ const Chat = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-hero pb-24" dir="rtl">
+      <div className="min-h-screen bg-gradient-hero" dir="rtl">
         <div className="max-w-4xl mx-auto h-[calc(100vh-4rem)] flex flex-col p-4">
           <Card className="flex-1 flex flex-col shadow-card bg-gradient-card border-border/50">
             <CardHeader className="border-b bg-background/50">
@@ -186,7 +185,6 @@ const Chat = () => {
           </Card>
         </div>
       </div>
-      <BottomNav />
     </>
   );
 };
