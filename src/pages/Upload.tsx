@@ -412,78 +412,76 @@ const Upload = () => {
                   </Select>
                 </div>
 
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <Label htmlFor="gender" className="text-xl font-bold">מגדר</Label>
-                    <Select value={gender} onValueChange={setGender}>
-                      <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
-                        <SelectValue placeholder="בחרו" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="women">נשים</SelectItem>
-                        <SelectItem value="men">גברים</SelectItem>
-                        <SelectItem value="unisex">יוניסקס</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                <div className="space-y-3">
+                  <Label htmlFor="gender" className="text-xl font-bold">מגדר</Label>
+                  <Select value={gender} onValueChange={setGender}>
+                    <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
+                      <SelectValue placeholder="בחרו" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="women">נשים</SelectItem>
+                      <SelectItem value="men">גברים</SelectItem>
+                      <SelectItem value="unisex">יוניסקס</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
+                <div className="space-y-3">
+                  <Label htmlFor="shippingMethod" className="text-xl font-bold">משלוח</Label>
                   <div className="space-y-3">
-                    <Label htmlFor="shippingMethod" className="text-xl font-bold">משלוח</Label>
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
-                        <input
-                          type="checkbox"
-                          id="face-to-face"
-                          checked={shippingMethods.includes("פנים אל פנים")}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setShippingMethods([...shippingMethods, "פנים אל פנים"]);
-                            } else {
-                              setShippingMethods(shippingMethods.filter(m => m !== "פנים אל פנים"));
-                            }
-                          }}
-                          className="w-5 h-5 accent-primary"
-                        />
-                        <label htmlFor="face-to-face" className="flex-1 cursor-pointer text-base font-medium">
-                          פנים אל פנים
-                        </label>
-                      </div>
-                      <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
-                        <input
-                          type="checkbox"
-                          id="delivery"
-                          checked={shippingMethods.includes("משלוח")}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setShippingMethods([...shippingMethods, "משלוח"]);
-                            } else {
-                              setShippingMethods(shippingMethods.filter(m => m !== "משלוח"));
-                            }
-                          }}
-                          className="w-5 h-5 accent-primary"
-                        />
-                        <label htmlFor="delivery" className="flex-1 cursor-pointer text-base font-medium">
-                          משלוח
-                        </label>
-                      </div>
-                      <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
-                        <input
-                          type="checkbox"
-                          id="yoyo-station"
-                          checked={shippingMethods.includes("איסוף מתחנת יויו")}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setShippingMethods([...shippingMethods, "איסוף מתחנת יויו"]);
-                            } else {
-                              setShippingMethods(shippingMethods.filter(m => m !== "איסוף מתחנת יויו"));
-                            }
-                          }}
-                          className="w-5 h-5 accent-primary"
-                        />
-                        <label htmlFor="yoyo-station" className="flex-1 cursor-pointer text-base font-medium">
-                          איסוף מתחנת יויו
-                        </label>
-                      </div>
+                    <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
+                      <input
+                        type="checkbox"
+                        id="face-to-face"
+                        checked={shippingMethods.includes("פנים אל פנים")}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setShippingMethods([...shippingMethods, "פנים אל פנים"]);
+                          } else {
+                            setShippingMethods(shippingMethods.filter(m => m !== "פנים אל פנים"));
+                          }
+                        }}
+                        className="w-5 h-5 accent-primary"
+                      />
+                      <label htmlFor="face-to-face" className="flex-1 cursor-pointer text-base font-medium">
+                        פנים אל פנים
+                      </label>
+                    </div>
+                    <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
+                      <input
+                        type="checkbox"
+                        id="delivery"
+                        checked={shippingMethods.includes("משלוח")}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setShippingMethods([...shippingMethods, "משלוח"]);
+                          } else {
+                            setShippingMethods(shippingMethods.filter(m => m !== "משלוח"));
+                          }
+                        }}
+                        className="w-5 h-5 accent-primary"
+                      />
+                      <label htmlFor="delivery" className="flex-1 cursor-pointer text-base font-medium">
+                        משלוח
+                      </label>
+                    </div>
+                    <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
+                      <input
+                        type="checkbox"
+                        id="yoyo-station"
+                        checked={shippingMethods.includes("איסוף מתחנת יויו")}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setShippingMethods([...shippingMethods, "איסוף מתחנת יויו"]);
+                          } else {
+                            setShippingMethods(shippingMethods.filter(m => m !== "איסוף מתחנת יויו"));
+                          }
+                        }}
+                        className="w-5 h-5 accent-primary"
+                      />
+                      <label htmlFor="yoyo-station" className="flex-1 cursor-pointer text-base font-medium">
+                        איסוף מתחנת יויו
+                      </label>
                     </div>
                   </div>
                 </div>
