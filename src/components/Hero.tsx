@@ -55,7 +55,7 @@ export const Hero = () => {
           </p>
 
           <p className="text-lg md:text-2xl lg:text-3xl font-semibold text-muted-foreground/90 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: "0.2s" }}>
-            ✨ משנים את כללי המשחק ✨
+            משנים את כללי המשחק
           </p>
         </div>
 
@@ -68,7 +68,7 @@ export const Hero = () => {
                 className="bg-terracotta hover:bg-terracotta/90 text-primary-foreground shadow-warm transition-all duration-300 group rounded-full px-8"
               >
                 <Sparkles className="mr-2 h-5 w-5" />
-                בואו נמכור משהו 🎉
+                בואו נמכור משהו
               </Button>
               
               <Button 
@@ -77,7 +77,7 @@ export const Hero = () => {
                 onClick={() => navigate("/profile")}
                 className="border-2 border-sage text-sage hover:bg-sage hover:text-white transition-all duration-300 rounded-full px-8"
               >
-                האזור האישי שלי 👤
+                האזור האישי שלי
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </>
@@ -88,7 +88,7 @@ export const Hero = () => {
                 onClick={() => navigate("/auth")}
                 className="bg-terracotta hover:bg-terracotta/90 text-primary-foreground shadow-warm transition-all duration-300 group rounded-full px-8"
               >
-                בואו נתחיל! ✨
+                בואו נתחיל
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               
@@ -99,7 +99,7 @@ export const Hero = () => {
                 className="border-2 border-sage text-sage hover:bg-sage hover:text-white transition-all duration-300 rounded-full px-8"
               >
                 <Sparkles className="mr-2 h-5 w-5" />
-                הצטרפו עכשיו 🌟
+                הצטרפו עכשיו
               </Button>
             </>
           )}
@@ -109,15 +109,15 @@ export const Hero = () => {
         <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mt-16 animate-slide-up" style={{ animationDelay: "0.4s" }}>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-terracotta mb-2">10K+</div>
-            <div className="text-sm text-muted-foreground">בגדים מאושרים 👕</div>
+            <div className="text-sm text-muted-foreground">בגדים מאושרים</div>
           </div>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-sage mb-2">5K+</div>
-            <div className="text-sm text-muted-foreground">משתמשים מאושרים 💚</div>
+            <div className="text-sm text-muted-foreground">משתמשים מאושרים</div>
           </div>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-terracotta mb-2">98%</div>
-            <div className="text-sm text-muted-foreground">שביעות רצון 😊</div>
+            <div className="text-sm text-muted-foreground">שביעות רצון</div>
           </div>
         </div>
       </div>

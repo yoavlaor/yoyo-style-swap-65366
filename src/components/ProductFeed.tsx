@@ -180,10 +180,10 @@ export const ProductFeed = () => {
     setSearchQuery("");
   };
 
-  const categories = ["חולצה 👕", "מכנסיים 👖", "נעליים 👟", "שמלה וחצאית 👗", "בגדי חורף 🧥", "בגד ים 🩱", "אקססוריז 💍", "תיק 👜", "אחר"];
+  const categories = ["חולצה", "מכנסיים", "נעליים", "שמלה וחצאית", "בגדי חורף", "בגד ים", "אקססוריז", "תיק", "אחר"];
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
-  const conditions = ["חדש עם תווית 🏷️", "כמו חדש ✨", "משומש מצוין 👌", "משומש טוב 👍"];
-  const shippingMethods = ["פנים אל פנים 🤝", "משלוח 📦", "איסוף מתחנת יויו 🏪"];
+  const conditions = ["חדש עם תווית", "כמו חדש", "משומש מצוין", "משומש טוב"];
+  const shippingMethods = ["פנים אל פנים", "משלוח", "איסוף מתחנת יויו"];
 
   return (
     <section className="py-4 px-4 bg-background min-h-screen">
@@ -193,10 +193,10 @@ export const ProductFeed = () => {
           <Tabs value={genderFilter} onValueChange={setGenderFilter} className="w-full">
             <TabsList className="grid w-full grid-cols-2 bg-card/80 backdrop-blur-md h-14 rounded-2xl border border-border/50 shadow-lg">
               <TabsTrigger value="women" className="text-lg font-semibold rounded-2xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all">
-                👩 נשים
+                נשים
               </TabsTrigger>
               <TabsTrigger value="men" className="text-lg font-semibold rounded-2xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all">
-                👨 גברים
+                גברים
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -231,7 +231,7 @@ export const ProductFeed = () => {
             </SheetTrigger>
             <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
               <SheetHeader>
-                <SheetTitle className="text-right text-xl">סינון חכם ✨</SheetTitle>
+                <SheetTitle className="text-right text-xl">סינון חכם</SheetTitle>
                 <SheetDescription className="text-right">
                   מצאו בדיוק מה שאתם מחפשים
                 </SheetDescription>
@@ -315,7 +315,7 @@ export const ProductFeed = () => {
 
                 {/* Distance Filter */}
                 <div className="space-y-3">
-                  <Label className="text-base font-semibold">מרחק מקסימלי 📍</Label>
+                  <Label className="text-base font-semibold">מרחק מקסימלי</Label>
                   <div className="pt-2">
                     <Slider
                       value={[maxDistance]}
@@ -378,7 +378,7 @@ export const ProductFeed = () => {
             {/* For You Header - Outside */}
             <div className="text-center mb-6" dir="rtl">
               <h2 className="text-4xl font-black bg-gradient-primary bg-clip-text text-transparent">
-                בשבילך ✨
+                בשבילך
               </h2>
               <p className="text-muted-foreground text-sm mt-2">
                 {currentStoryIndex + 1} מתוך {items.length}
@@ -431,7 +431,7 @@ export const ProductFeed = () => {
                 size="lg"
                 className="rounded-full px-8 shadow-glow text-lg font-semibold"
               >
-                הבא 👉
+                הבא
               </Button>
             </div>
           </div>

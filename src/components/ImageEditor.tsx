@@ -187,7 +187,7 @@ export const ImageEditor = ({ imageSrc, onSave, onCancel, isOpen }: ImageEditorP
     <Dialog open={isOpen} onOpenChange={(open) => !open && onCancel()}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
         <DialogHeader>
-          <DialogTitle className="text-center">עריכת תמונה ✂️</DialogTitle>
+          <DialogTitle className="text-center">עריכת תמונה</DialogTitle>
         </DialogHeader>
         
         <Tabs value={mode} onValueChange={(v) => setMode(v as "crop" | "perspective")} dir="rtl">
@@ -274,7 +274,7 @@ export const ImageEditor = ({ imageSrc, onSave, onCancel, isOpen }: ImageEditorP
             </div>
 
             <p className="text-sm text-muted-foreground text-center">
-              גררו את הנקודות לפינות הבגד ליישור מושלם 📐
+              גררו את הנקודות לפינות הבגד ליישור מושלם
             </p>
           </TabsContent>
 
@@ -312,7 +312,7 @@ export const ImageEditor = ({ imageSrc, onSave, onCancel, isOpen }: ImageEditorP
             </div>
 
             <p className="text-sm text-muted-foreground text-center">
-              גררו את המסגרת כדי לחתוך את התמונה 📐
+              גררו את המסגרת כדי לחתוך את התמונה
             </p>
           </TabsContent>
         </Tabs>

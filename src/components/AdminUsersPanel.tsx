@@ -328,7 +328,7 @@ export const AdminUsersPanel = () => {
                       </AlertDialogTrigger>
                       <AlertDialogContent dir="rtl">
                         <AlertDialogHeader>
-                          <AlertDialogTitle>מחיקת משתמש - האם בטוח? ⚠️</AlertDialogTitle>
+                          <AlertDialogTitle>מחיקת משתמש - האם בטוח?</AlertDialogTitle>
                           <AlertDialogDescription>
                             אתה עומד למחוק את המשתמש <strong>{user.username}</strong> ({user.email}).
                             <br />
@@ -350,7 +350,7 @@ export const AdminUsersPanel = () => {
                             onClick={() => handleDeleteUser(user.id, user.username)}
                             className="bg-destructive hover:bg-destructive/90"
                           >
-                            כן, מחק לצמיתות 🗑️
+                            כן, מחק לצמיתות
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>

@@ -39,7 +39,7 @@ const Index = () => {
       icon: Home,
       path: "/feed",
       gradient: "from-primary to-accent",
-      emoji: "🛍️",
+      
     },
     {
       title: "העלאה",
@@ -47,7 +47,7 @@ const Index = () => {
       icon: Upload,
       path: "/upload",
       gradient: "from-secondary to-mint",
-      emoji: "📸",
+      
     },
     {
       title: "האזור האישי שלי",
@@ -55,7 +55,7 @@ const Index = () => {
       icon: User,
       path: "/profile",
       gradient: "from-accent to-primary",
-      emoji: "👤",
+      
     },
   ];
 
@@ -93,7 +93,7 @@ const Index = () => {
             </p>
             
             <p className="text-lg md:text-2xl font-semibold text-muted-foreground/90">
-              ✨ משנים את כללי המשחק ✨
+              משנים את כללי המשחק
             </p>
           </div>
         </div>
@@ -115,8 +115,8 @@ const Index = () => {
               <div className={`h-2 bg-gradient-to-r ${item.gradient}`} />
               <CardContent className="p-12 space-y-6">
                 <div className="flex justify-center">
-                  <div className={`w-32 h-32 rounded-full bg-gradient-to-br ${item.gradient} flex items-center justify-center text-6xl transform group-hover:scale-110 transition-transform duration-300 shadow-glow`}>
-                    {item.emoji}
+                  <div className={`w-32 h-32 rounded-full bg-gradient-to-br ${item.gradient} flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-glow`}>
+                    <item.icon className="w-16 h-16 text-primary-foreground" />
                   </div>
                 </div>
                 <div className="text-center">

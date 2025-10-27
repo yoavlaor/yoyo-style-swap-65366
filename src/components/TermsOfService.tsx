@@ -16,7 +16,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[80vh]" dir="rtl">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">תקנון השימוש של יויו 📜</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">תקנון השימוש של יויו</DialogTitle>
           <DialogDescription>
             אנא קרא/י בעיון את תנאי השימוש שלנו
           </DialogDescription>
@@ -24,14 +24,14 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
         <ScrollArea className="h-[60vh] px-4">
           <div className="space-y-6 text-sm">
             <section>
-              <h3 className="font-bold text-lg mb-2">1. כללי 🌟</h3>
+              <h3 className="font-bold text-lg mb-2">1. כללי</h3>
               <p className="text-muted-foreground">
                 ברוכים הבאים ליויו! פלטפורמה לקנייה ומכירה של בגדים משומשים. השימוש באתר מהווה הסכמה מלאה לתקנון זה. אם אינך מסכים/ה לתנאים אלו, אנא הימנע/י משימוש באתר.
               </p>
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">2. הגדרות 📖</h3>
+              <h3 className="font-bold text-lg mb-2">2. הגדרות</h3>
               <ul className="list-disc pr-6 space-y-1 text-muted-foreground">
                 <li>"האתר" - פלטפורמת יויו לקנייה ומכירה של בגדים משומשים</li>
                 <li>"משתמש" - כל אדם הרשום או משתמש באתר</li>
@@ -41,7 +41,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">3. הרשמה וחשבון משתמש 👤</h3>
+              <h3 className="font-bold text-lg mb-2">3. הרשמה וחשבון משתמש</h3>
               <ul className="list-disc pr-6 space-y-2 text-muted-foreground">
                 <li>על המשתמש למסור פרטים נכונים ומדויקים בעת ההרשמה</li>
                 <li>המשתמש אחראי לשמירה על סודיות פרטי ההתחברות שלו</li>
@@ -52,7 +52,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">4. העלאת פריטים למכירה 📸</h3>
+              <h3 className="font-bold text-lg mb-2">4. העלאת פריטים למכירה</h3>
               <ul className="list-disc pr-6 space-y-2 text-muted-foreground">
                 <li>המוכר אחראי לספק תיאור מדויק ותמונות נאמנות של הפריט</li>
                 <li>אסור להעלות פריטים מזויפים, גנובים או אסורים בחוק</li>
@@ -63,7 +63,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">5. רכישת פריטים 🛍️</h3>
+              <h3 className="font-bold text-lg mb-2">5. רכישת פריטים</h3>
               <ul className="list-disc pr-6 space-y-2 text-muted-foreground">
                 <li>הרכישה מתבצעת באמצעות המערכת באתר ומהווה התחייבות לתשלום</li>
                 <li>הקונה מסכים לתנאי המשלוח והמחיר המפורטים בדף הפריט</li>
@@ -73,7 +73,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">6. תשלומים 💳</h3>
+              <h3 className="font-bold text-lg mb-2">6. תשלומים</h3>
               <ul className="list-disc pr-6 space-y-2 text-muted-foreground">
                 <li>התשלום מתבצע ישירות בין הקונה למוכר</li>
                 <li>יויו אינה אחראית לעסקאות הכספיות בין המשתמשים</li>
@@ -83,7 +83,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">7. משלוחים 📦</h3>
+              <h3 className="font-bold text-lg mb-2">7. משלוחים</h3>
               <ul className="list-disc pr-6 space-y-2 text-muted-foreground">
                 <li>המוכר והקונה אחראים לתיאום דרך המשלוח או האיסוף</li>
                 <li>יויו אינה אחראית לעיכובים או נזקים במשלוחים</li>
@@ -92,7 +92,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">8. אחריות ואחריות מוגבלת ⚠️</h3>
+              <h3 className="font-bold text-lg mb-2">8. אחריות ואחריות מוגבלת</h3>
               <ul className="list-disc pr-6 space-y-2 text-muted-foreground">
                 <li>יויו משמשת כפלטפורמה בלבד ואינה צד לעסקאות</li>
                 <li>האתר לא אחראי לאיכות, מקוריות או מצב הפריטים</li>
@@ -102,7 +102,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">9. קניין רוחני 🎨</h3>
+              <h3 className="font-bold text-lg mb-2">9. קניין רוחני</h3>
               <ul className="list-disc pr-6 space-y-2 text-muted-foreground">
                 <li>כל התוכן באתר, כולל עיצוב, לוגו וקוד, שייך ליויו</li>
                 <li>משתמשים שומרים על זכויות היוצרים של התמונות שהם מעלים</li>
@@ -111,7 +111,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">10. פרטיות 🔒</h3>
+              <h3 className="font-bold text-lg mb-2">10. פרטיות</h3>
               <ul className="list-disc pr-6 space-y-2 text-muted-foreground">
                 <li>יויו מתחייבת לשמור על פרטיות המשתמשים</li>
                 <li>המידע נשמר באופן מאובטח ולא יועבר לצדדים שלישיים</li>
@@ -120,7 +120,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">11. התנהגות והתנהלות 🤝</h3>
+              <h3 className="font-bold text-lg mb-2">11. התנהגות והתנהלות</h3>
               <ul className="list-disc pr-6 space-y-2 text-muted-foreground">
                 <li>אסור לפרסם תוכן פוגעני, גזעני או לא חוקי</li>
                 <li>יש לנהוג בכבוד ובתרבות מול משתמשים אחרים</li>
@@ -130,14 +130,14 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">12. שינויים בתקנון 📝</h3>
+              <h3 className="font-bold text-lg mb-2">12. שינויים בתקנון</h3>
               <p className="text-muted-foreground">
                 יויו שומרת לעצמה את הזכות לעדכן ולשנות את התקנון מעת לעת. שינויים יכנסו לתוקף מיד עם פרסומם באתר. המשך שימוש באתר מהווה הסכמה לתנאים המעודכנים.
               </p>
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">13. סיום השימוש 🚪</h3>
+              <h3 className="font-bold text-lg mb-2">13. סיום השימוש</h3>
               <ul className="list-disc pr-6 space-y-2 text-muted-foreground">
                 <li>משתמש יכול לסגור את חשבונו בכל עת</li>
                 <li>יויו רשאית להשעות או לסגור חשבונות המפרים את התקנון</li>
@@ -146,7 +146,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-lg mb-2">14. יצירת קשר 📧</h3>
+              <h3 className="font-bold text-lg mb-2">14. יצירת קשר</h3>
               <p className="text-muted-foreground">
                 לשאלות, הערות או תלונות, ניתן ליצור קשר עם צוות יויו דרך מערכת התמיכה באתר.
               </p>
@@ -154,7 +154,7 @@ export const TermsOfService = ({ children }: { children: React.ReactNode }) => {
 
             <section className="pt-4 border-t">
               <p className="text-center font-semibold text-primary">
-                תודה שבחרתם ביויו! יחד אנחנו יוצרים עתיד אופנתי וברמקולות! 🌿✨
+                תודה שבחרתם ביויו! יחד אנחנו יוצרים עתיד אופנתי וברמקולות
               </p>
               <p className="text-center text-xs text-muted-foreground mt-2">
                 תקנון זה עודכן לאחרונה ביום {new Date().toLocaleDateString('he-IL')}

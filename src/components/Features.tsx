@@ -4,25 +4,25 @@ import { Card } from "@/components/ui/card";
 const features = [
   {
     icon: Shield,
-    title: "מוכרים מאומתים ✓",
+    title: "מוכרים מאומתים",
     description: "כל מוכר עובר אימות בינה מלאכותית מתקדם להבטחת אותנטיות ואמינות מלאה",
     color: "electric"
   },
   {
     icon: Sparkles,
-    title: "מופעל בבינה מלאכותית 🤖",
+    title: "מופעל בבינה מלאכותית",
     description: "המלצות חכמות מותאמות אישית לסגנון, מידה והעדפות שלכם",
     color: "mint"
   },
   {
     icon: Leaf,
-    title: "נקודות אקולוגיות 🌱",
+    title: "נקודות אקולוגיות",
     description: "צברו פוינטים על כל קנייה ירוקה ועקבו אחרי ההשפעה הסביבתית שלכם",
     color: "mint"
   },
   {
     icon: Zap,
-    title: "התאמה מיידית ⚡",
+    title: "התאמה מיידית",
     description: "מצאו את הפריט המושלם עם טכנולוגיית המדידה החכמה שלנו",
     color: "electric"
   }
@@ -34,7 +34,7 @@ export const Features = () => {
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            למה דווקא אנחנו? 💫
+            למה דווקא אנחנו?
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             תחוו את הקסם של אופנה בת-קיימא עם פיצ'רים חכמים ומגניבים

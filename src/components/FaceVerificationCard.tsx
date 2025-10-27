@@ -22,7 +22,7 @@ export const FaceVerificationCard = ({ userId, isVerified, onVerificationChange 
       // For now, this is a placeholder that simulates the verification process
       
       toast({
-        title: "תכונה בפיתוח 🚧",
+        title: "תכונה בפיתוח",
         description: "אימות הפנים באמצעות בינה מלאכותית יהיה זמין בקרוב!",
       });
 
@@ -51,11 +51,11 @@ export const FaceVerificationCard = ({ userId, isVerified, onVerificationChange 
     <Card className="p-6">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-semibold">אימות פנים 🔐</h3>
+          <h3 className="text-xl font-semibold">אימות פנים</h3>
           {isVerified ? (
             <div className="flex items-center gap-2 text-green-600">
               <CheckCircle className="w-5 h-5" />
-              <span className="text-sm font-medium">מאומת ✓</span>
+              <span className="text-sm font-medium">מאומת</span>
             </div>
           ) : (
             <div className="flex items-center gap-2 text-muted-foreground">
@@ -67,7 +67,7 @@ export const FaceVerificationCard = ({ userId, isVerified, onVerificationChange 
 
         <div className="bg-muted/50 rounded-lg p-4 text-sm text-right space-y-2">
           <p className="text-muted-foreground">
-            🤖 <strong>אימות באמצעות בינה מלאכותית</strong>
+            <strong>אימות באמצעות בינה מלאכותית</strong>
           </p>
           <p className="text-muted-foreground">
             המערכת תבקש ממך לצלם תמונת סלפי ותאמת את זהותך באמצעות טכנולוגיית זיהוי פנים מתקדמת
@@ -92,7 +92,7 @@ export const FaceVerificationCard = ({ userId, isVerified, onVerificationChange 
         )}
 
         <p className="text-xs text-center text-muted-foreground">
-          🔒 התמונה שלך מאובטחת ומוגנת לפי תקני אבטחה מחמירים
+          התמונה שלך מאובטחת ומוגנת לפי תקני אבטחה מחמירים
         </p>
       </div>
     </Card>

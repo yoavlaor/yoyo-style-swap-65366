@@ -13,7 +13,7 @@ export const Footer = () => {
               <span className="text-2xl font-bold text-terracotta">YOYO</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
-              פלטפורמת האופנה המשומשת המתקדמת בישראל. קניות חכמות, מאומתות וירוקות לעולם המודרני 🌱
+              פלטפורמת האופנה המשומשת המתקדמת בישראל. קניות חכמות, מאומתות וירוקות לעולם המודרני
             </p>
             <div className="flex gap-3">
               <a href="#" className="p-3 rounded-full bg-muted hover:bg-terracotta/10 hover:text-terracotta transition-colors">
@@ -33,23 +33,23 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-lg mb-4 text-foreground">קישורים מהירים 🔗</h3>
+            <h3 className="font-semibold text-lg mb-4 text-foreground">קישורים מהירים</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">אודותינו 📖</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">איך זה עובד? 🤔</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">קיימות 🌍</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">הבלוג שלנו ✍️</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">אודותינו</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">איך זה עובד?</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">קיימות</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">הבלוג שלנו</a></li>
             </ul>
           </div>
 
           {/* Support */}
           <div>
-            <h3 className="font-semibold text-lg mb-4 text-foreground">תמיכה 💬</h3>
+            <h3 className="font-semibold text-lg mb-4 text-foreground">תמיכה</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">מרכז עזרה 🆘</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">מדריך למוכרים 📚</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">הגנת קונים 🛡️</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">צרו קשר 📧</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">מרכז עזרה</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">מדריך למוכרים</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">הגנת קונים</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">צרו קשר</a></li>
             </ul>
           </div>
         </div>
@@ -60,9 +60,9 @@ export const Footer = () => {
             © 2025 YOYO. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
-            <a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">מדיניות פרטיות 🔒</a>
-            <a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">תנאי שימוש 📜</a>
-            <a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">מדיניות עוגיות 🍪</a>
+            <a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">מדיניות פרטיות</a>
+            <a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">תנאי שימוש</a>
+            <a href="#" className="text-muted-foreground hover:text-terracotta transition-colors">מדיניות עוגיות</a>
           </div>
         </div>
       </div>

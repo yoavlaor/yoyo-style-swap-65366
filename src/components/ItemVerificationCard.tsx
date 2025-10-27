@@ -21,7 +21,7 @@ export const ItemVerificationCard = ({ itemId, onVerificationComplete }: ItemVer
       // This will use computer vision to verify the item's authenticity
       
       toast({
-        title: "תכונה בפיתוח 🚧",
+        title: "תכונה בפיתוח",
         description: "אימות פריטים באמצעות בינה מלאכותית יהיה זמין בקרוב!",
       });
 
@@ -47,11 +47,11 @@ export const ItemVerificationCard = ({ itemId, onVerificationComplete }: ItemVer
     <Card className="p-6">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-semibold">אימות פריט 🔍</h3>
+          <h3 className="text-xl font-semibold">אימות פריט</h3>
           {isVerified ? (
             <div className="flex items-center gap-2 text-green-600">
               <CheckCircle className="w-5 h-5" />
-              <span className="text-sm font-medium">מאומת ✓</span>
+              <span className="text-sm font-medium">מאומת</span>
             </div>
           ) : (
             <div className="flex items-center gap-2 text-muted-foreground">
@@ -63,7 +63,7 @@ export const ItemVerificationCard = ({ itemId, onVerificationComplete }: ItemVer
 
         <div className="bg-muted/50 rounded-lg p-4 text-sm text-right space-y-2">
           <p className="text-muted-foreground">
-            🤖 <strong>אימות באמצעות בינה מלאכותית</strong>
+            <strong>אימות באמצעות בינה מלאכותית</strong>
           </p>
           <p className="text-muted-foreground">
             המערכת תבדוק את התמונות של הפריט ותאמת:
@@ -89,7 +89,7 @@ export const ItemVerificationCard = ({ itemId, onVerificationComplete }: ItemVer
         )}
 
         <p className="text-xs text-center text-muted-foreground">
-          ✨ פריטים מאומתים מקבלים עדיפות בתוצאות החיפוש
+          פריטים מאומתים מקבלים עדיפות בתוצאות החיפוש
         </p>
       </div>
     </Card>

@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { name: "תפריט ראשי 📋", path: "/", icon: Grid },
+    { name: "תפריט ראשי", path: "/", icon: Grid },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -45,7 +45,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
             <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow group-hover:scale-105 transition-transform">
-              <span className="text-2xl">🌿</span>
+              <span className="text-xl font-bold text-primary-foreground">YY</span>
             </div>
             <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
               YOYO
@@ -72,13 +72,13 @@ const Navbar = () => {
             {user ? (
               <Button variant="ghost" onClick={handleLogout} className="gap-2">
                 <LogOut className="w-4 h-4" />
-                להתראות 👋
+                להתראות
               </Button>
             ) : (
               <Link to="/auth">
                 <Button variant="default" className="gap-2">
                   <UserIcon className="w-4 h-4" />
-                  בואו נתחיל! ✨
+                  בואו נתחיל
                 </Button>
               </Link>
             )}
@@ -122,13 +122,13 @@ const Navbar = () => {
                 className="w-full justify-start gap-2"
               >
                 <LogOut className="w-4 h-4" />
-                להתראות 👋
+                להתראות
               </Button>
             ) : (
               <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="default" className="w-full justify-start gap-2">
                   <UserIcon className="w-4 h-4" />
-                  בואו נתחיל! ✨
+                  בואו נתחיל
                 </Button>
               </Link>
             )}

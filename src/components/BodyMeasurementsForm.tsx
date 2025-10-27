@@ -45,7 +45,7 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
       if (error) throw error;
 
       toast({
-        title: "המידות נשמרו בהצלחה! ✨",
+        title: "המידות נשמרו בהצלחה",
         description: "הבובה הוירטואלית שלך מתעדכנת כרגע...",
       });
 
@@ -55,7 +55,7 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
       // Show a second toast after a delay to indicate the mannequin updated
       setTimeout(() => {
         toast({
-          title: "הבובה עודכנה! 👗",
+          title: "הבובה עודכנה",
           description: "הבובה שלך עכשיו משקפת את המידות החדשות",
         });
       }, 800);
@@ -77,7 +77,7 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
       <div className="space-y-6">
         <div className="flex items-center gap-2">
           <Ruler className="w-5 h-5 text-primary" />
-          <h3 className="text-xl font-semibold">מידות הגוף שלי 📏</h3>
+          <h3 className="text-xl font-semibold">מידות הגוף שלי</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -136,12 +136,12 @@ export const BodyMeasurementsForm = ({ userId, initialData, onSave }: BodyMeasur
 
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-sm text-right">
           <p className="text-muted-foreground">
-            💡 <strong>טיפ:</strong> מידות מדויקות יעזרו לבובה הוירטואלית להציג בצורה מדויקת יותר איך בגדים יתאימו לכם
+            <strong>טיפ:</strong> מידות מדויקות יעזרו לבובה הוירטואלית להציג בצורה מדויקת יותר איך בגדים יתאימו לכם
           </p>
         </div>
 
         <Button onClick={handleSave} disabled={loading} className="w-full">
-          {loading ? "שומר..." : "שמור מידות ✨"}
+          {loading ? "שומר..." : "שמור מידות"}
         </Button>
       </div>
     </Card>

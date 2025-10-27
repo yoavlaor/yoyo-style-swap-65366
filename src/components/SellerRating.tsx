@@ -88,7 +88,7 @@ export const SellerRating = ({ sellerId, currentUserId }: SellerRatingProps) => 
     } else {
       setUserRating(rating);
       toast({
-        title: "הדירוג נשמר בהצלחה! ⭐",
+        title: "הדירוג נשמר בהצלחה",
       });
       loadSellerRating();
     }

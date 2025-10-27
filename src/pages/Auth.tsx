@@ -75,7 +75,7 @@ const Auth = () => {
       setLoading(false);
     } else {
       toast({
-        title: "נרשמת בהצלחה! 🎉",
+        title: "נרשמת בהצלחה",
         description: "שלחנו לך אימייל לאימות. אנא בדקו את תיבת הדואר ולחצו על הקישור לאימות כדי להתחבר.",
         duration: 8000,
       });
@@ -110,22 +110,22 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">✨ יויו ✨</CardTitle>
+          <CardTitle className="text-2xl text-center">יויו</CardTitle>
           <CardDescription className="text-center">
-            בואו נצא למסע אופנה ירוק ביחד! 🌿
+            בואו נצא למסע אופנה ירוק ביחד
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" dir="rtl">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">כניסה 🔑</TabsTrigger>
-              <TabsTrigger value="signup">הצטרפות 🌟</TabsTrigger>
+              <TabsTrigger value="signin">כניסה</TabsTrigger>
+              <TabsTrigger value="signup">הצטרפות</TabsTrigger>
             </TabsList>
             
             <TabsContent value="signin">
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email">מה האימייל? 📧</Label>
+                  <Label htmlFor="signin-email">מה האימייל?</Label>
                   <Input
                     id="signin-email"
                     type="email"
@@ -137,7 +137,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password">מה הסיסמה? 🔒</Label>
+                  <Label htmlFor="signin-password">מה הסיסמה?</Label>
                   <Input
                     id="signin-password"
                     type="password"
@@ -148,7 +148,7 @@ const Auth = () => {
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "רגע... 🌿" : "בואו נכנס! ✨"}
+                  {loading ? "רגע..." : "בואו נכנס"}
                 </Button>
               </form>
             </TabsContent>
@@ -156,7 +156,7 @@ const Auth = () => {
             <TabsContent value="signup">
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-username">איך נקרא לך? ✏️</Label>
+                  <Label htmlFor="signup-username">איך נקרא לך?</Label>
                   <Input
                     id="signup-username"
                     type="text"
@@ -168,7 +168,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">מה האימייל? 📧</Label>
+                  <Label htmlFor="signup-email">מה האימייל?</Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -180,7 +180,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-phone">מה הטלפון? 📱</Label>
+                  <Label htmlFor="signup-phone">מה הטלפון?</Label>
                   <Input
                     id="signup-phone"
                     type="tel"
@@ -192,7 +192,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-address">מה הכתובת? 🏠</Label>
+                  <Label htmlFor="signup-address">מה הכתובת?</Label>
                   <Input
                     id="signup-address"
                     type="text"
@@ -204,7 +204,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">בחרו סיסמה 🔒</Label>
+                  <Label htmlFor="signup-password">בחרו סיסמה</Label>
                   <Input
                     id="signup-password"
                     type="password"
@@ -232,12 +232,12 @@ const Auth = () => {
                         תקנון השימוש
                       </button>
                     </TermsOfService>
-                    {" "}של יויו 📜 <span className="text-destructive font-bold">(חובה)</span>
+                    {" "}של יויו <span className="text-destructive font-bold">(חובה)</span>
                   </Label>
                 </div>
                 {!agreedToTerms && (
                   <p className="text-sm text-destructive text-center">
-                    ⚠️ חובה לאשר את התקנון כדי להמשיך
+                    חובה לאשר את התקנון כדי להמשיך
                   </p>
                 )}
                 <Button 
@@ -245,7 +245,7 @@ const Auth = () => {
                   className="w-full" 
                   disabled={loading || !agreedToTerms || !username || !email || !phone || !address || !password}
                 >
-                  {loading ? "רגע... 🌱" : "בואו נצא לדרך! ✨"}
+                  {loading ? "רגע..." : "בואו נצא לדרך"}
                 </Button>
                 {(!username || !email || !phone || !address || !password) && (
                   <p className="text-sm text-muted-foreground text-center">
