@@ -3,7 +3,7 @@ import { Instagram, Twitter, Facebook, Mail } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-card border-t border-border py-16 px-4">
+    <footer className="bg-transparent border-t border-border/20 py-16 px-4">
       <div className="container mx-auto max-w-7xl">
         {/* Tagline Section */}
         <div className="text-center py-8">
