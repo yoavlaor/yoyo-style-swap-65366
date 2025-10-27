@@ -60,6 +60,41 @@ export type Database = {
           },
         ]
       }
+      delivery_confirmations: {
+        Row: {
+          buyer_received_ok: boolean | null
+          created_at: string
+          id: string
+          seller_delivered: boolean | null
+          transaction_id: string
+          updated_at: string
+        }
+        Insert: {
+          buyer_received_ok?: boolean | null
+          created_at?: string
+          id?: string
+          seller_delivered?: boolean | null
+          transaction_id: string
+          updated_at?: string
+        }
+        Update: {
+          buyer_received_ok?: boolean | null
+          created_at?: string
+          id?: string
+          seller_delivered?: boolean | null
+          transaction_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_confirmations_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: true
+            referencedRelation: "transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       items: {
         Row: {
           brand: string | null
@@ -158,12 +193,51 @@ export type Database = {
           },
         ]
       }
+      payment_proofs: {
+        Row: {
+          amount_reported_by_buyer: number
+          created_at: string
+          id: string
+          method: string
+          screenshot_url: string | null
+          seller_payment_target: string
+          transaction_id: string
+        }
+        Insert: {
+          amount_reported_by_buyer: number
+          created_at?: string
+          id?: string
+          method: string
+          screenshot_url?: string | null
+          seller_payment_target: string
+          transaction_id: string
+        }
+        Update: {
+          amount_reported_by_buyer?: number
+          created_at?: string
+          id?: string
+          method?: string
+          screenshot_url?: string | null
+          seller_payment_target?: string
+          transaction_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_proofs_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           address: string | null
           avatar_url: string | null
           average_rating: number | null
           bio: string | null
+          bit_number: string | null
           body_type: string | null
           created_at: string | null
           full_name: string | null
@@ -172,6 +246,7 @@ export type Database = {
           id: string
           is_face_verified: boolean | null
           is_phone_verified: boolean | null
+          paybox_handle: string | null
           phone: string | null
           total_ratings: number | null
           username: string
@@ -182,6 +257,7 @@ export type Database = {
           avatar_url?: string | null
           average_rating?: number | null
           bio?: string | null
+          bit_number?: string | null
           body_type?: string | null
           created_at?: string | null
           full_name?: string | null
@@ -190,6 +266,7 @@ export type Database = {
           id: string
           is_face_verified?: boolean | null
           is_phone_verified?: boolean | null
+          paybox_handle?: string | null
           phone?: string | null
           total_ratings?: number | null
           username: string
@@ -200,6 +277,7 @@ export type Database = {
           avatar_url?: string | null
           average_rating?: number | null
           bio?: string | null
+          bit_number?: string | null
           body_type?: string | null
           created_at?: string | null
           full_name?: string | null
@@ -208,6 +286,7 @@ export type Database = {
           id?: string
           is_face_verified?: boolean | null
           is_phone_verified?: boolean | null
+          paybox_handle?: string | null
           phone?: string | null
           total_ratings?: number | null
           username?: string
@@ -239,6 +318,58 @@ export type Database = {
         }
         Relationships: []
       }
+      transaction_ratings: {
+        Row: {
+          comment: string | null
+          created_at: string
+          from_user_id: string
+          id: string
+          score: number
+          to_user_id: string
+          transaction_id: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          from_user_id: string
+          id?: string
+          score: number
+          to_user_id: string
+          transaction_id: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          from_user_id?: string
+          id?: string
+          score?: number
+          to_user_id?: string
+          transaction_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transaction_ratings_from_user_id_fkey"
+            columns: ["from_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transaction_ratings_to_user_id_fkey"
+            columns: ["to_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transaction_ratings_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       transactions: {
         Row: {
           amount: number
@@ -246,9 +377,12 @@ export type Database = {
           created_at: string | null
           id: string
           item_id: string
+          payment_method: string | null
+          price_agreed: number | null
           seller_id: string
           shipping_method: string | null
           status: string | null
+          updated_at: string | null
         }
         Insert: {
           amount: number
@@ -256,9 +390,12 @@ export type Database = {
           created_at?: string | null
           id?: string
           item_id: string
+          payment_method?: string | null
+          price_agreed?: number | null
           seller_id: string
           shipping_method?: string | null
           status?: string | null
+          updated_at?: string | null
         }
         Update: {
           amount?: number
@@ -266,9 +403,12 @@ export type Database = {
           created_at?: string | null
           id?: string
           item_id?: string
+          payment_method?: string | null
+          price_agreed?: number | null
           seller_id?: string
           shipping_method?: string | null
           status?: string | null
+          updated_at?: string | null
         }
         Relationships: [
           {
