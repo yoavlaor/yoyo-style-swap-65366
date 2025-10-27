@@ -40,6 +40,13 @@ interface UserProfile {
   created_at: string;
 }
 
+interface AdminStats {
+  totalUsers: number;
+  totalItems: number;
+  totalTransactions: number;
+  totalActiveItems: number;
+}
+
 export const AdminUsersPanel = () => {
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,10 +55,17 @@ export const AdminUsersPanel = () => {
   const [messageSubject, setMessageSubject] = useState("");
   const [messageContent, setMessageContent] = useState("");
   const [sendingMessage, setSendingMessage] = useState(false);
+  const [stats, setStats] = useState<AdminStats>({
+    totalUsers: 0,
+    totalItems: 0,
+    totalTransactions: 0,
+    totalActiveItems: 0,
+  });
   const { toast } = useToast();
 
   useEffect(() => {
     loadUsers();
+    loadStats();
   }, []);
 
   const loadUsers = async () => {
@@ -90,6 +104,35 @@ export const AdminUsersPanel = () => {
     }
     
     setLoading(false);
+  };
+
+  const loadStats = async () => {
+    try {
+      // Get total items
+      const { count: itemsCount } = await supabase
+        .from('items')
+        .select('*', { count: 'exact', head: true });
+
+      // Get active items
+      const { count: activeItemsCount } = await supabase
+        .from('items')
+        .select('*', { count: 'exact', head: true })
+        .eq('is_sold', false);
+
+      // Get total transactions
+      const { count: transactionsCount } = await supabase
+        .from('transactions')
+        .select('*', { count: 'exact', head: true });
+
+      setStats({
+        totalUsers: 0, // Will be updated when users load
+        totalItems: itemsCount || 0,
+        totalTransactions: transactionsCount || 0,
+        totalActiveItems: activeItemsCount || 0,
+      });
+    } catch (error) {
+      console.error('Error loading stats:', error);
+    }
   };
 
   const handleDeleteUser = async (userId: string, username: string) => {
@@ -181,7 +224,36 @@ export const AdminUsersPanel = () => {
   }
 
   return (
-    <Card className="shadow-card bg-gradient-card border-border/50">
+    <>
+      {/* Admin Statistics */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20">
+          <CardContent className="p-4 text-center">
+            <div className="text-3xl font-black text-primary mb-1">{users.length}</div>
+            <div className="text-sm text-muted-foreground font-medium">משתמשים</div>
+          </CardContent>
+        </Card>
+        <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/20">
+          <CardContent className="p-4 text-center">
+            <div className="text-3xl font-black text-green-600 mb-1">{stats.totalItems}</div>
+            <div className="text-sm text-muted-foreground font-medium">סה״כ פריטים</div>
+          </CardContent>
+        </Card>
+        <Card className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-blue-500/20">
+          <CardContent className="p-4 text-center">
+            <div className="text-3xl font-black text-blue-600 mb-1">{stats.totalActiveItems}</div>
+            <div className="text-sm text-muted-foreground font-medium">פריטים פעילים</div>
+          </CardContent>
+        </Card>
+        <Card className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-purple-500/20">
+          <CardContent className="p-4 text-center">
+            <div className="text-3xl font-black text-purple-600 mb-1">{stats.totalTransactions}</div>
+            <div className="text-sm text-muted-foreground font-medium">עסקאות</div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card className="shadow-card bg-gradient-card border-border/50">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <span>ניהול משתמשים 👥</span>
@@ -369,5 +441,6 @@ export const AdminUsersPanel = () => {
         </div>
       </CardContent>
     </Card>
+    </>
   );
 };

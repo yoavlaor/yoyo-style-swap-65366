@@ -192,6 +192,11 @@ const Profile = () => {
       <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/5 p-3 sm:p-6" dir="rtl">
         <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8 py-6 sm:py-12">
           <div className="text-center space-y-3 sm:space-y-4 animate-fade-in">
+            {isAdmin && (
+              <div className="inline-block px-6 py-2 bg-gradient-to-r from-red-500 via-purple-500 to-pink-500 text-white font-black text-lg rounded-full shadow-glow mb-4 animate-pulse">
+                DOMAIN
+              </div>
+            )}
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-black bg-gradient-primary bg-clip-text text-transparent drop-shadow-lg">
               האזור האישי שלי
             </h1>
