@@ -5,6 +5,7 @@ import { Home, Upload, User, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useEffect, useState } from "react";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -149,6 +150,8 @@ const Index = () => {
           </div>
         )}
       </div>
+      
+      <Footer />
     </div>
   );
 };
