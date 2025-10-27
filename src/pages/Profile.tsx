@@ -216,7 +216,7 @@ const Profile = () => {
                 <CardContent>
                   <form onSubmit={handleUpdateProfile} className="space-y-6 sm:space-y-8">
                     <div className="space-y-2 sm:space-y-3">
-                      <Label htmlFor="username" className="text-base sm:text-lg font-semibold text-primary">איך קוראים לך?</Label>
+                      <Label htmlFor="username" className="text-base sm:text-lg font-semibold text-primary">?איך קוראים לך</Label>
                       <Input
                         id="username"
                         value={username}
