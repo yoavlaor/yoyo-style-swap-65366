@@ -61,7 +61,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-hero relative" dir="rtl">
+    <div className="min-h-screen bg-gradient-hero relative flex flex-col" dir="rtl">
       {/* כפתור להתראות בפינה השמאלית העליונה */}
       {isAuthenticated && (
         <div className="absolute top-4 left-4 z-10">
@@ -77,7 +77,7 @@ const Index = () => {
         </div>
       )}
 
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-16 flex-1">
         {/* Logo & Slogan */}
         <div className="text-center mb-12 animate-slide-up">
           <h1 className="font-sans text-6xl md:text-8xl font-black mb-6 drop-shadow-2xl">
