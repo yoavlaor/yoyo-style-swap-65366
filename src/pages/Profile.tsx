@@ -15,6 +15,7 @@ import { VirtualMannequin } from "@/components/VirtualMannequin";
 import { BodyMeasurementsForm } from "@/components/BodyMeasurementsForm";
 import { FaceVerificationCard } from "@/components/FaceVerificationCard";
 import { AdminUsersPanel } from "@/components/AdminUsersPanel";
+import { PaymentSettings } from "@/components/PaymentSettings";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -252,6 +253,8 @@ const Profile = () => {
                 isVerified={profile?.is_face_verified || false}
                 onVerificationChange={() => loadProfile(user?.id || "")}
               />
+
+              <PaymentSettings userId={user?.id || ""} />
             </TabsContent>
 
             <TabsContent value="mannequin">

@@ -14,6 +14,7 @@ import SellerProfile from "./pages/SellerProfile";
 import NotFound from "./pages/NotFound";
 import Menu from "./pages/Menu";
 import Feed from "./pages/Feed";
+import Transaction from "./pages/Transaction";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/chat/:chatId" element={<Chat />} />
           <Route path="/edit-item/:id" element={<EditItem />} />
           <Route path="/seller/:sellerId" element={<SellerProfile />} />
+          <Route path="/transaction/:transactionId" element={<Transaction />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

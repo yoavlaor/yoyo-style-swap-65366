@@ -72,63 +72,54 @@ const Checkout = () => {
 
     setProcessing(true);
 
-    // Create transaction
-    const { data: transaction, error: transactionError } = await supabase
-      .from("transactions")
-      .insert({
-        item_id: item.id,
-        buyer_id: user.id,
-        seller_id: item.seller_id,
-        amount: item.price,
-        status: "completed",
-        shipping_method: selectedShippingMethod,
-      })
-      .select()
-      .single();
+    try {
+      // Create transaction with "started" status
+      const { data: transaction, error: transactionError } = await supabase
+        .from("transactions")
+        .insert({
+          item_id: item.id,
+          buyer_id: user.id,
+          seller_id: item.seller_id,
+          amount: item.price,
+          price_agreed: item.price,
+          status: "started",
+          shipping_method: selectedShippingMethod,
+        })
+        .select()
+        .single();
 
-    if (transactionError) {
+      if (transactionError) throw transactionError;
+
+      // Create chat for this transaction
+      const { data: chat, error: chatError } = await supabase
+        .from("chats")
+        .insert({
+          item_id: item.id,
+          buyer_id: user.id,
+          seller_id: item.seller_id,
+        })
+        .select()
+        .single();
+
+      if (chatError) console.error("Chat creation error:", chatError);
+
       toast({
-        title: "שגיאה בתשלום",
-        description: transactionError.message,
+        title: "העסקה החלה! 🎉",
+        description: "כעת תוכל לבחור שיטת תשלום",
+      });
+
+      // Navigate to transaction page
+      navigate(`/transaction/${transaction.id}`);
+    } catch (error: any) {
+      console.error("Error creating transaction:", error);
+      toast({
+        title: "שגיאה",
+        description: "לא ניתן ליצור עסקה",
         variant: "destructive",
       });
+    } finally {
       setProcessing(false);
-      return;
     }
-
-    // Mark item as sold
-    await supabase
-      .from("items")
-      .update({ is_sold: true })
-      .eq("id", item.id);
-
-    // Create chat
-    const { data: chat } = await supabase
-      .from("chats")
-      .insert({
-        item_id: item.id,
-        buyer_id: user.id,
-        seller_id: item.seller_id,
-      })
-      .select()
-      .single();
-
-    toast({
-      title: "הרכישה בוצעה בהצלחה! 🎉",
-      description: "תודה על התרומה לקהילה הירוקה שלנו 🌿",
-    });
-
-    // Open BitPay link
-    window.open("https://www.bitpay.co.il/he", "_blank");
-    
-    // Navigate to chat
-    setTimeout(() => {
-      if (chat) {
-        navigate(`/chat/${chat.id}`);
-      } else {
-        navigate("/profile");
-      }
-    }, 500);
   };
 
   if (loading) {
