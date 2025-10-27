@@ -9,6 +9,8 @@ import { ShoppingBag, User as UserIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { VirtualMannequin } from "@/components/VirtualMannequin";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useState as useStateForImage } from "react";
+import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 
 const Checkout = () => {
   const { itemId } = useParams();
@@ -20,6 +22,8 @@ const Checkout = () => {
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [selectedShippingMethod, setSelectedShippingMethod] = useState<string>("");
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -144,6 +148,74 @@ const Checkout = () => {
               <p className="text-muted-foreground">עוד רגע הבגד יהיה שלכם!</p>
             </CardHeader>
             <CardContent className="space-y-6">
+              {/* תמונות הבגד */}
+              <div className="space-y-4">
+                {/* תמונה ראשית */}
+                <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-muted">
+                  <img
+                    src={item.images?.[selectedImageIndex]}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    className="absolute top-4 left-4 bg-background/80 hover:bg-background"
+                    onClick={() => setIsImageModalOpen(true)}
+                  >
+                    <Maximize2 className="w-4 h-4" />
+                  </Button>
+                  
+                  {item.images?.length > 1 && (
+                    <>
+                      <Button
+                        size="icon"
+                        variant="secondary"
+                        className="absolute top-1/2 right-4 -translate-y-1/2 bg-background/80 hover:bg-background"
+                        onClick={() => setSelectedImageIndex((prev) => 
+                          prev > 0 ? prev - 1 : (item.images?.length || 1) - 1
+                        )}
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="secondary"
+                        className="absolute top-1/2 left-4 -translate-y-1/2 bg-background/80 hover:bg-background"
+                        onClick={() => setSelectedImageIndex((prev) => 
+                          prev < (item.images?.length || 1) - 1 ? prev + 1 : 0
+                        )}
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </Button>
+                    </>
+                  )}
+                </div>
+
+                {/* תמונות ממוזערות */}
+                {item.images?.length > 1 && (
+                  <div className="flex gap-2 overflow-x-auto pb-2">
+                    {item.images.map((image: string, index: number) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedImageIndex(index)}
+                        className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                          selectedImageIndex === index
+                            ? "border-primary shadow-lg scale-105"
+                            : "border-border hover:border-primary/50"
+                        }`}
+                      >
+                        <img
+                          src={image}
+                          alt={`${item.title} ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
             <div className="space-y-4">
               <div>
                 <h3 className="font-semibold text-lg">{item.title}</h3>
@@ -266,6 +338,46 @@ const Checkout = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* מודאל תמונה מוגדלת */}
+        <Dialog open={isImageModalOpen} onOpenChange={setIsImageModalOpen}>
+          <DialogContent className="max-w-4xl h-[90vh]">
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img
+                src={item.images?.[selectedImageIndex]}
+                alt={item.title}
+                className="max-w-full max-h-full object-contain"
+              />
+              {item.images?.length > 1 && (
+                <>
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    className="absolute top-1/2 right-4 -translate-y-1/2"
+                    onClick={() => setSelectedImageIndex((prev) => 
+                      prev > 0 ? prev - 1 : (item.images?.length || 1) - 1
+                    )}
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    className="absolute top-1/2 left-4 -translate-y-1/2"
+                    onClick={() => setSelectedImageIndex((prev) => 
+                      prev < (item.images?.length || 1) - 1 ? prev + 1 : 0
+                    )}
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </Button>
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-background/80 px-3 py-1 rounded-full text-sm">
+                    {selectedImageIndex + 1} / {item.images?.length}
+                  </div>
+                </>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   );
