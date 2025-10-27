@@ -11,6 +11,7 @@ import { User } from "@supabase/supabase-js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Trash2, Edit } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import BottomNav from "@/components/BottomNav";
 import { VirtualMannequin } from "@/components/VirtualMannequin";
 import { BodyMeasurementsForm } from "@/components/BodyMeasurementsForm";
 import { FaceVerificationCard } from "@/components/FaceVerificationCard";
@@ -189,7 +190,7 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/5 p-3 sm:p-6" dir="rtl">
+      <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/5 p-3 sm:p-6 pb-24" dir="rtl">
         <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8 py-6 sm:py-12">
           <div className="text-center space-y-3 sm:space-y-4 animate-fade-in">
             {isAdmin && (
@@ -447,6 +448,7 @@ const Profile = () => {
           </Tabs>
         </div>
       </div>
+      <BottomNav />
     </>
   );
 };

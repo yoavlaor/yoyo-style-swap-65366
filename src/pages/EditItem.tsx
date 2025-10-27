@@ -11,6 +11,7 @@ import { User } from "@supabase/supabase-js";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Edit, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import BottomNav from "@/components/BottomNav";
 
 const EditItem = () => {
   const { id } = useParams<{ id: string }>();
@@ -117,7 +118,7 @@ const EditItem = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-hero p-4" dir="rtl">
+      <div className="min-h-screen bg-gradient-hero p-4 pb-24" dir="rtl">
         <div className="max-w-2xl mx-auto py-8">
           <Card className="shadow-card bg-gradient-card border-border/50">
             <CardHeader className="text-center space-y-2">
@@ -350,6 +351,7 @@ const EditItem = () => {
           </Card>
         </div>
       </div>
+      <BottomNav />
     </>
   );
 };
