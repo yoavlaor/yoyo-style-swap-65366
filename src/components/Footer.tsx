@@ -12,8 +12,10 @@ export const Footer = () => {
               משנים את כללי המשחק
             </span>
           </p>
-          <p className="text-base md:text-lg font-semibold text-muted-foreground/90">
-            אמינות · חדשנות · אקולוגיה
+          <p className="text-base md:text-lg font-semibold">
+            <span className="bg-gradient-to-r from-sage via-terracotta to-sage bg-clip-text text-transparent">
+              אמינות · חדשנות · אקולוגיה
+            </span>
           </p>
         </div>
       </div>
