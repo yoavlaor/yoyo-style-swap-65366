@@ -305,7 +305,7 @@ const Upload = () => {
 
                 <div className="grid grid-cols-2 gap-8">
                   <div className="space-y-4">
-                    <Label htmlFor="price" className="text-xl font-bold text-accent">מחיר</Label>
+                    <Label htmlFor="price" className="text-xl font-bold text-primary">מחיר</Label>
                     <Input
                       id="price"
                       type="number"
@@ -319,7 +319,7 @@ const Upload = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <Label htmlFor="brand" className="text-xl font-bold text-secondary">מותג</Label>
+                    <Label htmlFor="brand" className="text-xl font-bold text-primary">מותג</Label>
                     <Select 
                       value={brand} 
                       onValueChange={(value) => {
@@ -360,7 +360,7 @@ const Upload = () => {
 
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-3">
-                    <Label htmlFor="category" className="text-xl font-bold">קטגוריה</Label>
+                    <Label htmlFor="category" className="text-xl font-bold text-primary">קטגוריה</Label>
                     <Select value={category} onValueChange={setCategory}>
                       <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו קטגוריה" />
@@ -380,7 +380,7 @@ const Upload = () => {
                   </div>
 
                   <div className="space-y-3">
-                    <Label htmlFor="size" className="text-xl font-bold">מידה</Label>
+                    <Label htmlFor="size" className="text-xl font-bold text-primary">מידה</Label>
                     <Select value={size} onValueChange={setSize}>
                       <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                         <SelectValue placeholder="בחרו מידה" />
@@ -398,7 +398,7 @@ const Upload = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <Label htmlFor="condition" className="text-xl font-bold">מצב</Label>
+                  <Label htmlFor="condition" className="text-xl font-bold text-primary">מצב</Label>
                   <Select value={condition} onValueChange={setCondition}>
                     <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                       <SelectValue placeholder="בחרו מצב" />
@@ -413,7 +413,7 @@ const Upload = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <Label htmlFor="gender" className="text-xl font-bold">מגדר</Label>
+                  <Label htmlFor="gender" className="text-xl font-bold text-primary">מגדר</Label>
                   <Select value={gender} onValueChange={setGender}>
                     <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                       <SelectValue placeholder="בחרו" />
@@ -427,7 +427,7 @@ const Upload = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <Label htmlFor="shippingMethod" className="text-xl font-bold">משלוח</Label>
+                  <Label htmlFor="shippingMethod" className="text-xl font-bold text-primary">משלוח</Label>
                   <div className="space-y-3">
                     <div className="flex items-center space-x-3 space-x-reverse p-4 rounded-2xl border-2 border-border bg-background hover:bg-primary/5 hover:border-primary transition-all duration-200">
                       <input
