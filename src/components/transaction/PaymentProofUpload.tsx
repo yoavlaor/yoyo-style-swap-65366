@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Upload } from "lucide-react";
+import { Upload, ExternalLink } from "lucide-react";
 
 interface PaymentProofUploadProps {
   transactionId: string;
@@ -36,6 +36,13 @@ export function PaymentProofUpload({
       title: "הועתק ללוח",
       description: `${label} הועתק בהצלחה`,
     });
+  };
+
+  const handleOpenApp = () => {
+    const url = paymentMethod === "bit" 
+      ? "https://bit.app" 
+      : "https://payboxapp.page.link/";
+    window.open(url, "_blank");
   };
 
   const handleSubmitProof = async () => {
@@ -154,14 +161,27 @@ export function PaymentProofUpload({
           <div className="bg-yellow-500/10 border border-yellow-500/20 p-3 rounded text-sm">
             <p className="font-semibold mb-1">📱 הוראות:</p>
             <ol className="list-decimal list-inside space-y-1 text-xs">
-              <li>פתח את אפליקציית {paymentMethod === "bit" ? "Bit" : "PayBox"}</li>
+              <li>לחץ על הכפתור למטה לפתיחת האפליקציה</li>
               <li>בחר "העברת כסף" או "תשלום"</li>
-              <li>הזן את {paymentMethod === "bit" ? "מספר הטלפון" : "שם המשתמש"} והסכום</li>
+              <li>הדבק את {paymentMethod === "bit" ? "מספר הטלפון" : "שם המשתמש"} והסכום</li>
               <li>אשר את התשלום</li>
               <li>חזור לכאן ומלא את הפרטים למטה</li>
             </ol>
           </div>
         </div>
+
+        <Button
+          onClick={handleOpenApp}
+          className="w-full"
+          size="lg"
+        >
+          <ExternalLink className="w-5 h-5 ml-2" />
+          {paymentMethod === "bit" ? "🔵 פתח את אפליקציית ביט" : "🟠 פתח את אפליקציית פייבוקס"}
+        </Button>
+
+        <p className="text-sm text-center text-muted-foreground">
+          העתקת את המספר והסכום? מצוין! לאחר ההעברה, העלה צילום מסך של התשלום 👇
+        </p>
 
         <div className="border-t pt-4">
           <h3 className="font-semibold mb-3">אחרי שהעברת את התשלום:</h3>
