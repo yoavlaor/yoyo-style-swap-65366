@@ -108,24 +108,23 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-2xl text-center">יויו</CardTitle>
-          <CardDescription className="text-center">
-            בואו נצא למסע אופנה ירוק ביחד
-          </CardDescription>
+      <Card className="w-full max-w-xl shadow-2xl border-border/50">
+        <CardHeader className="space-y-6 pb-8">
+          <CardTitle className="text-5xl md:text-6xl font-black text-center bg-gradient-primary bg-clip-text text-transparent">
+            YOYO
+          </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-8 pb-8">
           <Tabs defaultValue="signin" dir="rtl">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">כניסה</TabsTrigger>
-              <TabsTrigger value="signup">הצטרפות</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 h-14 bg-muted rounded-xl">
+              <TabsTrigger value="signin" className="text-lg font-semibold rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-md">כניסה</TabsTrigger>
+              <TabsTrigger value="signup" className="text-lg font-semibold rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-md">הצטרפות</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="signin">
-              <form onSubmit={handleSignIn} className="space-y-4">
+            <TabsContent value="signin" className="mt-6">
+              <form onSubmit={handleSignIn} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email">מה האימייל?</Label>
+                  <Label htmlFor="signin-email" className="text-base font-medium">מה האימייל?</Label>
                   <Input
                     id="signin-email"
                     type="email"
@@ -134,10 +133,11 @@ const Auth = () => {
                     required
                     dir="ltr"
                     placeholder="example@email.com"
+                    className="h-12 text-base"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password">מה הסיסמה?</Label>
+                  <Label htmlFor="signin-password" className="text-base font-medium">מה הסיסמה?</Label>
                   <Input
                     id="signin-password"
                     type="password"
@@ -145,18 +145,19 @@ const Auth = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     dir="ltr"
+                    className="h-12 text-base"
                   />
                 </div>
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full h-12 text-lg font-semibold" disabled={loading}>
                   {loading ? "רגע..." : "בואו נכנס"}
                 </Button>
               </form>
             </TabsContent>
             
-            <TabsContent value="signup">
-              <form onSubmit={handleSignUp} className="space-y-4">
+            <TabsContent value="signup" className="mt-6">
+              <form onSubmit={handleSignUp} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-username">איך נקרא לך?</Label>
+                  <Label htmlFor="signup-username" className="text-base font-medium">איך נקרא לך?</Label>
                   <Input
                     id="signup-username"
                     type="text"
@@ -165,10 +166,11 @@ const Auth = () => {
                     required
                     dir="rtl"
                     placeholder="שם משתמש מגניב"
+                    className="h-12 text-base"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">מה האימייל?</Label>
+                  <Label htmlFor="signup-email" className="text-base font-medium">מה האימייל?</Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -177,10 +179,11 @@ const Auth = () => {
                     required
                     dir="ltr"
                     placeholder="example@email.com"
+                    className="h-12 text-base"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-phone">מה הטלפון?</Label>
+                  <Label htmlFor="signup-phone" className="text-base font-medium">מה הטלפון?</Label>
                   <Input
                     id="signup-phone"
                     type="tel"
@@ -189,10 +192,11 @@ const Auth = () => {
                     required
                     dir="ltr"
                     placeholder="05X-XXXXXXX"
+                    className="h-12 text-base"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-address">מה הכתובת?</Label>
+                  <Label htmlFor="signup-address" className="text-base font-medium">מה הכתובת?</Label>
                   <Input
                     id="signup-address"
                     type="text"
@@ -201,10 +205,11 @@ const Auth = () => {
                     required
                     dir="rtl"
                     placeholder="רחוב, עיר"
+                    className="h-12 text-base"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">בחרו סיסמה</Label>
+                  <Label htmlFor="signup-password" className="text-base font-medium">בחרו סיסמה</Label>
                   <Input
                     id="signup-password"
                     type="password"
@@ -214,6 +219,7 @@ const Auth = () => {
                     minLength={6}
                     dir="ltr"
                     placeholder="לפחות 6 תווים"
+                    className="h-12 text-base"
                   />
                 </div>
                 <div className="flex items-start gap-3 py-2">
@@ -242,7 +248,7 @@ const Auth = () => {
                 )}
                 <Button 
                   type="submit" 
-                  className="w-full" 
+                  className="w-full h-12 text-lg font-semibold" 
                   disabled={loading || !agreedToTerms || !username || !email || !phone || !address || !password}
                 >
                   {loading ? "רגע..." : "בואו נצא לדרך"}
