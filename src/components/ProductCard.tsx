@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, MapPin, CheckCircle2, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatDistance } from "@/hooks/useGeolocation";
 
 interface ProductCardProps {
   id?: string;
@@ -14,7 +15,7 @@ interface ProductCardProps {
   price: number;
   location: string;
   verified?: boolean;
-  distance?: string;
+  distance?: number | null;
   isAdmin?: boolean;
   onDelete?: (id: string) => void;
 }
@@ -28,7 +29,7 @@ export const ProductCard = ({
   price, 
   location, 
   verified = false,
-  distance = "2 km away",
+  distance = null,
   isAdmin = false,
   onDelete
 }: ProductCardProps) => {
@@ -80,17 +81,22 @@ export const ProductCard = ({
             <h3 className="font-bold text-lg text-foreground">{title}</h3>
             <p className="text-sm text-muted-foreground font-medium">{brand}</p>
             
-            <div className="flex items-center gap-1 text-xs text-muted-foreground">
-              <MapPin className="h-4 w-4 flex-shrink-0" />
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  sellerId && navigate(`/seller/${sellerId}`);
-                }}
-                className="hover:text-foreground hover:underline transition-colors"
-              >
-                {location}
-              </button>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <MapPin className="h-4 w-4 flex-shrink-0" />
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    sellerId && navigate(`/seller/${sellerId}`);
+                  }}
+                  className="hover:text-foreground hover:underline transition-colors"
+                >
+                  {location}
+                </button>
+              </div>
+              {distance !== null && (
+                <span className="text-primary font-semibold">• {formatDistance(distance)}</span>
+              )}
             </div>
           </div>
           

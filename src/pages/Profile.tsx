@@ -9,13 +9,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Trash2, Edit } from "lucide-react";
+import { Trash2, Edit, Navigation, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { VirtualMannequin } from "@/components/VirtualMannequin";
 import { BodyMeasurementsForm } from "@/components/BodyMeasurementsForm";
 import { FaceVerificationCard } from "@/components/FaceVerificationCard";
 import { AdminUsersPanel } from "@/components/AdminUsersPanel";
 import { PaymentSettings } from "@/components/PaymentSettings";
+import { useGeolocation } from "@/hooks/useGeolocation";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -40,6 +41,8 @@ const Profile = () => {
   const [mySales, setMySales] = useState<any[]>([]);
   const [profile, setProfile] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [savingLocation, setSavingLocation] = useState(false);
+  const userLocation = useGeolocation();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -159,6 +162,43 @@ const Profile = () => {
     navigate("/");
   };
 
+  const handleSaveLocation = async () => {
+    if (!user || !userLocation.latitude || !userLocation.longitude) {
+      toast({
+        title: "שגיאה",
+        description: "לא הצלחנו לקבל את המיקום שלך. אנא וודא שנתת הרשאה למיקום",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setSavingLocation(true);
+
+    const { error } = await supabase
+      .from("profiles")
+      .update({
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude,
+      })
+      .eq("id", user.id);
+
+    setSavingLocation(false);
+
+    if (error) {
+      toast({
+        title: "שגיאה",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "המיקום נשמר בהצלחה! 📍",
+        description: "עכשיו נראה לך מרחקים מדויקים לכל הפריטים",
+      });
+      loadProfile(user.id);
+    }
+  };
+
   const handleDeleteItem = async (itemId: string) => {
     if (!user) return;
 
@@ -245,6 +285,57 @@ const Profile = () => {
                     </div>
                     <Button type="submit" size="lg" className="shadow-glow text-base sm:text-lg font-bold px-6 sm:px-8 rounded-2xl hover:scale-105 transition-transform w-full sm:w-auto">שמירה</Button>
                   </form>
+
+                  {/* Location Section */}
+                  <Card className="mt-8 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
+                    <CardHeader>
+                      <CardTitle className="text-xl font-bold flex items-center gap-2">
+                        <Navigation className="w-5 h-5 text-primary" />
+                        המיקום שלי
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {profile?.latitude && profile?.longitude ? (
+                        <div className="space-y-2">
+                          <p className="text-sm text-muted-foreground">
+                            המיקום שלך נשמר בהצלחה! זה עוזר לנו להראות לך מרחקים מדויקים לפריטים.
+                          </p>
+                          <div className="flex items-center gap-2 text-sm">
+                            <MapPin className="w-4 h-4 text-primary" />
+                            <span className="font-medium">
+                              קואורדינטות: {profile.latitude.toFixed(4)}, {profile.longitude.toFixed(4)}
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-sm text-muted-foreground">
+                          עדיין לא שמרת את המיקום שלך. שמירת מיקום תעזור לך לראות כמה רחוק כל פריט ממך.
+                        </p>
+                      )}
+                      <Button
+                        onClick={handleSaveLocation}
+                        disabled={savingLocation || userLocation.loading}
+                        variant="outline"
+                        className="w-full"
+                      >
+                        {savingLocation ? (
+                          "שומר..."
+                        ) : userLocation.loading ? (
+                          "מאתר..."
+                        ) : userLocation.error ? (
+                          "שגיאה - נסה שוב"
+                        ) : (
+                          <>
+                            <Navigation className="w-4 h-4 ml-2" />
+                            {profile?.latitude ? "עדכן מיקום" : "שמור את המיקום שלי"}
+                          </>
+                        )}
+                      </Button>
+                      {userLocation.error && (
+                        <p className="text-xs text-destructive">{userLocation.error}</p>
+                      )}
+                    </CardContent>
+                  </Card>
                 </CardContent>
               </Card>
               

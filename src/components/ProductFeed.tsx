@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import { useGeolocation, calculateDistance } from "@/hooks/useGeolocation";
 import {
   Sheet,
   SheetContent,
@@ -28,6 +29,8 @@ interface Item {
   seller_id: string;
   profiles: {
     username: string;
+    latitude: number | null;
+    longitude: number | null;
   };
 }
 
@@ -39,6 +42,7 @@ export const ProductFeed = () => {
   const { toast } = useToast();
   const [userGender, setUserGender] = useState<string | null>(null);
   const [filterOpen, setFilterOpen] = useState(false);
+  const userLocation = useGeolocation();
   
   // Filter states
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -323,22 +327,37 @@ export const ProductFeed = () => {
           </div>
         ) : viewMode === "grid" ? (
           <div className="grid grid-cols-2 gap-4">
-            {items.map((product: any) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                sellerId={product.seller_id}
-                image={product.images?.[0]}
-                title={product.title}
-                brand={product.brand}
-                price={product.price}
-                location={product.profiles?.username}
-                verified={true}
-                distance=""
-                isAdmin={isAdmin}
-                onDelete={handleDeleteItem}
-              />
-            ))}
+            {items.map((product: any) => {
+              const distance = 
+                userLocation.latitude && 
+                userLocation.longitude && 
+                product.profiles?.latitude && 
+                product.profiles?.longitude
+                  ? calculateDistance(
+                      userLocation.latitude,
+                      userLocation.longitude,
+                      product.profiles.latitude,
+                      product.profiles.longitude
+                    )
+                  : null;
+
+              return (
+                <ProductCard
+                  key={product.id}
+                  id={product.id}
+                  sellerId={product.seller_id}
+                  image={product.images?.[0]}
+                  title={product.title}
+                  brand={product.brand}
+                  price={product.price}
+                  location={product.profiles?.username}
+                  verified={true}
+                  distance={distance}
+                  isAdmin={isAdmin}
+                  onDelete={handleDeleteItem}
+                />
+              );
+            })}
           </div>
         ) : (
           <div className="relative">
@@ -354,23 +373,38 @@ export const ProductFeed = () => {
             
             {/* Story View */}
             <div className="relative h-[calc(100vh-280px)] overflow-hidden rounded-3xl">
-              {items[currentStoryIndex] && (
-                <div className="w-full h-full">
-                  <ProductCard
-                    id={items[currentStoryIndex].id}
-                    sellerId={items[currentStoryIndex].seller_id}
-                    image={items[currentStoryIndex].images?.[0]}
-                    title={items[currentStoryIndex].title}
-                    brand={items[currentStoryIndex].brand}
-                    price={items[currentStoryIndex].price}
-                    location={items[currentStoryIndex].profiles?.username}
-                    verified={true}
-                    distance=""
-                    isAdmin={isAdmin}
-                    onDelete={handleDeleteItem}
-                  />
-                </div>
-              )}
+              {items[currentStoryIndex] && (() => {
+                const distance = 
+                  userLocation.latitude && 
+                  userLocation.longitude && 
+                  items[currentStoryIndex].profiles?.latitude && 
+                  items[currentStoryIndex].profiles?.longitude
+                    ? calculateDistance(
+                        userLocation.latitude,
+                        userLocation.longitude,
+                        items[currentStoryIndex].profiles.latitude,
+                        items[currentStoryIndex].profiles.longitude
+                      )
+                    : null;
+
+                return (
+                  <div className="w-full h-full">
+                    <ProductCard
+                      id={items[currentStoryIndex].id}
+                      sellerId={items[currentStoryIndex].seller_id}
+                      image={items[currentStoryIndex].images?.[0]}
+                      title={items[currentStoryIndex].title}
+                      brand={items[currentStoryIndex].brand}
+                      price={items[currentStoryIndex].price}
+                      location={items[currentStoryIndex].profiles?.username}
+                      verified={true}
+                      distance={distance}
+                      isAdmin={isAdmin}
+                      onDelete={handleDeleteItem}
+                    />
+                  </div>
+                );
+              })()}
               
               {/* Progress Indicator */}
               <div className="absolute top-4 left-0 right-0 flex gap-1 px-4 z-20">
