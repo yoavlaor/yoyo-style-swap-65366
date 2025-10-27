@@ -54,6 +54,18 @@ export const Footer = () => {
           </div>
         </div>
 
+        {/* Tagline Section */}
+        <div className="text-center py-8 border-t border-border">
+          <p className="text-xl md:text-2xl font-bold mb-2">
+            <span className="bg-gradient-to-l from-terracotta via-sage to-terracotta bg-clip-text text-transparent">
+              משנים את כללי המשחק
+            </span>
+          </p>
+          <p className="text-base md:text-lg font-semibold text-muted-foreground/90">
+            אמינות · חדשנות · אקולוגיה
+          </p>
+        </div>
+
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">

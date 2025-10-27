@@ -88,12 +88,12 @@ const Index = () => {
           <div className="space-y-2 mb-8">
             <p className="text-xl md:text-3xl font-bold tracking-tight">
               <span className="bg-gradient-primary bg-clip-text text-transparent">
-                אמינות · חדשנות · אקולוגיה
+                חנות יד שנייה חכמה
               </span>
             </p>
             
             <p className="text-lg md:text-2xl font-semibold text-muted-foreground/90">
-              משנים את כללי המשחק
+              צאו מהארון..
             </p>
           </div>
         </div>

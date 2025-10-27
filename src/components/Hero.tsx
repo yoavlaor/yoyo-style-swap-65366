@@ -50,12 +50,12 @@ export const Hero = () => {
         <div className="space-y-3 mb-8">
           <p className="text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mb-2 max-w-4xl mx-auto animate-slide-up tracking-tight" style={{ animationDelay: "0.1s" }}>
             <span className="bg-gradient-to-l from-terracotta via-sage to-terracotta bg-clip-text text-transparent">
-              אמינות · חדשנות · אקולוגיה
+              חנות יד שנייה חכמה
             </span>
           </p>
 
           <p className="text-lg md:text-2xl lg:text-3xl font-semibold text-muted-foreground/90 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: "0.2s" }}>
-            משנים את כללי המשחק
+            צאו מהארון..
           </p>
         </div>
 
