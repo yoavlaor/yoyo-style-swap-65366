@@ -246,6 +246,8 @@ export type Database = {
           id: string
           is_face_verified: boolean | null
           is_phone_verified: boolean | null
+          latitude: number | null
+          longitude: number | null
           paybox_handle: string | null
           phone: string | null
           total_ratings: number | null
@@ -266,6 +268,8 @@ export type Database = {
           id: string
           is_face_verified?: boolean | null
           is_phone_verified?: boolean | null
+          latitude?: number | null
+          longitude?: number | null
           paybox_handle?: string | null
           phone?: string | null
           total_ratings?: number | null
@@ -286,6 +290,8 @@ export type Database = {
           id?: string
           is_face_verified?: boolean | null
           is_phone_verified?: boolean | null
+          latitude?: number | null
+          longitude?: number | null
           paybox_handle?: string | null
           phone?: string | null
           total_ratings?: number | null
@@ -460,6 +466,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      calculate_distance: {
+        Args: { lat1: number; lat2: number; lon1: number; lon2: number }
+        Returns: number
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
