@@ -309,7 +309,7 @@ const Upload = () => {
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
                       dir="ltr"
-                      placeholder="100"
+                      placeholder=""
                       className="bg-background/50 h-16 text-lg rounded-2xl border-2 border-accent/20 focus:border-accent focus:ring-4 focus:ring-accent/20 transition-all hover:border-accent/40 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   </div>
