@@ -184,21 +184,28 @@ const Upload = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/5 p-6" dir="rtl">
+      <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6" dir="rtl">
         <div className="max-w-3xl mx-auto py-12">
-          <Card className="shadow-glow bg-gradient-to-br from-card to-card/80 backdrop-blur-md border-border/30 rounded-3xl animate-fade-in">
-            <CardHeader className="text-center space-y-6 pb-10">
-              <div className="mx-auto w-24 h-24 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow animate-scale-in">
-                <UploadIcon className="w-12 h-12 text-white" />
+          <Card className="shadow-2xl bg-gradient-to-br from-card via-card/95 to-primary/5 backdrop-blur-md border-primary/20 rounded-3xl animate-fade-in overflow-hidden">
+            {/* Decorative top bar */}
+            <div className="h-2 bg-gradient-to-r from-primary via-accent to-secondary"></div>
+            
+            <CardHeader className="text-center space-y-8 pb-12 pt-10">
+              <div className="mx-auto w-28 h-28 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-glow animate-scale-in relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-full animate-pulse opacity-50"></div>
+                <UploadIcon className="w-14 h-14 text-white relative z-10" />
               </div>
-              <CardTitle className="text-5xl md:text-6xl font-black bg-gradient-primary bg-clip-text text-transparent drop-shadow-lg">בואו נמכור משהו</CardTitle>
+              <CardTitle className="text-6xl md:text-7xl font-black bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent drop-shadow-lg animate-glow-pulse">
+                בואו נמכור משהו
+              </CardTitle>
             </CardHeader>
-            <CardContent className="px-8 pb-10">
+            <CardContent className="px-8 pb-12">
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Image Upload */}
-                <div className="space-y-4">
-                  <Label htmlFor="images" className="text-xl font-bold">תמונות</Label>
-                  <div className="border-2 border-dashed border-border rounded-2xl p-10 text-center hover:border-primary hover:bg-primary/5 transition-all duration-300 bg-muted/30">
+                <div className="space-y-5">
+                  <Label htmlFor="images" className="text-2xl font-bold text-primary">תמונות</Label>
+                  <div className="relative border-2 border-dashed border-primary/30 rounded-3xl p-12 text-center hover:border-primary hover:bg-gradient-to-br hover:from-primary/5 hover:to-accent/5 transition-all duration-300 bg-gradient-to-br from-muted/30 to-muted/10 group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <input
                       type="file"
                       id="images"
@@ -207,45 +214,62 @@ const Upload = () => {
                       onChange={handleImageChange}
                       className="hidden"
                     />
-                    <label htmlFor="images" className="cursor-pointer">
-                      <UploadIcon className="w-20 h-20 mx-auto text-primary mb-6" />
-                      <p className="text-lg text-foreground mb-6 font-semibold">
+                    <label htmlFor="images" className="cursor-pointer relative z-10">
+                      <div className="mb-8 inline-block">
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full blur-xl opacity-50 animate-pulse"></div>
+                          <UploadIcon className="w-24 h-24 mx-auto text-primary relative z-10 group-hover:scale-110 transition-transform" />
+                        </div>
+                      </div>
+                      <p className="text-xl text-foreground mb-8 font-bold">
                         העלו תמונות (עד 5)
                       </p>
-                      <div className="text-sm text-muted-foreground bg-muted rounded-xl p-6 text-right space-y-3">
-                        <p className="font-bold text-base text-foreground">טיפים לצילום:</p>
-                        <p>על משטח ישר ונקי</p>
-                        <p>צלמו את הבגד במלואו</p>
-                        <p>וודאו שהתווית נראית</p>
+                      <div className="text-base text-muted-foreground bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 text-right space-y-4 border border-primary/20">
+                        <p className="font-bold text-lg text-primary">טיפים לצילום:</p>
+                        <div className="space-y-2">
+                          <p className="flex items-center gap-3">
+                            <span className="w-2 h-2 bg-primary rounded-full"></span>
+                            על משטח ישר ונקי
+                          </p>
+                          <p className="flex items-center gap-3">
+                            <span className="w-2 h-2 bg-accent rounded-full"></span>
+                            צלמו את הבגד במלואו
+                          </p>
+                          <p className="flex items-center gap-3">
+                            <span className="w-2 h-2 bg-secondary rounded-full"></span>
+                            וודאו שהתווית נראית
+                          </p>
+                        </div>
                       </div>
                     </label>
                   </div>
                   
                   {imagePreviews.length > 0 && (
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-6 mt-6">
                       {imagePreviews.map((preview, index) => (
-                        <div key={index} className="relative group">
+                        <div key={index} className="relative group animate-fade-in">
+                          <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-3xl blur opacity-0 group-hover:opacity-50 transition-all duration-300"></div>
                           <img
                             src={preview}
                             alt={`תצוגה מקדימה ${index + 1}`}
-                            className="w-full h-32 object-cover rounded-2xl shadow-glow transition-transform duration-300 group-hover:scale-105"
+                            className="w-full h-40 object-cover rounded-3xl shadow-lg transition-all duration-300 group-hover:scale-105 relative border-2 border-primary/20"
                           />
-                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl flex items-center justify-center gap-3">
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl flex items-center justify-center gap-4">
                             <button
                               type="button"
                               onClick={() => handleEditImage(index)}
-                              className="bg-primary text-white rounded-full p-3 hover:scale-110 transition-transform shadow-glow"
+                              className="bg-gradient-to-r from-primary to-accent text-white rounded-full p-4 hover:scale-110 transition-transform shadow-glow"
                               title="עריכה"
                             >
-                              <Edit className="w-5 h-5" />
+                              <Edit className="w-6 h-6" />
                             </button>
                             <button
                               type="button"
                               onClick={() => removeImage(index)}
-                              className="bg-red-500 text-white rounded-full p-3 hover:scale-110 transition-transform shadow-glow"
+                              className="bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full p-4 hover:scale-110 transition-transform shadow-glow"
                               title="מחיקה"
                             >
-                              <X className="w-5 h-5" />
+                              <X className="w-6 h-6" />
                             </button>
                           </div>
                         </div>
@@ -254,32 +278,34 @@ const Upload = () => {
                   )}
                 </div>
 
-                <div className="space-y-3">
-                  <Label htmlFor="title" className="text-xl font-bold">שם הפריט</Label>
+                <div className="space-y-4">
+                  <Label htmlFor="title" className="text-xl font-bold text-primary flex items-center gap-2">
+                    שם הפריט
+                  </Label>
                   <Input
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="למשל: חולצה מושלמת לקיץ"
-                    className="bg-background h-14 text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all"
+                    className="bg-background/50 h-16 text-lg rounded-2xl border-2 border-primary/20 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all hover:border-primary/40"
                   />
                 </div>
 
-                <div className="space-y-3">
-                  <Label htmlFor="description" className="text-xl font-bold">תיאור</Label>
+                <div className="space-y-4">
+                  <Label htmlFor="description" className="text-xl font-bold text-primary">תיאור</Label>
                   <Textarea
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     rows={6}
                     placeholder="מה מיוחד בבגד הזה? איפה לבשתם אותו?"
-                    className="bg-background text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all resize-none"
+                    className="bg-background/50 text-lg rounded-2xl border-2 border-primary/20 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all resize-none hover:border-primary/40"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <Label htmlFor="price" className="text-xl font-bold">מחיר</Label>
+                <div className="grid grid-cols-2 gap-8">
+                  <div className="space-y-4">
+                    <Label htmlFor="price" className="text-xl font-bold text-accent">מחיר</Label>
                     <Input
                       id="price"
                       type="number"
@@ -288,12 +314,12 @@ const Upload = () => {
                       onChange={(e) => setPrice(e.target.value)}
                       dir="ltr"
                       placeholder="100"
-                      className="bg-background h-14 text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all"
+                      className="bg-background/50 h-16 text-lg rounded-2xl border-2 border-accent/20 focus:border-accent focus:ring-4 focus:ring-accent/20 transition-all hover:border-accent/40"
                     />
                   </div>
 
-                  <div className="space-y-3">
-                    <Label htmlFor="brand" className="text-xl font-bold">מותג</Label>
+                  <div className="space-y-4">
+                    <Label htmlFor="brand" className="text-xl font-bold text-secondary">מותג</Label>
                     <Select 
                       value={brand} 
                       onValueChange={(value) => {
@@ -304,7 +330,7 @@ const Upload = () => {
                         }
                       }}
                     >
-                      <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
+                      <SelectTrigger className="bg-background/50 h-16 text-lg rounded-2xl border-2 border-secondary/20 focus:border-secondary hover:border-secondary/40">
                         <SelectValue placeholder="בחרו מותג" />
                       </SelectTrigger>
                       <SelectContent>
@@ -321,13 +347,13 @@ const Upload = () => {
                       </SelectContent>
                     </Select>
                     {showCustomBrand && (
-                      <Input
-                        id="customBrand"
-                        value={customBrand}
-                        onChange={(e) => setCustomBrand(e.target.value)}
-                        placeholder="כתבו את שם המותג..."
-                        className="bg-background h-14 text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all animate-fade-in"
-                      />
+                        <Input
+                          id="customBrand"
+                          value={customBrand}
+                          onChange={(e) => setCustomBrand(e.target.value)}
+                          placeholder="כתבו את שם המותג..."
+                          className="bg-background/50 h-16 text-lg rounded-2xl border-2 border-secondary/20 focus:border-secondary focus:ring-4 focus:ring-secondary/20 transition-all animate-fade-in hover:border-secondary/40"
+                        />
                     )}
                   </div>
                 </div>
@@ -473,12 +499,12 @@ const Upload = () => {
                   }}
                 />
 
-                <div className="flex gap-6 pt-6">
+                <div className="flex gap-8 pt-8">
                   <Button 
                     type="submit" 
                     disabled={loading} 
                     size="lg"
-                    className="flex-1 shadow-glow text-lg font-bold rounded-2xl h-16 hover:scale-105 transition-transform"
+                    className="flex-1 bg-gradient-to-r from-primary via-accent to-secondary hover:shadow-2xl text-xl font-bold rounded-2xl h-20 hover:scale-105 transition-all shadow-glow"
                   >
                     {loading ? "מעלה..." : "העלה פריט"}
                   </Button>
@@ -487,7 +513,7 @@ const Upload = () => {
                     variant="outline" 
                     size="lg"
                     onClick={() => navigate("/")} 
-                    className="flex-1 text-lg font-semibold rounded-2xl h-16 hover:scale-105 transition-transform"
+                    className="flex-1 text-xl font-semibold rounded-2xl h-20 hover:scale-105 transition-all border-2 hover:bg-muted"
                   >
                     ביטול
                   </Button>
