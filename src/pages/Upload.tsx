@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@supabase/supabase-js";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Upload as UploadIcon, X, Edit } from "lucide-react";
+import { Upload as UploadIcon, X, Edit, Sparkles, Tag, Star, ThumbsUp } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { ItemVerificationCard } from "@/components/ItemVerificationCard";
 import { ImageEditor } from "@/components/ImageEditor";
@@ -371,11 +371,31 @@ const Upload = () => {
                     <SelectTrigger className="bg-background h-14 text-lg rounded-2xl border-border/50">
                       <SelectValue placeholder="בחרו מצב" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="חדש עם תווית">חדש עם תווית</SelectItem>
-                      <SelectItem value="כמו חדש">כמו חדש</SelectItem>
-                      <SelectItem value="משומש מצוין">משומש מצוין</SelectItem>
-                      <SelectItem value="משומש טוב">משומש טוב</SelectItem>
+                    <SelectContent className="bg-background/95 backdrop-blur-md border-2 border-primary/20 rounded-2xl shadow-2xl">
+                      <SelectItem value="חדש עם תווית" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                        <div className="flex items-center gap-3">
+                          <Sparkles className="w-5 h-5 text-primary" />
+                          <span className="font-medium">חדש עם תווית</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="כמו חדש" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                        <div className="flex items-center gap-3">
+                          <Star className="w-5 h-5 text-accent" />
+                          <span className="font-medium">כמו חדש</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="משומש מצוין" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                        <div className="flex items-center gap-3">
+                          <ThumbsUp className="w-5 h-5 text-secondary" />
+                          <span className="font-medium">משומש מצוין</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="משומש טוב" className="text-lg py-4 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-xl transition-all my-1">
+                        <div className="flex items-center gap-3">
+                          <Tag className="w-5 h-5 text-muted-foreground" />
+                          <span className="font-medium">משומש טוב</span>
+                        </div>
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
