@@ -175,7 +175,7 @@ const Profile = () => {
       });
     } else {
       toast({
-        title: "הבגד נמחק בהצלחה! 👋",
+        title: "הבגד נמחק בהצלחה",
         description: "הבגד הוסר מהרשימה שלך",
       });
       loadMyItems(user.id);
@@ -193,51 +193,51 @@ const Profile = () => {
         <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8 py-6 sm:py-12">
           <div className="text-center space-y-3 sm:space-y-4 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-black bg-gradient-primary bg-clip-text text-transparent drop-shadow-lg">
-              האזור האישי שלי ✨
+              האזור האישי שלי
             </h1>
-            <p className="text-base sm:text-xl text-muted-foreground font-medium">הכל במקום אחד, נוח ופשוט 💚</p>
+            <p className="text-base sm:text-xl text-muted-foreground font-medium">הכל במקום אחד, נוח ופשוט</p>
           </div>
 
           <Tabs defaultValue="profile" className="animate-scale-in">
             <TabsList className="w-full h-auto min-h-14 bg-card/80 backdrop-blur-md shadow-glow rounded-2xl p-2 flex flex-wrap gap-2 justify-center">
-              <TabsTrigger value="profile" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">קצת עלי 👤</TabsTrigger>
-              <TabsTrigger value="mannequin" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">הבובה שלי 👗</TabsTrigger>
-              <TabsTrigger value="items" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">מה אני מוכר/ת 👕</TabsTrigger>
-              <TabsTrigger value="purchases" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">מה קניתי 🛍️</TabsTrigger>
-              <TabsTrigger value="sales" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">מה מכרתי 💰</TabsTrigger>
-              {isAdmin && <TabsTrigger value="admin" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">ניהול 👑</TabsTrigger>}
+              <TabsTrigger value="profile" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">קצת עלי</TabsTrigger>
+              <TabsTrigger value="mannequin" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">הבובה שלי</TabsTrigger>
+              <TabsTrigger value="items" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">מה אני מוכר/ת</TabsTrigger>
+              <TabsTrigger value="purchases" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">מה קניתי</TabsTrigger>
+              <TabsTrigger value="sales" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">מה מכרתי</TabsTrigger>
+              {isAdmin && <TabsTrigger value="admin" className="text-sm sm:text-base font-semibold data-[state=active]:bg-gradient-primary data-[state=active]:text-white rounded-xl transition-all flex-shrink-0 px-3 sm:px-4">ניהול</TabsTrigger>}
             </TabsList>
 
             <TabsContent value="profile" className="animate-fade-in">
               <Card className="shadow-glow bg-gradient-to-br from-card to-card/80 backdrop-blur-md border-border/30 rounded-3xl">
                 <CardHeader className="pb-4 sm:pb-8">
-                  <CardTitle className="text-2xl sm:text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">בואו נכיר! 👋</CardTitle>
+                  <CardTitle className="text-2xl sm:text-3xl font-black bg-gradient-primary bg-clip-text text-transparent">בואו נכיר</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleUpdateProfile} className="space-y-6 sm:space-y-8">
                     <div className="space-y-2 sm:space-y-3">
-                      <Label htmlFor="username" className="text-base sm:text-lg font-semibold">איך קוראים לך? ✏️</Label>
+                      <Label htmlFor="username" className="text-base sm:text-lg font-semibold text-primary">איך קוראים לך?</Label>
                       <Input
                         id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                         placeholder="שם משתמש מגניב"
-                        className="bg-background h-12 sm:h-14 text-base sm:text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all"
+                        className="bg-background h-12 sm:h-14 text-base sm:text-lg rounded-2xl border-2 border-primary/20 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all hover:border-primary/40"
                       />
                     </div>
                     <div className="space-y-2 sm:space-y-3">
-                      <Label htmlFor="bio" className="text-base sm:text-lg font-semibold">ספרו לנו משהו עליכם! 💭</Label>
+                      <Label htmlFor="bio" className="text-base sm:text-lg font-semibold text-primary">ספרו לנו משהו עליכם</Label>
                       <Textarea
                         id="bio"
                         value={bio}
                         onChange={(e) => setBio(e.target.value)}
                         rows={4}
-                        placeholder="מה מיוחד בכם? מה אתם אוהבים? שתפו אותנו! ✨"
-                        className="bg-background text-base sm:text-lg rounded-2xl border-border/50 focus:ring-4 focus:ring-primary/20 transition-all resize-none"
+                        placeholder="מה מיוחד בכם? מה אתם אוהבים? שתפו אותנו"
+                        className="bg-background text-base sm:text-lg rounded-2xl border-2 border-primary/20 focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all resize-none hover:border-primary/40"
                       />
                     </div>
-                    <Button type="submit" size="lg" className="shadow-glow text-base sm:text-lg font-bold px-6 sm:px-8 rounded-2xl hover:scale-105 transition-transform w-full sm:w-auto">שמירה 💚</Button>
+                    <Button type="submit" size="lg" className="shadow-glow text-base sm:text-lg font-bold px-6 sm:px-8 rounded-2xl hover:scale-105 transition-transform w-full sm:w-auto">שמירה</Button>
                   </form>
                 </CardContent>
               </Card>
@@ -286,9 +286,9 @@ const Profile = () => {
                               <p className="text-primary font-black text-xl sm:text-2xl">₪{item.price}</p>
                               <p className="text-sm sm:text-base flex items-center gap-2 font-medium">
                                 {item.is_sold ? (
-                                  <span className="text-secondary">נמכר ✓</span>
+                                  <span className="text-secondary">נמכר</span>
                                 ) : (
-                                  <span className="text-green-500">זמין למכירה 🌿</span>
+                                  <span className="text-green-500">זמין למכירה</span>
                                 )}
                               </p>
                             </div>
@@ -313,18 +313,18 @@ const Profile = () => {
                                 </AlertDialogTrigger>
                                 <AlertDialogContent dir="rtl" className="max-w-[90vw] sm:max-w-md">
                                   <AlertDialogHeader>
-                                    <AlertDialogTitle className="text-lg sm:text-xl">רגע, בטוחים? 🤔</AlertDialogTitle>
+                                    <AlertDialogTitle className="text-lg sm:text-xl">רגע, בטוחים?</AlertDialogTitle>
                                     <AlertDialogDescription className="text-sm sm:text-base">
                                       אתם עומדים למחוק את "{item.title}" - זה לא ניתן לשחזור אחר כך
                                     </AlertDialogDescription>
                                   </AlertDialogHeader>
                                   <AlertDialogFooter className="flex-col sm:flex-row gap-2">
-                                    <AlertDialogCancel className="m-0">לא, חזרה! 🔙</AlertDialogCancel>
+                                    <AlertDialogCancel className="m-0">לא, חזרה</AlertDialogCancel>
                                     <AlertDialogAction
                                       onClick={() => handleDeleteItem(item.id)}
                                       className="bg-destructive hover:bg-destructive/90 m-0"
                                     >
-                                      כן, למחוק 🗑️
+                                      כן, למחוק
                                     </AlertDialogAction>
                                   </AlertDialogFooter>
                                 </AlertDialogContent>
@@ -336,7 +336,7 @@ const Profile = () => {
                     ))}
                     {myItems.length === 0 && (
                       <p className="text-muted-foreground col-span-full text-center py-8 text-sm sm:text-base">
-                        עדיין לא העלתם בגדים... בואו נתחיל! 🌱
+                        עדיין לא העלתם בגדים... בואו נתחיל
                       </p>
                     )}
                   </div>
@@ -356,13 +356,13 @@ const Profile = () => {
                         <CardContent className="p-4 sm:p-6 space-y-2 sm:space-y-3">
                           <h3 className="font-bold text-lg sm:text-2xl">{transaction.items?.title}</h3>
                           <p className="text-primary font-black text-2xl sm:text-3xl">₪{transaction.amount}</p>
-                          <p className="text-sm sm:text-base text-green-500 font-semibold">סטטוס: {transaction.status} ✓</p>
+                          <p className="text-sm sm:text-base text-green-500 font-semibold">סטטוס: {transaction.status}</p>
                         </CardContent>
                       </Card>
                     ))}
                     {myPurchases.length === 0 && (
                       <p className="text-muted-foreground text-center py-8 text-sm sm:text-base">
-                        עדיין לא קניתם כלום... בואו נמצא משהו יפה! 🛍️
+                        עדיין לא קניתם כלום... בואו נמצא משהו יפה
                       </p>
                     )}
                   </div>
@@ -403,7 +403,7 @@ const Profile = () => {
                               </div>
                               <div>
                                 <span className="text-muted-foreground">סטטוס:</span>
-                                <p className="font-medium text-sage">{sale.status} ✓</p>
+                                <p className="font-medium text-sage">{sale.status}</p>
                               </div>
                               <div>
                                 <span className="text-muted-foreground">פרטי הפריט:</span>
@@ -418,7 +418,7 @@ const Profile = () => {
                               variant="outline"
                               className="w-full text-sm sm:text-base"
                             >
-                              💬 צ'אט עם הקונה
+                              צ'אט עם הקונה
                             </Button>
                           )}
                         </CardContent>
@@ -426,7 +426,7 @@ const Profile = () => {
                     ))}
                     {mySales.length === 0 && (
                       <p className="text-muted-foreground text-center py-8 text-sm sm:text-base">
-                        עדיין לא מכרתם כלום... בואו נעלה בגדים! 📸
+                        עדיין לא מכרתם כלום... בואו נעלה בגדים
                       </p>
                     )}
                   </div>
