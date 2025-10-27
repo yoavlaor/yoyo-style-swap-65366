@@ -26,8 +26,6 @@ const Upload = () => {
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
   const [brand, setBrand] = useState("");
-  const [customBrand, setCustomBrand] = useState("");
-  const [showCustomBrand, setShowCustomBrand] = useState(false);
   const [shippingMethods, setShippingMethods] = useState<string[]>([]);
   const [gender, setGender] = useState("");
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -141,7 +139,7 @@ const Upload = () => {
         category: category || null,
         size: size || null,
         condition: condition || null,
-        brand: brand === "אחר" ? customBrand : brand || null,
+        brand: brand || null,
         shipping_method: shippingMethods.length > 0 ? shippingMethods : null,
         gender: gender || null,
         images: imageUrls,
@@ -162,8 +160,6 @@ const Upload = () => {
       setSize("");
       setCondition("");
       setBrand("");
-      setCustomBrand("");
-      setShowCustomBrand(false);
       setShippingMethods([]);
       setGender("");
       setImageFiles([]);
@@ -320,41 +316,13 @@ const Upload = () => {
 
                   <div className="space-y-4">
                     <Label htmlFor="brand" className="text-xl font-bold text-primary">מותג</Label>
-                    <Select 
-                      value={brand} 
-                      onValueChange={(value) => {
-                        setBrand(value);
-                        setShowCustomBrand(value === "אחר");
-                        if (value !== "אחר") {
-                          setCustomBrand("");
-                        }
-                      }}
-                    >
-                      <SelectTrigger className="bg-background/50 h-16 text-lg rounded-2xl border-2 border-secondary/20 focus:border-secondary hover:border-secondary/40">
-                        <SelectValue placeholder="בחרו מותג" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Zara">Zara</SelectItem>
-                        <SelectItem value="H&M">H&M</SelectItem>
-                        <SelectItem value="Mango">Mango</SelectItem>
-                        <SelectItem value="Pull&Bear">Pull&Bear</SelectItem>
-                        <SelectItem value="Bershka">Bershka</SelectItem>
-                        <SelectItem value="Nike">Nike</SelectItem>
-                        <SelectItem value="Adidas">Adidas</SelectItem>
-                        <SelectItem value="Castro">Castro</SelectItem>
-                        <SelectItem value="Fox">Fox</SelectItem>
-                        <SelectItem value="אחר">אחר - כתוב ידנית</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {showCustomBrand && (
-                        <Input
-                          id="customBrand"
-                          value={customBrand}
-                          onChange={(e) => setCustomBrand(e.target.value)}
-                          placeholder="כתבו את שם המותג..."
-                          className="bg-background/50 h-16 text-lg rounded-2xl border-2 border-secondary/20 focus:border-secondary focus:ring-4 focus:ring-secondary/20 transition-all animate-fade-in hover:border-secondary/40"
-                        />
-                    )}
+                    <Input
+                      id="brand"
+                      value={brand}
+                      onChange={(e) => setBrand(e.target.value)}
+                      placeholder="כתבו את שם המותג..."
+                      className="bg-background/50 h-16 text-lg rounded-2xl border-2 border-secondary/20 focus:border-secondary focus:ring-4 focus:ring-secondary/20 transition-all animate-fade-in hover:border-secondary/40"
+                    />
                   </div>
                 </div>
 
