@@ -67,9 +67,20 @@ const Auth = () => {
     });
 
     if (error) {
+      // Check if error is about duplicate username
+      const errorMsg = error.message;
+      let displayMessage = errorMsg;
+      
+      if (errorMsg.includes('כבר תפוס')) {
+        // Extract the Hebrew error message from the database
+        displayMessage = errorMsg;
+      } else if (errorMsg.toLowerCase().includes('user already registered')) {
+        displayMessage = "כתובת המייל הזו כבר רשומה במערכת";
+      }
+      
       toast({
         title: "שגיאה בהרשמה",
-        description: error.message,
+        description: displayMessage,
         variant: "destructive",
       });
       setLoading(false);
