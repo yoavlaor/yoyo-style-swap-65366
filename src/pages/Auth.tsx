@@ -76,9 +76,10 @@ const Auth = () => {
     } else {
       toast({
         title: "נרשמת בהצלחה!",
-        description: "ברוכים הבאים ליויו 🎉",
+        description: "שלחנו לך אימייל לאימות. אנא בדוק את תיבת הדואר ולחץ על הקישור כדי להיכנס 📧",
+        duration: 8000,
       });
-      navigate("/");
+      setLoading(false);
     }
   };
 
