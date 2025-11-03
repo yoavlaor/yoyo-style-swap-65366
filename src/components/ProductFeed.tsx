@@ -68,15 +68,16 @@ export const ProductFeed = () => {
         setGenderFilter(profile.gender === "male" ? "men" : "women");
       }
       
-      // Check if user is admin
-      const { data: roles } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin')
-        .maybeSingle();
-      
-      setIsAdmin(!!roles);
+      // Check if user is admin using server-side validation
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const { data: adminCheck } = await supabase.functions.invoke('check-admin-status', {
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+          },
+        });
+        setIsAdmin(adminCheck?.isAdmin || false);
+      }
     }
   };
     
