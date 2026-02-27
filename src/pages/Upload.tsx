@@ -483,12 +483,21 @@ const Upload = () => {
                   </Select>
                 </div>
 
-                <ItemVerificationCard
-                  onVerificationComplete={(verified) => {
+                <ItemVerificationCard 
+                  imagePreviews={imagePreviews}
+                  onVerificationComplete={(verified, analysis) => {
+                    if (analysis) {
+                      if (analysis.title) setTitle(analysis.title);
+                      if (analysis.description) setDescription(analysis.description);
+                      if (analysis.category) setCategory(analysis.category);
+                      if (analysis.condition) setCondition(analysis.condition);
+                      if (analysis.brand) setBrand(analysis.brand);
+                      if (analysis.gender) setGender(analysis.gender);
+                    }
                     if (verified) {
                       toast({
-                        title: "הפריט אומת בהצלחה",
-                        description: "הפריט שלך יקבל תג מאומת",
+                        title: "הפריט אומת בהצלחה ✨",
+                        description: "השדות עודכנו אוטומטית מהניתוח",
                       });
                     }
                   }}
